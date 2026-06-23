@@ -31,6 +31,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as WorkspaceIndexRouteImport } from './routes/workspace.index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as ProfileIndexRouteImport } from './routes/profile.index'
+import { Route as NotificationsIndexRouteImport } from './routes/notifications.index'
 import { Route as ModelsIndexRouteImport } from './routes/models.index'
 import { Route as McpIndexRouteImport } from './routes/mcp.index'
 import { Route as LearnIndexRouteImport } from './routes/learn.index'
@@ -242,6 +243,11 @@ const ProfileIndexRoute = ProfileIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => ProfileRoute,
+} as any)
+const NotificationsIndexRoute = NotificationsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => NotificationsRoute,
 } as any)
 const ModelsIndexRoute = ModelsIndexRouteImport.update({
   id: '/',
@@ -763,7 +769,7 @@ export interface FileRoutesByFullPath {
   '/learn': typeof LearnRouteWithChildren
   '/mcp': typeof McpRouteWithChildren
   '/models': typeof ModelsRouteWithChildren
-  '/notifications': typeof NotificationsRoute
+  '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
   '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRouteWithChildren
@@ -870,6 +876,7 @@ export interface FileRoutesByFullPath {
   '/learn/': typeof LearnIndexRoute
   '/mcp/': typeof McpIndexRoute
   '/models/': typeof ModelsIndexRoute
+  '/notifications/': typeof NotificationsIndexRoute
   '/profile/': typeof ProfileIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/workspace/': typeof WorkspaceIndexRoute
@@ -877,7 +884,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/notifications': typeof NotificationsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/analytics': typeof AdminAnalyticsRoute
@@ -981,6 +987,7 @@ export interface FileRoutesByTo {
   '/learn': typeof LearnIndexRoute
   '/mcp': typeof McpIndexRoute
   '/models': typeof ModelsIndexRoute
+  '/notifications': typeof NotificationsIndexRoute
   '/profile': typeof ProfileIndexRoute
   '/settings': typeof SettingsIndexRoute
   '/workspace': typeof WorkspaceIndexRoute
@@ -1000,7 +1007,7 @@ export interface FileRoutesById {
   '/learn': typeof LearnRouteWithChildren
   '/mcp': typeof McpRouteWithChildren
   '/models': typeof ModelsRouteWithChildren
-  '/notifications': typeof NotificationsRoute
+  '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
   '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRouteWithChildren
@@ -1107,6 +1114,7 @@ export interface FileRoutesById {
   '/learn/': typeof LearnIndexRoute
   '/mcp/': typeof McpIndexRoute
   '/models/': typeof ModelsIndexRoute
+  '/notifications/': typeof NotificationsIndexRoute
   '/profile/': typeof ProfileIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/workspace/': typeof WorkspaceIndexRoute
@@ -1234,6 +1242,7 @@ export interface FileRouteTypes {
     | '/learn/'
     | '/mcp/'
     | '/models/'
+    | '/notifications/'
     | '/profile/'
     | '/settings/'
     | '/workspace/'
@@ -1241,7 +1250,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
-    | '/notifications'
     | '/reset-password'
     | '/sitemap.xml'
     | '/admin/analytics'
@@ -1345,6 +1353,7 @@ export interface FileRouteTypes {
     | '/learn'
     | '/mcp'
     | '/models'
+    | '/notifications'
     | '/profile'
     | '/settings'
     | '/workspace'
@@ -1470,6 +1479,7 @@ export interface FileRouteTypes {
     | '/learn/'
     | '/mcp/'
     | '/models/'
+    | '/notifications/'
     | '/profile/'
     | '/settings/'
     | '/workspace/'
@@ -1489,7 +1499,7 @@ export interface RootRouteChildren {
   LearnRoute: typeof LearnRouteWithChildren
   McpRoute: typeof McpRouteWithChildren
   ModelsRoute: typeof ModelsRouteWithChildren
-  NotificationsRoute: typeof NotificationsRoute
+  NotificationsRoute: typeof NotificationsRouteWithChildren
   ProfileRoute: typeof ProfileRouteWithChildren
   ResetPasswordRoute: typeof ResetPasswordRoute
   SettingsRoute: typeof SettingsRouteWithChildren
@@ -1653,6 +1663,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/profile/'
       preLoaderRoute: typeof ProfileIndexRouteImport
       parentRoute: typeof ProfileRoute
+    }
+    '/notifications/': {
+      id: '/notifications/'
+      path: '/'
+      fullPath: '/notifications/'
+      preLoaderRoute: typeof NotificationsIndexRouteImport
+      parentRoute: typeof NotificationsRoute
     }
     '/models/': {
       id: '/models/'
@@ -2624,6 +2641,18 @@ const ModelsRouteChildren: ModelsRouteChildren = {
 const ModelsRouteWithChildren =
   ModelsRoute._addFileChildren(ModelsRouteChildren)
 
+interface NotificationsRouteChildren {
+  NotificationsIndexRoute: typeof NotificationsIndexRoute
+}
+
+const NotificationsRouteChildren: NotificationsRouteChildren = {
+  NotificationsIndexRoute: NotificationsIndexRoute,
+}
+
+const NotificationsRouteWithChildren = NotificationsRoute._addFileChildren(
+  NotificationsRouteChildren,
+)
+
 interface ProfileRouteChildren {
   ProfileSecurityRoute: typeof ProfileSecurityRoute
   ProfileStatsRoute: typeof ProfileStatsRoute
@@ -2707,7 +2736,7 @@ const rootRouteChildren: RootRouteChildren = {
   LearnRoute: LearnRouteWithChildren,
   McpRoute: McpRouteWithChildren,
   ModelsRoute: ModelsRouteWithChildren,
-  NotificationsRoute: NotificationsRoute,
+  NotificationsRoute: NotificationsRouteWithChildren,
   ProfileRoute: ProfileRouteWithChildren,
   ResetPasswordRoute: ResetPasswordRoute,
   SettingsRoute: SettingsRouteWithChildren,
