@@ -28,6 +28,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AgentsRouteImport } from './routes/agents'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HomeIndexRouteImport } from './routes/home.index'
 import { Route as ChatIndexRouteImport } from './routes/chat.index'
 import { Route as ChatChatIdRouteImport } from './routes/chat.$chatId'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
@@ -127,6 +128,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HomeIndexRoute = HomeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => HomeRoute,
+} as any)
 const ChatIndexRoute = ChatIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -152,7 +158,7 @@ export interface FileRoutesByFullPath {
   '/code': typeof CodeRoute
   '/community': typeof CommunityRoute
   '/explore': typeof ExploreRoute
-  '/home': typeof HomeRoute
+  '/home': typeof HomeRouteWithChildren
   '/imagine': typeof ImagineRoute
   '/learn': typeof LearnRoute
   '/mcp': typeof McpRoute
@@ -166,6 +172,7 @@ export interface FileRoutesByFullPath {
   '/api/chat': typeof ApiChatRoute
   '/chat/$chatId': typeof ChatChatIdRoute
   '/chat/': typeof ChatIndexRoute
+  '/home/': typeof HomeIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -175,7 +182,6 @@ export interface FileRoutesByTo {
   '/code': typeof CodeRoute
   '/community': typeof CommunityRoute
   '/explore': typeof ExploreRoute
-  '/home': typeof HomeRoute
   '/imagine': typeof ImagineRoute
   '/learn': typeof LearnRoute
   '/mcp': typeof McpRoute
@@ -189,6 +195,7 @@ export interface FileRoutesByTo {
   '/api/chat': typeof ApiChatRoute
   '/chat/$chatId': typeof ChatChatIdRoute
   '/chat': typeof ChatIndexRoute
+  '/home': typeof HomeIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -200,7 +207,7 @@ export interface FileRoutesById {
   '/code': typeof CodeRoute
   '/community': typeof CommunityRoute
   '/explore': typeof ExploreRoute
-  '/home': typeof HomeRoute
+  '/home': typeof HomeRouteWithChildren
   '/imagine': typeof ImagineRoute
   '/learn': typeof LearnRoute
   '/mcp': typeof McpRoute
@@ -214,6 +221,7 @@ export interface FileRoutesById {
   '/api/chat': typeof ApiChatRoute
   '/chat/$chatId': typeof ChatChatIdRoute
   '/chat/': typeof ChatIndexRoute
+  '/home/': typeof HomeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -240,6 +248,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/chat/$chatId'
     | '/chat/'
+    | '/home/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -249,7 +258,6 @@ export interface FileRouteTypes {
     | '/code'
     | '/community'
     | '/explore'
-    | '/home'
     | '/imagine'
     | '/learn'
     | '/mcp'
@@ -263,6 +271,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/chat/$chatId'
     | '/chat'
+    | '/home'
   id:
     | '__root__'
     | '/'
@@ -287,6 +296,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/chat/$chatId'
     | '/chat/'
+    | '/home/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -298,7 +308,7 @@ export interface RootRouteChildren {
   CodeRoute: typeof CodeRoute
   CommunityRoute: typeof CommunityRoute
   ExploreRoute: typeof ExploreRoute
-  HomeRoute: typeof HomeRoute
+  HomeRoute: typeof HomeRouteWithChildren
   ImagineRoute: typeof ImagineRoute
   LearnRoute: typeof LearnRoute
   McpRoute: typeof McpRoute
@@ -447,6 +457,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/home/': {
+      id: '/home/'
+      path: '/'
+      fullPath: '/home/'
+      preLoaderRoute: typeof HomeIndexRouteImport
+      parentRoute: typeof HomeRoute
+    }
     '/chat/': {
       id: '/chat/'
       path: '/'
@@ -483,6 +500,16 @@ const ChatRouteChildren: ChatRouteChildren = {
 
 const ChatRouteWithChildren = ChatRoute._addFileChildren(ChatRouteChildren)
 
+interface HomeRouteChildren {
+  HomeIndexRoute: typeof HomeIndexRoute
+}
+
+const HomeRouteChildren: HomeRouteChildren = {
+  HomeIndexRoute: HomeIndexRoute,
+}
+
+const HomeRouteWithChildren = HomeRoute._addFileChildren(HomeRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
@@ -492,7 +519,7 @@ const rootRouteChildren: RootRouteChildren = {
   CodeRoute: CodeRoute,
   CommunityRoute: CommunityRoute,
   ExploreRoute: ExploreRoute,
-  HomeRoute: HomeRoute,
+  HomeRoute: HomeRouteWithChildren,
   ImagineRoute: ImagineRoute,
   LearnRoute: LearnRoute,
   McpRoute: McpRoute,
