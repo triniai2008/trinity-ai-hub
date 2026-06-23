@@ -28,9 +28,111 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AgentsRouteImport } from './routes/agents'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WorkspaceIndexRouteImport } from './routes/workspace.index'
+import { Route as SettingsIndexRouteImport } from './routes/settings.index'
+import { Route as ProfileIndexRouteImport } from './routes/profile.index'
+import { Route as NotificationsIndexRouteImport } from './routes/notifications.index'
+import { Route as ModelsIndexRouteImport } from './routes/models.index'
+import { Route as McpIndexRouteImport } from './routes/mcp.index'
+import { Route as LearnIndexRouteImport } from './routes/learn.index'
+import { Route as ImagineIndexRouteImport } from './routes/imagine.index'
+import { Route as HomeIndexRouteImport } from './routes/home.index'
+import { Route as ExploreIndexRouteImport } from './routes/explore.index'
+import { Route as CommunityIndexRouteImport } from './routes/community.index'
+import { Route as CodeIndexRouteImport } from './routes/code.index'
 import { Route as ChatIndexRouteImport } from './routes/chat.index'
+import { Route as AgentsIndexRouteImport } from './routes/agents.index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as WorkspaceTasksRouteImport } from './routes/workspace.tasks'
+import { Route as WorkspaceProjectsRouteImport } from './routes/workspace.projects'
+import { Route as WorkspaceFilesRouteImport } from './routes/workspace.files'
+import { Route as WorkspaceDocumentsRouteImport } from './routes/workspace.documents'
+import { Route as WorkspaceCalendarRouteImport } from './routes/workspace.calendar'
+import { Route as SettingsVoiceRouteImport } from './routes/settings.voice'
+import { Route as SettingsPrivacyRouteImport } from './routes/settings.privacy'
+import { Route as SettingsNotificationsRouteImport } from './routes/settings.notifications'
+import { Route as SettingsMemoryRouteImport } from './routes/settings.memory'
+import { Route as SettingsLanguageRouteImport } from './routes/settings.language'
+import { Route as SettingsIntegrationsRouteImport } from './routes/settings.integrations'
+import { Route as SettingsBackupRouteImport } from './routes/settings.backup'
+import { Route as SettingsAppearanceRouteImport } from './routes/settings.appearance'
+import { Route as SettingsAiRouteImport } from './routes/settings.ai'
+import { Route as ProfileSubscriptionRouteImport } from './routes/profile.subscription'
+import { Route as ProfileStatsRouteImport } from './routes/profile.stats'
+import { Route as ProfileSecurityRouteImport } from './routes/profile.security'
+import { Route as ModelsUploadRouteImport } from './routes/models.upload'
+import { Route as ModelsOllamaRouteImport } from './routes/models.ollama'
+import { Route as ModelsMarketplaceRouteImport } from './routes/models.marketplace'
+import { Route as ModelsDownloadRouteImport } from './routes/models.download'
+import { Route as ModelsCloudRouteImport } from './routes/models.cloud'
+import { Route as McpSearchRouteImport } from './routes/mcp.search'
+import { Route as McpResearchRouteImport } from './routes/mcp.research'
+import { Route as McpGithubRouteImport } from './routes/mcp.github'
+import { Route as McpFigmaRouteImport } from './routes/mcp.figma'
+import { Route as McpDriveRouteImport } from './routes/mcp.drive'
+import { Route as McpCanvaRouteImport } from './routes/mcp.canva'
+import { Route as McpBrowserRouteImport } from './routes/mcp.browser'
+import { Route as LearnStudyRouteImport } from './routes/learn.study'
+import { Route as LearnExamRouteImport } from './routes/learn.exam'
+import { Route as LearnCareerRouteImport } from './routes/learn.career'
+import { Route as ImagineVoiceCloneRouteImport } from './routes/imagine.voice-clone'
+import { Route as ImagineVoiceRouteImport } from './routes/imagine.voice'
+import { Route as ImagineVideoHistoryRouteImport } from './routes/imagine.video-history'
+import { Route as ImagineVideoRouteImport } from './routes/imagine.video'
+import { Route as ImagineThreeDHistoryRouteImport } from './routes/imagine.three-d-history'
+import { Route as ImagineThreeDRouteImport } from './routes/imagine.three-d'
+import { Route as ImagineMusicRouteImport } from './routes/imagine.music'
+import { Route as ImagineImageHistoryRouteImport } from './routes/imagine.image-history'
+import { Route as ImagineImageEditorRouteImport } from './routes/imagine.image-editor'
+import { Route as HomeSuggestionsRouteImport } from './routes/home.suggestions'
+import { Route as HomeRecentRouteImport } from './routes/home.recent'
+import { Route as HomeActionsRouteImport } from './routes/home.actions'
+import { Route as ExploreYoutubeRouteImport } from './routes/explore.youtube'
+import { Route as ExploreWebRouteImport } from './routes/explore.web'
+import { Route as ExploreResearchRouteImport } from './routes/explore.research'
+import { Route as ExploreQuizRouteImport } from './routes/explore.quiz'
+import { Route as ExplorePdfRouteImport } from './routes/explore.pdf'
+import { Route as ExploreMindmapsRouteImport } from './routes/explore.mindmaps'
+import { Route as ExploreFlashcardsRouteImport } from './routes/explore.flashcards'
+import { Route as CommunityTemplatesRouteImport } from './routes/community.templates'
+import { Route as CommunityProjectsRouteImport } from './routes/community.projects'
+import { Route as CommunityLeaderboardRouteImport } from './routes/community.leaderboard'
+import { Route as CodeTerminalRouteImport } from './routes/code.terminal'
+import { Route as CodePreviewRouteImport } from './routes/code.preview'
+import { Route as CodeGithubRouteImport } from './routes/code.github'
+import { Route as CodeFilesRouteImport } from './routes/code.files'
+import { Route as CodeEditorRouteImport } from './routes/code.editor'
+import { Route as CodeAssistantRouteImport } from './routes/code.assistant'
+import { Route as ChatVoiceRouteImport } from './routes/chat.voice'
+import { Route as ChatSharedRouteImport } from './routes/chat.shared'
+import { Route as ChatSearchRouteImport } from './routes/chat.search'
+import { Route as ChatPinnedRouteImport } from './routes/chat.pinned'
+import { Route as ChatHistoryRouteImport } from './routes/chat.history'
 import { Route as ChatChatIdRouteImport } from './routes/chat.$chatId'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as AgentsVideoRouteImport } from './routes/agents.video'
+import { Route as AgentsResearchRouteImport } from './routes/agents.research'
+import { Route as AgentsPlannerRouteImport } from './routes/agents.planner'
+import { Route as AgentsMemoryRouteImport } from './routes/agents.memory'
+import { Route as AgentsJudgeRouteImport } from './routes/agents.judge'
+import { Route as AgentsImageRouteImport } from './routes/agents.image'
+import { Route as AgentsCodingRouteImport } from './routes/agents.coding'
+import { Route as AgentsBrowserRouteImport } from './routes/agents.browser'
+import { Route as AgentsAudioRouteImport } from './routes/agents.audio'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminTrainingRouteImport } from './routes/admin.training'
+import { Route as AdminSecurityRouteImport } from './routes/admin.security'
+import { Route as AdminPromptsRouteImport } from './routes/admin.prompts'
+import { Route as AdminModerationRouteImport } from './routes/admin.moderation'
+import { Route as AdminModelsRouteImport } from './routes/admin.models'
+import { Route as AdminMcpRouteImport } from './routes/admin.mcp'
+import { Route as AdminLogsRouteImport } from './routes/admin.logs'
+import { Route as AdminLimitsRouteImport } from './routes/admin.limits'
+import { Route as AdminKeysRouteImport } from './routes/admin.keys'
+import { Route as AdminHealthRouteImport } from './routes/admin.health'
+import { Route as AdminBroadcastRouteImport } from './routes/admin.broadcast'
+import { Route as AdminBackupRouteImport } from './routes/admin.backup'
+import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 
 const WorkspaceRoute = WorkspaceRouteImport.update({
   id: '/workspace',
@@ -127,9 +229,404 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WorkspaceIndexRoute = WorkspaceIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const SettingsIndexRoute = SettingsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const ProfileIndexRoute = ProfileIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProfileRoute,
+} as any)
+const NotificationsIndexRoute = NotificationsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => NotificationsRoute,
+} as any)
+const ModelsIndexRoute = ModelsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ModelsRoute,
+} as any)
+const McpIndexRoute = McpIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => McpRoute,
+} as any)
+const LearnIndexRoute = LearnIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LearnRoute,
+} as any)
+const ImagineIndexRoute = ImagineIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ImagineRoute,
+} as any)
+const HomeIndexRoute = HomeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => HomeRoute,
+} as any)
+const ExploreIndexRoute = ExploreIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const CommunityIndexRoute = CommunityIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CommunityRoute,
+} as any)
+const CodeIndexRoute = CodeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CodeRoute,
+} as any)
 const ChatIndexRoute = ChatIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => ChatRoute,
+} as any)
+const AgentsIndexRoute = AgentsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AgentsRoute,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const WorkspaceTasksRoute = WorkspaceTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceProjectsRoute = WorkspaceProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceFilesRoute = WorkspaceFilesRouteImport.update({
+  id: '/files',
+  path: '/files',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceDocumentsRoute = WorkspaceDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceCalendarRoute = WorkspaceCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const SettingsVoiceRoute = SettingsVoiceRouteImport.update({
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsPrivacyRoute = SettingsPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsNotificationsRoute = SettingsNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsMemoryRoute = SettingsMemoryRouteImport.update({
+  id: '/memory',
+  path: '/memory',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsLanguageRoute = SettingsLanguageRouteImport.update({
+  id: '/language',
+  path: '/language',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsIntegrationsRoute = SettingsIntegrationsRouteImport.update({
+  id: '/integrations',
+  path: '/integrations',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsBackupRoute = SettingsBackupRouteImport.update({
+  id: '/backup',
+  path: '/backup',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsAppearanceRoute = SettingsAppearanceRouteImport.update({
+  id: '/appearance',
+  path: '/appearance',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsAiRoute = SettingsAiRouteImport.update({
+  id: '/ai',
+  path: '/ai',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const ProfileSubscriptionRoute = ProfileSubscriptionRouteImport.update({
+  id: '/subscription',
+  path: '/subscription',
+  getParentRoute: () => ProfileRoute,
+} as any)
+const ProfileStatsRoute = ProfileStatsRouteImport.update({
+  id: '/stats',
+  path: '/stats',
+  getParentRoute: () => ProfileRoute,
+} as any)
+const ProfileSecurityRoute = ProfileSecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
+  getParentRoute: () => ProfileRoute,
+} as any)
+const ModelsUploadRoute = ModelsUploadRouteImport.update({
+  id: '/upload',
+  path: '/upload',
+  getParentRoute: () => ModelsRoute,
+} as any)
+const ModelsOllamaRoute = ModelsOllamaRouteImport.update({
+  id: '/ollama',
+  path: '/ollama',
+  getParentRoute: () => ModelsRoute,
+} as any)
+const ModelsMarketplaceRoute = ModelsMarketplaceRouteImport.update({
+  id: '/marketplace',
+  path: '/marketplace',
+  getParentRoute: () => ModelsRoute,
+} as any)
+const ModelsDownloadRoute = ModelsDownloadRouteImport.update({
+  id: '/download',
+  path: '/download',
+  getParentRoute: () => ModelsRoute,
+} as any)
+const ModelsCloudRoute = ModelsCloudRouteImport.update({
+  id: '/cloud',
+  path: '/cloud',
+  getParentRoute: () => ModelsRoute,
+} as any)
+const McpSearchRoute = McpSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => McpRoute,
+} as any)
+const McpResearchRoute = McpResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => McpRoute,
+} as any)
+const McpGithubRoute = McpGithubRouteImport.update({
+  id: '/github',
+  path: '/github',
+  getParentRoute: () => McpRoute,
+} as any)
+const McpFigmaRoute = McpFigmaRouteImport.update({
+  id: '/figma',
+  path: '/figma',
+  getParentRoute: () => McpRoute,
+} as any)
+const McpDriveRoute = McpDriveRouteImport.update({
+  id: '/drive',
+  path: '/drive',
+  getParentRoute: () => McpRoute,
+} as any)
+const McpCanvaRoute = McpCanvaRouteImport.update({
+  id: '/canva',
+  path: '/canva',
+  getParentRoute: () => McpRoute,
+} as any)
+const McpBrowserRoute = McpBrowserRouteImport.update({
+  id: '/browser',
+  path: '/browser',
+  getParentRoute: () => McpRoute,
+} as any)
+const LearnStudyRoute = LearnStudyRouteImport.update({
+  id: '/study',
+  path: '/study',
+  getParentRoute: () => LearnRoute,
+} as any)
+const LearnExamRoute = LearnExamRouteImport.update({
+  id: '/exam',
+  path: '/exam',
+  getParentRoute: () => LearnRoute,
+} as any)
+const LearnCareerRoute = LearnCareerRouteImport.update({
+  id: '/career',
+  path: '/career',
+  getParentRoute: () => LearnRoute,
+} as any)
+const ImagineVoiceCloneRoute = ImagineVoiceCloneRouteImport.update({
+  id: '/voice-clone',
+  path: '/voice-clone',
+  getParentRoute: () => ImagineRoute,
+} as any)
+const ImagineVoiceRoute = ImagineVoiceRouteImport.update({
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => ImagineRoute,
+} as any)
+const ImagineVideoHistoryRoute = ImagineVideoHistoryRouteImport.update({
+  id: '/video-history',
+  path: '/video-history',
+  getParentRoute: () => ImagineRoute,
+} as any)
+const ImagineVideoRoute = ImagineVideoRouteImport.update({
+  id: '/video',
+  path: '/video',
+  getParentRoute: () => ImagineRoute,
+} as any)
+const ImagineThreeDHistoryRoute = ImagineThreeDHistoryRouteImport.update({
+  id: '/three-d-history',
+  path: '/three-d-history',
+  getParentRoute: () => ImagineRoute,
+} as any)
+const ImagineThreeDRoute = ImagineThreeDRouteImport.update({
+  id: '/three-d',
+  path: '/three-d',
+  getParentRoute: () => ImagineRoute,
+} as any)
+const ImagineMusicRoute = ImagineMusicRouteImport.update({
+  id: '/music',
+  path: '/music',
+  getParentRoute: () => ImagineRoute,
+} as any)
+const ImagineImageHistoryRoute = ImagineImageHistoryRouteImport.update({
+  id: '/image-history',
+  path: '/image-history',
+  getParentRoute: () => ImagineRoute,
+} as any)
+const ImagineImageEditorRoute = ImagineImageEditorRouteImport.update({
+  id: '/image-editor',
+  path: '/image-editor',
+  getParentRoute: () => ImagineRoute,
+} as any)
+const HomeSuggestionsRoute = HomeSuggestionsRouteImport.update({
+  id: '/suggestions',
+  path: '/suggestions',
+  getParentRoute: () => HomeRoute,
+} as any)
+const HomeRecentRoute = HomeRecentRouteImport.update({
+  id: '/recent',
+  path: '/recent',
+  getParentRoute: () => HomeRoute,
+} as any)
+const HomeActionsRoute = HomeActionsRouteImport.update({
+  id: '/actions',
+  path: '/actions',
+  getParentRoute: () => HomeRoute,
+} as any)
+const ExploreYoutubeRoute = ExploreYoutubeRouteImport.update({
+  id: '/youtube',
+  path: '/youtube',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreWebRoute = ExploreWebRouteImport.update({
+  id: '/web',
+  path: '/web',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreResearchRoute = ExploreResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreQuizRoute = ExploreQuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExplorePdfRoute = ExplorePdfRouteImport.update({
+  id: '/pdf',
+  path: '/pdf',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreMindmapsRoute = ExploreMindmapsRouteImport.update({
+  id: '/mindmaps',
+  path: '/mindmaps',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreFlashcardsRoute = ExploreFlashcardsRouteImport.update({
+  id: '/flashcards',
+  path: '/flashcards',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const CommunityTemplatesRoute = CommunityTemplatesRouteImport.update({
+  id: '/templates',
+  path: '/templates',
+  getParentRoute: () => CommunityRoute,
+} as any)
+const CommunityProjectsRoute = CommunityProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => CommunityRoute,
+} as any)
+const CommunityLeaderboardRoute = CommunityLeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => CommunityRoute,
+} as any)
+const CodeTerminalRoute = CodeTerminalRouteImport.update({
+  id: '/terminal',
+  path: '/terminal',
+  getParentRoute: () => CodeRoute,
+} as any)
+const CodePreviewRoute = CodePreviewRouteImport.update({
+  id: '/preview',
+  path: '/preview',
+  getParentRoute: () => CodeRoute,
+} as any)
+const CodeGithubRoute = CodeGithubRouteImport.update({
+  id: '/github',
+  path: '/github',
+  getParentRoute: () => CodeRoute,
+} as any)
+const CodeFilesRoute = CodeFilesRouteImport.update({
+  id: '/files',
+  path: '/files',
+  getParentRoute: () => CodeRoute,
+} as any)
+const CodeEditorRoute = CodeEditorRouteImport.update({
+  id: '/editor',
+  path: '/editor',
+  getParentRoute: () => CodeRoute,
+} as any)
+const CodeAssistantRoute = CodeAssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
+  getParentRoute: () => CodeRoute,
+} as any)
+const ChatVoiceRoute = ChatVoiceRouteImport.update({
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => ChatRoute,
+} as any)
+const ChatSharedRoute = ChatSharedRouteImport.update({
+  id: '/shared',
+  path: '/shared',
+  getParentRoute: () => ChatRoute,
+} as any)
+const ChatSearchRoute = ChatSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => ChatRoute,
+} as any)
+const ChatPinnedRoute = ChatPinnedRouteImport.update({
+  id: '/pinned',
+  path: '/pinned',
+  getParentRoute: () => ChatRoute,
+} as any)
+const ChatHistoryRoute = ChatHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
   getParentRoute: () => ChatRoute,
 } as any)
 const ChatChatIdRoute = ChatChatIdRouteImport.update({
@@ -142,78 +639,485 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AgentsVideoRoute = AgentsVideoRouteImport.update({
+  id: '/video',
+  path: '/video',
+  getParentRoute: () => AgentsRoute,
+} as any)
+const AgentsResearchRoute = AgentsResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => AgentsRoute,
+} as any)
+const AgentsPlannerRoute = AgentsPlannerRouteImport.update({
+  id: '/planner',
+  path: '/planner',
+  getParentRoute: () => AgentsRoute,
+} as any)
+const AgentsMemoryRoute = AgentsMemoryRouteImport.update({
+  id: '/memory',
+  path: '/memory',
+  getParentRoute: () => AgentsRoute,
+} as any)
+const AgentsJudgeRoute = AgentsJudgeRouteImport.update({
+  id: '/judge',
+  path: '/judge',
+  getParentRoute: () => AgentsRoute,
+} as any)
+const AgentsImageRoute = AgentsImageRouteImport.update({
+  id: '/image',
+  path: '/image',
+  getParentRoute: () => AgentsRoute,
+} as any)
+const AgentsCodingRoute = AgentsCodingRouteImport.update({
+  id: '/coding',
+  path: '/coding',
+  getParentRoute: () => AgentsRoute,
+} as any)
+const AgentsBrowserRoute = AgentsBrowserRouteImport.update({
+  id: '/browser',
+  path: '/browser',
+  getParentRoute: () => AgentsRoute,
+} as any)
+const AgentsAudioRoute = AgentsAudioRouteImport.update({
+  id: '/audio',
+  path: '/audio',
+  getParentRoute: () => AgentsRoute,
+} as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTrainingRoute = AdminTrainingRouteImport.update({
+  id: '/training',
+  path: '/training',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSecurityRoute = AdminSecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPromptsRoute = AdminPromptsRouteImport.update({
+  id: '/prompts',
+  path: '/prompts',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminModerationRoute = AdminModerationRouteImport.update({
+  id: '/moderation',
+  path: '/moderation',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminModelsRoute = AdminModelsRouteImport.update({
+  id: '/models',
+  path: '/models',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMcpRoute = AdminMcpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLogsRoute = AdminLogsRouteImport.update({
+  id: '/logs',
+  path: '/logs',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLimitsRoute = AdminLimitsRouteImport.update({
+  id: '/limits',
+  path: '/limits',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminKeysRoute = AdminKeysRouteImport.update({
+  id: '/keys',
+  path: '/keys',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminHealthRoute = AdminHealthRouteImport.update({
+  id: '/health',
+  path: '/health',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBroadcastRoute = AdminBroadcastRouteImport.update({
+  id: '/broadcast',
+  path: '/broadcast',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBackupRoute = AdminBackupRouteImport.update({
+  id: '/backup',
+  path: '/backup',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
-  '/agents': typeof AgentsRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/agents': typeof AgentsRouteWithChildren
   '/auth': typeof AuthRoute
   '/chat': typeof ChatRouteWithChildren
-  '/code': typeof CodeRoute
-  '/community': typeof CommunityRoute
-  '/explore': typeof ExploreRoute
-  '/home': typeof HomeRoute
-  '/imagine': typeof ImagineRoute
-  '/learn': typeof LearnRoute
-  '/mcp': typeof McpRoute
-  '/models': typeof ModelsRoute
-  '/notifications': typeof NotificationsRoute
-  '/profile': typeof ProfileRoute
+  '/code': typeof CodeRouteWithChildren
+  '/community': typeof CommunityRouteWithChildren
+  '/explore': typeof ExploreRouteWithChildren
+  '/home': typeof HomeRouteWithChildren
+  '/imagine': typeof ImagineRouteWithChildren
+  '/learn': typeof LearnRouteWithChildren
+  '/mcp': typeof McpRouteWithChildren
+  '/models': typeof ModelsRouteWithChildren
+  '/notifications': typeof NotificationsRouteWithChildren
+  '/profile': typeof ProfileRouteWithChildren
   '/reset-password': typeof ResetPasswordRoute
-  '/settings': typeof SettingsRoute
+  '/settings': typeof SettingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/workspace': typeof WorkspaceRoute
+  '/workspace': typeof WorkspaceRouteWithChildren
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/backup': typeof AdminBackupRoute
+  '/admin/broadcast': typeof AdminBroadcastRoute
+  '/admin/health': typeof AdminHealthRoute
+  '/admin/keys': typeof AdminKeysRoute
+  '/admin/limits': typeof AdminLimitsRoute
+  '/admin/logs': typeof AdminLogsRoute
+  '/admin/mcp': typeof AdminMcpRoute
+  '/admin/models': typeof AdminModelsRoute
+  '/admin/moderation': typeof AdminModerationRoute
+  '/admin/prompts': typeof AdminPromptsRoute
+  '/admin/security': typeof AdminSecurityRoute
+  '/admin/training': typeof AdminTrainingRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/agents/audio': typeof AgentsAudioRoute
+  '/agents/browser': typeof AgentsBrowserRoute
+  '/agents/coding': typeof AgentsCodingRoute
+  '/agents/image': typeof AgentsImageRoute
+  '/agents/judge': typeof AgentsJudgeRoute
+  '/agents/memory': typeof AgentsMemoryRoute
+  '/agents/planner': typeof AgentsPlannerRoute
+  '/agents/research': typeof AgentsResearchRoute
+  '/agents/video': typeof AgentsVideoRoute
   '/api/chat': typeof ApiChatRoute
   '/chat/$chatId': typeof ChatChatIdRoute
+  '/chat/history': typeof ChatHistoryRoute
+  '/chat/pinned': typeof ChatPinnedRoute
+  '/chat/search': typeof ChatSearchRoute
+  '/chat/shared': typeof ChatSharedRoute
+  '/chat/voice': typeof ChatVoiceRoute
+  '/code/assistant': typeof CodeAssistantRoute
+  '/code/editor': typeof CodeEditorRoute
+  '/code/files': typeof CodeFilesRoute
+  '/code/github': typeof CodeGithubRoute
+  '/code/preview': typeof CodePreviewRoute
+  '/code/terminal': typeof CodeTerminalRoute
+  '/community/leaderboard': typeof CommunityLeaderboardRoute
+  '/community/projects': typeof CommunityProjectsRoute
+  '/community/templates': typeof CommunityTemplatesRoute
+  '/explore/flashcards': typeof ExploreFlashcardsRoute
+  '/explore/mindmaps': typeof ExploreMindmapsRoute
+  '/explore/pdf': typeof ExplorePdfRoute
+  '/explore/quiz': typeof ExploreQuizRoute
+  '/explore/research': typeof ExploreResearchRoute
+  '/explore/web': typeof ExploreWebRoute
+  '/explore/youtube': typeof ExploreYoutubeRoute
+  '/home/actions': typeof HomeActionsRoute
+  '/home/recent': typeof HomeRecentRoute
+  '/home/suggestions': typeof HomeSuggestionsRoute
+  '/imagine/image-editor': typeof ImagineImageEditorRoute
+  '/imagine/image-history': typeof ImagineImageHistoryRoute
+  '/imagine/music': typeof ImagineMusicRoute
+  '/imagine/three-d': typeof ImagineThreeDRoute
+  '/imagine/three-d-history': typeof ImagineThreeDHistoryRoute
+  '/imagine/video': typeof ImagineVideoRoute
+  '/imagine/video-history': typeof ImagineVideoHistoryRoute
+  '/imagine/voice': typeof ImagineVoiceRoute
+  '/imagine/voice-clone': typeof ImagineVoiceCloneRoute
+  '/learn/career': typeof LearnCareerRoute
+  '/learn/exam': typeof LearnExamRoute
+  '/learn/study': typeof LearnStudyRoute
+  '/mcp/browser': typeof McpBrowserRoute
+  '/mcp/canva': typeof McpCanvaRoute
+  '/mcp/drive': typeof McpDriveRoute
+  '/mcp/figma': typeof McpFigmaRoute
+  '/mcp/github': typeof McpGithubRoute
+  '/mcp/research': typeof McpResearchRoute
+  '/mcp/search': typeof McpSearchRoute
+  '/models/cloud': typeof ModelsCloudRoute
+  '/models/download': typeof ModelsDownloadRoute
+  '/models/marketplace': typeof ModelsMarketplaceRoute
+  '/models/ollama': typeof ModelsOllamaRoute
+  '/models/upload': typeof ModelsUploadRoute
+  '/profile/security': typeof ProfileSecurityRoute
+  '/profile/stats': typeof ProfileStatsRoute
+  '/profile/subscription': typeof ProfileSubscriptionRoute
+  '/settings/ai': typeof SettingsAiRoute
+  '/settings/appearance': typeof SettingsAppearanceRoute
+  '/settings/backup': typeof SettingsBackupRoute
+  '/settings/integrations': typeof SettingsIntegrationsRoute
+  '/settings/language': typeof SettingsLanguageRoute
+  '/settings/memory': typeof SettingsMemoryRoute
+  '/settings/notifications': typeof SettingsNotificationsRoute
+  '/settings/privacy': typeof SettingsPrivacyRoute
+  '/settings/voice': typeof SettingsVoiceRoute
+  '/workspace/calendar': typeof WorkspaceCalendarRoute
+  '/workspace/documents': typeof WorkspaceDocumentsRoute
+  '/workspace/files': typeof WorkspaceFilesRoute
+  '/workspace/projects': typeof WorkspaceProjectsRoute
+  '/workspace/tasks': typeof WorkspaceTasksRoute
+  '/admin/': typeof AdminIndexRoute
+  '/agents/': typeof AgentsIndexRoute
   '/chat/': typeof ChatIndexRoute
+  '/code/': typeof CodeIndexRoute
+  '/community/': typeof CommunityIndexRoute
+  '/explore/': typeof ExploreIndexRoute
+  '/home/': typeof HomeIndexRoute
+  '/imagine/': typeof ImagineIndexRoute
+  '/learn/': typeof LearnIndexRoute
+  '/mcp/': typeof McpIndexRoute
+  '/models/': typeof ModelsIndexRoute
+  '/notifications/': typeof NotificationsIndexRoute
+  '/profile/': typeof ProfileIndexRoute
+  '/settings/': typeof SettingsIndexRoute
+  '/workspace/': typeof WorkspaceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
-  '/agents': typeof AgentsRoute
   '/auth': typeof AuthRoute
-  '/code': typeof CodeRoute
-  '/community': typeof CommunityRoute
-  '/explore': typeof ExploreRoute
-  '/home': typeof HomeRoute
-  '/imagine': typeof ImagineRoute
-  '/learn': typeof LearnRoute
-  '/mcp': typeof McpRoute
-  '/models': typeof ModelsRoute
-  '/notifications': typeof NotificationsRoute
-  '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/settings': typeof SettingsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/workspace': typeof WorkspaceRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/backup': typeof AdminBackupRoute
+  '/admin/broadcast': typeof AdminBroadcastRoute
+  '/admin/health': typeof AdminHealthRoute
+  '/admin/keys': typeof AdminKeysRoute
+  '/admin/limits': typeof AdminLimitsRoute
+  '/admin/logs': typeof AdminLogsRoute
+  '/admin/mcp': typeof AdminMcpRoute
+  '/admin/models': typeof AdminModelsRoute
+  '/admin/moderation': typeof AdminModerationRoute
+  '/admin/prompts': typeof AdminPromptsRoute
+  '/admin/security': typeof AdminSecurityRoute
+  '/admin/training': typeof AdminTrainingRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/agents/audio': typeof AgentsAudioRoute
+  '/agents/browser': typeof AgentsBrowserRoute
+  '/agents/coding': typeof AgentsCodingRoute
+  '/agents/image': typeof AgentsImageRoute
+  '/agents/judge': typeof AgentsJudgeRoute
+  '/agents/memory': typeof AgentsMemoryRoute
+  '/agents/planner': typeof AgentsPlannerRoute
+  '/agents/research': typeof AgentsResearchRoute
+  '/agents/video': typeof AgentsVideoRoute
   '/api/chat': typeof ApiChatRoute
   '/chat/$chatId': typeof ChatChatIdRoute
+  '/chat/history': typeof ChatHistoryRoute
+  '/chat/pinned': typeof ChatPinnedRoute
+  '/chat/search': typeof ChatSearchRoute
+  '/chat/shared': typeof ChatSharedRoute
+  '/chat/voice': typeof ChatVoiceRoute
+  '/code/assistant': typeof CodeAssistantRoute
+  '/code/editor': typeof CodeEditorRoute
+  '/code/files': typeof CodeFilesRoute
+  '/code/github': typeof CodeGithubRoute
+  '/code/preview': typeof CodePreviewRoute
+  '/code/terminal': typeof CodeTerminalRoute
+  '/community/leaderboard': typeof CommunityLeaderboardRoute
+  '/community/projects': typeof CommunityProjectsRoute
+  '/community/templates': typeof CommunityTemplatesRoute
+  '/explore/flashcards': typeof ExploreFlashcardsRoute
+  '/explore/mindmaps': typeof ExploreMindmapsRoute
+  '/explore/pdf': typeof ExplorePdfRoute
+  '/explore/quiz': typeof ExploreQuizRoute
+  '/explore/research': typeof ExploreResearchRoute
+  '/explore/web': typeof ExploreWebRoute
+  '/explore/youtube': typeof ExploreYoutubeRoute
+  '/home/actions': typeof HomeActionsRoute
+  '/home/recent': typeof HomeRecentRoute
+  '/home/suggestions': typeof HomeSuggestionsRoute
+  '/imagine/image-editor': typeof ImagineImageEditorRoute
+  '/imagine/image-history': typeof ImagineImageHistoryRoute
+  '/imagine/music': typeof ImagineMusicRoute
+  '/imagine/three-d': typeof ImagineThreeDRoute
+  '/imagine/three-d-history': typeof ImagineThreeDHistoryRoute
+  '/imagine/video': typeof ImagineVideoRoute
+  '/imagine/video-history': typeof ImagineVideoHistoryRoute
+  '/imagine/voice': typeof ImagineVoiceRoute
+  '/imagine/voice-clone': typeof ImagineVoiceCloneRoute
+  '/learn/career': typeof LearnCareerRoute
+  '/learn/exam': typeof LearnExamRoute
+  '/learn/study': typeof LearnStudyRoute
+  '/mcp/browser': typeof McpBrowserRoute
+  '/mcp/canva': typeof McpCanvaRoute
+  '/mcp/drive': typeof McpDriveRoute
+  '/mcp/figma': typeof McpFigmaRoute
+  '/mcp/github': typeof McpGithubRoute
+  '/mcp/research': typeof McpResearchRoute
+  '/mcp/search': typeof McpSearchRoute
+  '/models/cloud': typeof ModelsCloudRoute
+  '/models/download': typeof ModelsDownloadRoute
+  '/models/marketplace': typeof ModelsMarketplaceRoute
+  '/models/ollama': typeof ModelsOllamaRoute
+  '/models/upload': typeof ModelsUploadRoute
+  '/profile/security': typeof ProfileSecurityRoute
+  '/profile/stats': typeof ProfileStatsRoute
+  '/profile/subscription': typeof ProfileSubscriptionRoute
+  '/settings/ai': typeof SettingsAiRoute
+  '/settings/appearance': typeof SettingsAppearanceRoute
+  '/settings/backup': typeof SettingsBackupRoute
+  '/settings/integrations': typeof SettingsIntegrationsRoute
+  '/settings/language': typeof SettingsLanguageRoute
+  '/settings/memory': typeof SettingsMemoryRoute
+  '/settings/notifications': typeof SettingsNotificationsRoute
+  '/settings/privacy': typeof SettingsPrivacyRoute
+  '/settings/voice': typeof SettingsVoiceRoute
+  '/workspace/calendar': typeof WorkspaceCalendarRoute
+  '/workspace/documents': typeof WorkspaceDocumentsRoute
+  '/workspace/files': typeof WorkspaceFilesRoute
+  '/workspace/projects': typeof WorkspaceProjectsRoute
+  '/workspace/tasks': typeof WorkspaceTasksRoute
+  '/admin': typeof AdminIndexRoute
+  '/agents': typeof AgentsIndexRoute
   '/chat': typeof ChatIndexRoute
+  '/code': typeof CodeIndexRoute
+  '/community': typeof CommunityIndexRoute
+  '/explore': typeof ExploreIndexRoute
+  '/home': typeof HomeIndexRoute
+  '/imagine': typeof ImagineIndexRoute
+  '/learn': typeof LearnIndexRoute
+  '/mcp': typeof McpIndexRoute
+  '/models': typeof ModelsIndexRoute
+  '/notifications': typeof NotificationsIndexRoute
+  '/profile': typeof ProfileIndexRoute
+  '/settings': typeof SettingsIndexRoute
+  '/workspace': typeof WorkspaceIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
-  '/agents': typeof AgentsRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/agents': typeof AgentsRouteWithChildren
   '/auth': typeof AuthRoute
   '/chat': typeof ChatRouteWithChildren
-  '/code': typeof CodeRoute
-  '/community': typeof CommunityRoute
-  '/explore': typeof ExploreRoute
-  '/home': typeof HomeRoute
-  '/imagine': typeof ImagineRoute
-  '/learn': typeof LearnRoute
-  '/mcp': typeof McpRoute
-  '/models': typeof ModelsRoute
-  '/notifications': typeof NotificationsRoute
-  '/profile': typeof ProfileRoute
+  '/code': typeof CodeRouteWithChildren
+  '/community': typeof CommunityRouteWithChildren
+  '/explore': typeof ExploreRouteWithChildren
+  '/home': typeof HomeRouteWithChildren
+  '/imagine': typeof ImagineRouteWithChildren
+  '/learn': typeof LearnRouteWithChildren
+  '/mcp': typeof McpRouteWithChildren
+  '/models': typeof ModelsRouteWithChildren
+  '/notifications': typeof NotificationsRouteWithChildren
+  '/profile': typeof ProfileRouteWithChildren
   '/reset-password': typeof ResetPasswordRoute
-  '/settings': typeof SettingsRoute
+  '/settings': typeof SettingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/workspace': typeof WorkspaceRoute
+  '/workspace': typeof WorkspaceRouteWithChildren
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/backup': typeof AdminBackupRoute
+  '/admin/broadcast': typeof AdminBroadcastRoute
+  '/admin/health': typeof AdminHealthRoute
+  '/admin/keys': typeof AdminKeysRoute
+  '/admin/limits': typeof AdminLimitsRoute
+  '/admin/logs': typeof AdminLogsRoute
+  '/admin/mcp': typeof AdminMcpRoute
+  '/admin/models': typeof AdminModelsRoute
+  '/admin/moderation': typeof AdminModerationRoute
+  '/admin/prompts': typeof AdminPromptsRoute
+  '/admin/security': typeof AdminSecurityRoute
+  '/admin/training': typeof AdminTrainingRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/agents/audio': typeof AgentsAudioRoute
+  '/agents/browser': typeof AgentsBrowserRoute
+  '/agents/coding': typeof AgentsCodingRoute
+  '/agents/image': typeof AgentsImageRoute
+  '/agents/judge': typeof AgentsJudgeRoute
+  '/agents/memory': typeof AgentsMemoryRoute
+  '/agents/planner': typeof AgentsPlannerRoute
+  '/agents/research': typeof AgentsResearchRoute
+  '/agents/video': typeof AgentsVideoRoute
   '/api/chat': typeof ApiChatRoute
   '/chat/$chatId': typeof ChatChatIdRoute
+  '/chat/history': typeof ChatHistoryRoute
+  '/chat/pinned': typeof ChatPinnedRoute
+  '/chat/search': typeof ChatSearchRoute
+  '/chat/shared': typeof ChatSharedRoute
+  '/chat/voice': typeof ChatVoiceRoute
+  '/code/assistant': typeof CodeAssistantRoute
+  '/code/editor': typeof CodeEditorRoute
+  '/code/files': typeof CodeFilesRoute
+  '/code/github': typeof CodeGithubRoute
+  '/code/preview': typeof CodePreviewRoute
+  '/code/terminal': typeof CodeTerminalRoute
+  '/community/leaderboard': typeof CommunityLeaderboardRoute
+  '/community/projects': typeof CommunityProjectsRoute
+  '/community/templates': typeof CommunityTemplatesRoute
+  '/explore/flashcards': typeof ExploreFlashcardsRoute
+  '/explore/mindmaps': typeof ExploreMindmapsRoute
+  '/explore/pdf': typeof ExplorePdfRoute
+  '/explore/quiz': typeof ExploreQuizRoute
+  '/explore/research': typeof ExploreResearchRoute
+  '/explore/web': typeof ExploreWebRoute
+  '/explore/youtube': typeof ExploreYoutubeRoute
+  '/home/actions': typeof HomeActionsRoute
+  '/home/recent': typeof HomeRecentRoute
+  '/home/suggestions': typeof HomeSuggestionsRoute
+  '/imagine/image-editor': typeof ImagineImageEditorRoute
+  '/imagine/image-history': typeof ImagineImageHistoryRoute
+  '/imagine/music': typeof ImagineMusicRoute
+  '/imagine/three-d': typeof ImagineThreeDRoute
+  '/imagine/three-d-history': typeof ImagineThreeDHistoryRoute
+  '/imagine/video': typeof ImagineVideoRoute
+  '/imagine/video-history': typeof ImagineVideoHistoryRoute
+  '/imagine/voice': typeof ImagineVoiceRoute
+  '/imagine/voice-clone': typeof ImagineVoiceCloneRoute
+  '/learn/career': typeof LearnCareerRoute
+  '/learn/exam': typeof LearnExamRoute
+  '/learn/study': typeof LearnStudyRoute
+  '/mcp/browser': typeof McpBrowserRoute
+  '/mcp/canva': typeof McpCanvaRoute
+  '/mcp/drive': typeof McpDriveRoute
+  '/mcp/figma': typeof McpFigmaRoute
+  '/mcp/github': typeof McpGithubRoute
+  '/mcp/research': typeof McpResearchRoute
+  '/mcp/search': typeof McpSearchRoute
+  '/models/cloud': typeof ModelsCloudRoute
+  '/models/download': typeof ModelsDownloadRoute
+  '/models/marketplace': typeof ModelsMarketplaceRoute
+  '/models/ollama': typeof ModelsOllamaRoute
+  '/models/upload': typeof ModelsUploadRoute
+  '/profile/security': typeof ProfileSecurityRoute
+  '/profile/stats': typeof ProfileStatsRoute
+  '/profile/subscription': typeof ProfileSubscriptionRoute
+  '/settings/ai': typeof SettingsAiRoute
+  '/settings/appearance': typeof SettingsAppearanceRoute
+  '/settings/backup': typeof SettingsBackupRoute
+  '/settings/integrations': typeof SettingsIntegrationsRoute
+  '/settings/language': typeof SettingsLanguageRoute
+  '/settings/memory': typeof SettingsMemoryRoute
+  '/settings/notifications': typeof SettingsNotificationsRoute
+  '/settings/privacy': typeof SettingsPrivacyRoute
+  '/settings/voice': typeof SettingsVoiceRoute
+  '/workspace/calendar': typeof WorkspaceCalendarRoute
+  '/workspace/documents': typeof WorkspaceDocumentsRoute
+  '/workspace/files': typeof WorkspaceFilesRoute
+  '/workspace/projects': typeof WorkspaceProjectsRoute
+  '/workspace/tasks': typeof WorkspaceTasksRoute
+  '/admin/': typeof AdminIndexRoute
+  '/agents/': typeof AgentsIndexRoute
   '/chat/': typeof ChatIndexRoute
+  '/code/': typeof CodeIndexRoute
+  '/community/': typeof CommunityIndexRoute
+  '/explore/': typeof ExploreIndexRoute
+  '/home/': typeof HomeIndexRoute
+  '/imagine/': typeof ImagineIndexRoute
+  '/learn/': typeof LearnIndexRoute
+  '/mcp/': typeof McpIndexRoute
+  '/models/': typeof ModelsIndexRoute
+  '/notifications/': typeof NotificationsIndexRoute
+  '/profile/': typeof ProfileIndexRoute
+  '/settings/': typeof SettingsIndexRoute
+  '/workspace/': typeof WorkspaceIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -237,15 +1141,210 @@ export interface FileRouteTypes {
     | '/settings'
     | '/sitemap.xml'
     | '/workspace'
+    | '/admin/analytics'
+    | '/admin/backup'
+    | '/admin/broadcast'
+    | '/admin/health'
+    | '/admin/keys'
+    | '/admin/limits'
+    | '/admin/logs'
+    | '/admin/mcp'
+    | '/admin/models'
+    | '/admin/moderation'
+    | '/admin/prompts'
+    | '/admin/security'
+    | '/admin/training'
+    | '/admin/users'
+    | '/agents/audio'
+    | '/agents/browser'
+    | '/agents/coding'
+    | '/agents/image'
+    | '/agents/judge'
+    | '/agents/memory'
+    | '/agents/planner'
+    | '/agents/research'
+    | '/agents/video'
     | '/api/chat'
     | '/chat/$chatId'
+    | '/chat/history'
+    | '/chat/pinned'
+    | '/chat/search'
+    | '/chat/shared'
+    | '/chat/voice'
+    | '/code/assistant'
+    | '/code/editor'
+    | '/code/files'
+    | '/code/github'
+    | '/code/preview'
+    | '/code/terminal'
+    | '/community/leaderboard'
+    | '/community/projects'
+    | '/community/templates'
+    | '/explore/flashcards'
+    | '/explore/mindmaps'
+    | '/explore/pdf'
+    | '/explore/quiz'
+    | '/explore/research'
+    | '/explore/web'
+    | '/explore/youtube'
+    | '/home/actions'
+    | '/home/recent'
+    | '/home/suggestions'
+    | '/imagine/image-editor'
+    | '/imagine/image-history'
+    | '/imagine/music'
+    | '/imagine/three-d'
+    | '/imagine/three-d-history'
+    | '/imagine/video'
+    | '/imagine/video-history'
+    | '/imagine/voice'
+    | '/imagine/voice-clone'
+    | '/learn/career'
+    | '/learn/exam'
+    | '/learn/study'
+    | '/mcp/browser'
+    | '/mcp/canva'
+    | '/mcp/drive'
+    | '/mcp/figma'
+    | '/mcp/github'
+    | '/mcp/research'
+    | '/mcp/search'
+    | '/models/cloud'
+    | '/models/download'
+    | '/models/marketplace'
+    | '/models/ollama'
+    | '/models/upload'
+    | '/profile/security'
+    | '/profile/stats'
+    | '/profile/subscription'
+    | '/settings/ai'
+    | '/settings/appearance'
+    | '/settings/backup'
+    | '/settings/integrations'
+    | '/settings/language'
+    | '/settings/memory'
+    | '/settings/notifications'
+    | '/settings/privacy'
+    | '/settings/voice'
+    | '/workspace/calendar'
+    | '/workspace/documents'
+    | '/workspace/files'
+    | '/workspace/projects'
+    | '/workspace/tasks'
+    | '/admin/'
+    | '/agents/'
     | '/chat/'
+    | '/code/'
+    | '/community/'
+    | '/explore/'
+    | '/home/'
+    | '/imagine/'
+    | '/learn/'
+    | '/mcp/'
+    | '/models/'
+    | '/notifications/'
+    | '/profile/'
+    | '/settings/'
+    | '/workspace/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
+    | '/reset-password'
+    | '/sitemap.xml'
+    | '/admin/analytics'
+    | '/admin/backup'
+    | '/admin/broadcast'
+    | '/admin/health'
+    | '/admin/keys'
+    | '/admin/limits'
+    | '/admin/logs'
+    | '/admin/mcp'
+    | '/admin/models'
+    | '/admin/moderation'
+    | '/admin/prompts'
+    | '/admin/security'
+    | '/admin/training'
+    | '/admin/users'
+    | '/agents/audio'
+    | '/agents/browser'
+    | '/agents/coding'
+    | '/agents/image'
+    | '/agents/judge'
+    | '/agents/memory'
+    | '/agents/planner'
+    | '/agents/research'
+    | '/agents/video'
+    | '/api/chat'
+    | '/chat/$chatId'
+    | '/chat/history'
+    | '/chat/pinned'
+    | '/chat/search'
+    | '/chat/shared'
+    | '/chat/voice'
+    | '/code/assistant'
+    | '/code/editor'
+    | '/code/files'
+    | '/code/github'
+    | '/code/preview'
+    | '/code/terminal'
+    | '/community/leaderboard'
+    | '/community/projects'
+    | '/community/templates'
+    | '/explore/flashcards'
+    | '/explore/mindmaps'
+    | '/explore/pdf'
+    | '/explore/quiz'
+    | '/explore/research'
+    | '/explore/web'
+    | '/explore/youtube'
+    | '/home/actions'
+    | '/home/recent'
+    | '/home/suggestions'
+    | '/imagine/image-editor'
+    | '/imagine/image-history'
+    | '/imagine/music'
+    | '/imagine/three-d'
+    | '/imagine/three-d-history'
+    | '/imagine/video'
+    | '/imagine/video-history'
+    | '/imagine/voice'
+    | '/imagine/voice-clone'
+    | '/learn/career'
+    | '/learn/exam'
+    | '/learn/study'
+    | '/mcp/browser'
+    | '/mcp/canva'
+    | '/mcp/drive'
+    | '/mcp/figma'
+    | '/mcp/github'
+    | '/mcp/research'
+    | '/mcp/search'
+    | '/models/cloud'
+    | '/models/download'
+    | '/models/marketplace'
+    | '/models/ollama'
+    | '/models/upload'
+    | '/profile/security'
+    | '/profile/stats'
+    | '/profile/subscription'
+    | '/settings/ai'
+    | '/settings/appearance'
+    | '/settings/backup'
+    | '/settings/integrations'
+    | '/settings/language'
+    | '/settings/memory'
+    | '/settings/notifications'
+    | '/settings/privacy'
+    | '/settings/voice'
+    | '/workspace/calendar'
+    | '/workspace/documents'
+    | '/workspace/files'
+    | '/workspace/projects'
+    | '/workspace/tasks'
     | '/admin'
     | '/agents'
-    | '/auth'
+    | '/chat'
     | '/code'
     | '/community'
     | '/explore'
@@ -256,13 +1355,8 @@ export interface FileRouteTypes {
     | '/models'
     | '/notifications'
     | '/profile'
-    | '/reset-password'
     | '/settings'
-    | '/sitemap.xml'
     | '/workspace'
-    | '/api/chat'
-    | '/chat/$chatId'
-    | '/chat'
   id:
     | '__root__'
     | '/'
@@ -284,31 +1378,133 @@ export interface FileRouteTypes {
     | '/settings'
     | '/sitemap.xml'
     | '/workspace'
+    | '/admin/analytics'
+    | '/admin/backup'
+    | '/admin/broadcast'
+    | '/admin/health'
+    | '/admin/keys'
+    | '/admin/limits'
+    | '/admin/logs'
+    | '/admin/mcp'
+    | '/admin/models'
+    | '/admin/moderation'
+    | '/admin/prompts'
+    | '/admin/security'
+    | '/admin/training'
+    | '/admin/users'
+    | '/agents/audio'
+    | '/agents/browser'
+    | '/agents/coding'
+    | '/agents/image'
+    | '/agents/judge'
+    | '/agents/memory'
+    | '/agents/planner'
+    | '/agents/research'
+    | '/agents/video'
     | '/api/chat'
     | '/chat/$chatId'
+    | '/chat/history'
+    | '/chat/pinned'
+    | '/chat/search'
+    | '/chat/shared'
+    | '/chat/voice'
+    | '/code/assistant'
+    | '/code/editor'
+    | '/code/files'
+    | '/code/github'
+    | '/code/preview'
+    | '/code/terminal'
+    | '/community/leaderboard'
+    | '/community/projects'
+    | '/community/templates'
+    | '/explore/flashcards'
+    | '/explore/mindmaps'
+    | '/explore/pdf'
+    | '/explore/quiz'
+    | '/explore/research'
+    | '/explore/web'
+    | '/explore/youtube'
+    | '/home/actions'
+    | '/home/recent'
+    | '/home/suggestions'
+    | '/imagine/image-editor'
+    | '/imagine/image-history'
+    | '/imagine/music'
+    | '/imagine/three-d'
+    | '/imagine/three-d-history'
+    | '/imagine/video'
+    | '/imagine/video-history'
+    | '/imagine/voice'
+    | '/imagine/voice-clone'
+    | '/learn/career'
+    | '/learn/exam'
+    | '/learn/study'
+    | '/mcp/browser'
+    | '/mcp/canva'
+    | '/mcp/drive'
+    | '/mcp/figma'
+    | '/mcp/github'
+    | '/mcp/research'
+    | '/mcp/search'
+    | '/models/cloud'
+    | '/models/download'
+    | '/models/marketplace'
+    | '/models/ollama'
+    | '/models/upload'
+    | '/profile/security'
+    | '/profile/stats'
+    | '/profile/subscription'
+    | '/settings/ai'
+    | '/settings/appearance'
+    | '/settings/backup'
+    | '/settings/integrations'
+    | '/settings/language'
+    | '/settings/memory'
+    | '/settings/notifications'
+    | '/settings/privacy'
+    | '/settings/voice'
+    | '/workspace/calendar'
+    | '/workspace/documents'
+    | '/workspace/files'
+    | '/workspace/projects'
+    | '/workspace/tasks'
+    | '/admin/'
+    | '/agents/'
     | '/chat/'
+    | '/code/'
+    | '/community/'
+    | '/explore/'
+    | '/home/'
+    | '/imagine/'
+    | '/learn/'
+    | '/mcp/'
+    | '/models/'
+    | '/notifications/'
+    | '/profile/'
+    | '/settings/'
+    | '/workspace/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
-  AgentsRoute: typeof AgentsRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  AgentsRoute: typeof AgentsRouteWithChildren
   AuthRoute: typeof AuthRoute
   ChatRoute: typeof ChatRouteWithChildren
-  CodeRoute: typeof CodeRoute
-  CommunityRoute: typeof CommunityRoute
-  ExploreRoute: typeof ExploreRoute
-  HomeRoute: typeof HomeRoute
-  ImagineRoute: typeof ImagineRoute
-  LearnRoute: typeof LearnRoute
-  McpRoute: typeof McpRoute
-  ModelsRoute: typeof ModelsRoute
-  NotificationsRoute: typeof NotificationsRoute
-  ProfileRoute: typeof ProfileRoute
+  CodeRoute: typeof CodeRouteWithChildren
+  CommunityRoute: typeof CommunityRouteWithChildren
+  ExploreRoute: typeof ExploreRouteWithChildren
+  HomeRoute: typeof HomeRouteWithChildren
+  ImagineRoute: typeof ImagineRouteWithChildren
+  LearnRoute: typeof LearnRouteWithChildren
+  McpRoute: typeof McpRouteWithChildren
+  ModelsRoute: typeof ModelsRouteWithChildren
+  NotificationsRoute: typeof NotificationsRouteWithChildren
+  ProfileRoute: typeof ProfileRouteWithChildren
   ResetPasswordRoute: typeof ResetPasswordRoute
-  SettingsRoute: typeof SettingsRoute
+  SettingsRoute: typeof SettingsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  WorkspaceRoute: typeof WorkspaceRoute
+  WorkspaceRoute: typeof WorkspaceRouteWithChildren
   ApiChatRoute: typeof ApiChatRoute
 }
 
@@ -447,11 +1643,564 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/workspace/': {
+      id: '/workspace/'
+      path: '/'
+      fullPath: '/workspace/'
+      preLoaderRoute: typeof WorkspaceIndexRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/settings/': {
+      id: '/settings/'
+      path: '/'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof SettingsIndexRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/profile/': {
+      id: '/profile/'
+      path: '/'
+      fullPath: '/profile/'
+      preLoaderRoute: typeof ProfileIndexRouteImport
+      parentRoute: typeof ProfileRoute
+    }
+    '/notifications/': {
+      id: '/notifications/'
+      path: '/'
+      fullPath: '/notifications/'
+      preLoaderRoute: typeof NotificationsIndexRouteImport
+      parentRoute: typeof NotificationsRoute
+    }
+    '/models/': {
+      id: '/models/'
+      path: '/'
+      fullPath: '/models/'
+      preLoaderRoute: typeof ModelsIndexRouteImport
+      parentRoute: typeof ModelsRoute
+    }
+    '/mcp/': {
+      id: '/mcp/'
+      path: '/'
+      fullPath: '/mcp/'
+      preLoaderRoute: typeof McpIndexRouteImport
+      parentRoute: typeof McpRoute
+    }
+    '/learn/': {
+      id: '/learn/'
+      path: '/'
+      fullPath: '/learn/'
+      preLoaderRoute: typeof LearnIndexRouteImport
+      parentRoute: typeof LearnRoute
+    }
+    '/imagine/': {
+      id: '/imagine/'
+      path: '/'
+      fullPath: '/imagine/'
+      preLoaderRoute: typeof ImagineIndexRouteImport
+      parentRoute: typeof ImagineRoute
+    }
+    '/home/': {
+      id: '/home/'
+      path: '/'
+      fullPath: '/home/'
+      preLoaderRoute: typeof HomeIndexRouteImport
+      parentRoute: typeof HomeRoute
+    }
+    '/explore/': {
+      id: '/explore/'
+      path: '/'
+      fullPath: '/explore/'
+      preLoaderRoute: typeof ExploreIndexRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/community/': {
+      id: '/community/'
+      path: '/'
+      fullPath: '/community/'
+      preLoaderRoute: typeof CommunityIndexRouteImport
+      parentRoute: typeof CommunityRoute
+    }
+    '/code/': {
+      id: '/code/'
+      path: '/'
+      fullPath: '/code/'
+      preLoaderRoute: typeof CodeIndexRouteImport
+      parentRoute: typeof CodeRoute
+    }
     '/chat/': {
       id: '/chat/'
       path: '/'
       fullPath: '/chat/'
       preLoaderRoute: typeof ChatIndexRouteImport
+      parentRoute: typeof ChatRoute
+    }
+    '/agents/': {
+      id: '/agents/'
+      path: '/'
+      fullPath: '/agents/'
+      preLoaderRoute: typeof AgentsIndexRouteImport
+      parentRoute: typeof AgentsRoute
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/workspace/tasks': {
+      id: '/workspace/tasks'
+      path: '/tasks'
+      fullPath: '/workspace/tasks'
+      preLoaderRoute: typeof WorkspaceTasksRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/projects': {
+      id: '/workspace/projects'
+      path: '/projects'
+      fullPath: '/workspace/projects'
+      preLoaderRoute: typeof WorkspaceProjectsRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/files': {
+      id: '/workspace/files'
+      path: '/files'
+      fullPath: '/workspace/files'
+      preLoaderRoute: typeof WorkspaceFilesRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/documents': {
+      id: '/workspace/documents'
+      path: '/documents'
+      fullPath: '/workspace/documents'
+      preLoaderRoute: typeof WorkspaceDocumentsRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/calendar': {
+      id: '/workspace/calendar'
+      path: '/calendar'
+      fullPath: '/workspace/calendar'
+      preLoaderRoute: typeof WorkspaceCalendarRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/settings/voice': {
+      id: '/settings/voice'
+      path: '/voice'
+      fullPath: '/settings/voice'
+      preLoaderRoute: typeof SettingsVoiceRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/privacy': {
+      id: '/settings/privacy'
+      path: '/privacy'
+      fullPath: '/settings/privacy'
+      preLoaderRoute: typeof SettingsPrivacyRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/notifications': {
+      id: '/settings/notifications'
+      path: '/notifications'
+      fullPath: '/settings/notifications'
+      preLoaderRoute: typeof SettingsNotificationsRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/memory': {
+      id: '/settings/memory'
+      path: '/memory'
+      fullPath: '/settings/memory'
+      preLoaderRoute: typeof SettingsMemoryRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/language': {
+      id: '/settings/language'
+      path: '/language'
+      fullPath: '/settings/language'
+      preLoaderRoute: typeof SettingsLanguageRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/integrations': {
+      id: '/settings/integrations'
+      path: '/integrations'
+      fullPath: '/settings/integrations'
+      preLoaderRoute: typeof SettingsIntegrationsRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/backup': {
+      id: '/settings/backup'
+      path: '/backup'
+      fullPath: '/settings/backup'
+      preLoaderRoute: typeof SettingsBackupRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/appearance': {
+      id: '/settings/appearance'
+      path: '/appearance'
+      fullPath: '/settings/appearance'
+      preLoaderRoute: typeof SettingsAppearanceRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/ai': {
+      id: '/settings/ai'
+      path: '/ai'
+      fullPath: '/settings/ai'
+      preLoaderRoute: typeof SettingsAiRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/profile/subscription': {
+      id: '/profile/subscription'
+      path: '/subscription'
+      fullPath: '/profile/subscription'
+      preLoaderRoute: typeof ProfileSubscriptionRouteImport
+      parentRoute: typeof ProfileRoute
+    }
+    '/profile/stats': {
+      id: '/profile/stats'
+      path: '/stats'
+      fullPath: '/profile/stats'
+      preLoaderRoute: typeof ProfileStatsRouteImport
+      parentRoute: typeof ProfileRoute
+    }
+    '/profile/security': {
+      id: '/profile/security'
+      path: '/security'
+      fullPath: '/profile/security'
+      preLoaderRoute: typeof ProfileSecurityRouteImport
+      parentRoute: typeof ProfileRoute
+    }
+    '/models/upload': {
+      id: '/models/upload'
+      path: '/upload'
+      fullPath: '/models/upload'
+      preLoaderRoute: typeof ModelsUploadRouteImport
+      parentRoute: typeof ModelsRoute
+    }
+    '/models/ollama': {
+      id: '/models/ollama'
+      path: '/ollama'
+      fullPath: '/models/ollama'
+      preLoaderRoute: typeof ModelsOllamaRouteImport
+      parentRoute: typeof ModelsRoute
+    }
+    '/models/marketplace': {
+      id: '/models/marketplace'
+      path: '/marketplace'
+      fullPath: '/models/marketplace'
+      preLoaderRoute: typeof ModelsMarketplaceRouteImport
+      parentRoute: typeof ModelsRoute
+    }
+    '/models/download': {
+      id: '/models/download'
+      path: '/download'
+      fullPath: '/models/download'
+      preLoaderRoute: typeof ModelsDownloadRouteImport
+      parentRoute: typeof ModelsRoute
+    }
+    '/models/cloud': {
+      id: '/models/cloud'
+      path: '/cloud'
+      fullPath: '/models/cloud'
+      preLoaderRoute: typeof ModelsCloudRouteImport
+      parentRoute: typeof ModelsRoute
+    }
+    '/mcp/search': {
+      id: '/mcp/search'
+      path: '/search'
+      fullPath: '/mcp/search'
+      preLoaderRoute: typeof McpSearchRouteImport
+      parentRoute: typeof McpRoute
+    }
+    '/mcp/research': {
+      id: '/mcp/research'
+      path: '/research'
+      fullPath: '/mcp/research'
+      preLoaderRoute: typeof McpResearchRouteImport
+      parentRoute: typeof McpRoute
+    }
+    '/mcp/github': {
+      id: '/mcp/github'
+      path: '/github'
+      fullPath: '/mcp/github'
+      preLoaderRoute: typeof McpGithubRouteImport
+      parentRoute: typeof McpRoute
+    }
+    '/mcp/figma': {
+      id: '/mcp/figma'
+      path: '/figma'
+      fullPath: '/mcp/figma'
+      preLoaderRoute: typeof McpFigmaRouteImport
+      parentRoute: typeof McpRoute
+    }
+    '/mcp/drive': {
+      id: '/mcp/drive'
+      path: '/drive'
+      fullPath: '/mcp/drive'
+      preLoaderRoute: typeof McpDriveRouteImport
+      parentRoute: typeof McpRoute
+    }
+    '/mcp/canva': {
+      id: '/mcp/canva'
+      path: '/canva'
+      fullPath: '/mcp/canva'
+      preLoaderRoute: typeof McpCanvaRouteImport
+      parentRoute: typeof McpRoute
+    }
+    '/mcp/browser': {
+      id: '/mcp/browser'
+      path: '/browser'
+      fullPath: '/mcp/browser'
+      preLoaderRoute: typeof McpBrowserRouteImport
+      parentRoute: typeof McpRoute
+    }
+    '/learn/study': {
+      id: '/learn/study'
+      path: '/study'
+      fullPath: '/learn/study'
+      preLoaderRoute: typeof LearnStudyRouteImport
+      parentRoute: typeof LearnRoute
+    }
+    '/learn/exam': {
+      id: '/learn/exam'
+      path: '/exam'
+      fullPath: '/learn/exam'
+      preLoaderRoute: typeof LearnExamRouteImport
+      parentRoute: typeof LearnRoute
+    }
+    '/learn/career': {
+      id: '/learn/career'
+      path: '/career'
+      fullPath: '/learn/career'
+      preLoaderRoute: typeof LearnCareerRouteImport
+      parentRoute: typeof LearnRoute
+    }
+    '/imagine/voice-clone': {
+      id: '/imagine/voice-clone'
+      path: '/voice-clone'
+      fullPath: '/imagine/voice-clone'
+      preLoaderRoute: typeof ImagineVoiceCloneRouteImport
+      parentRoute: typeof ImagineRoute
+    }
+    '/imagine/voice': {
+      id: '/imagine/voice'
+      path: '/voice'
+      fullPath: '/imagine/voice'
+      preLoaderRoute: typeof ImagineVoiceRouteImport
+      parentRoute: typeof ImagineRoute
+    }
+    '/imagine/video-history': {
+      id: '/imagine/video-history'
+      path: '/video-history'
+      fullPath: '/imagine/video-history'
+      preLoaderRoute: typeof ImagineVideoHistoryRouteImport
+      parentRoute: typeof ImagineRoute
+    }
+    '/imagine/video': {
+      id: '/imagine/video'
+      path: '/video'
+      fullPath: '/imagine/video'
+      preLoaderRoute: typeof ImagineVideoRouteImport
+      parentRoute: typeof ImagineRoute
+    }
+    '/imagine/three-d-history': {
+      id: '/imagine/three-d-history'
+      path: '/three-d-history'
+      fullPath: '/imagine/three-d-history'
+      preLoaderRoute: typeof ImagineThreeDHistoryRouteImport
+      parentRoute: typeof ImagineRoute
+    }
+    '/imagine/three-d': {
+      id: '/imagine/three-d'
+      path: '/three-d'
+      fullPath: '/imagine/three-d'
+      preLoaderRoute: typeof ImagineThreeDRouteImport
+      parentRoute: typeof ImagineRoute
+    }
+    '/imagine/music': {
+      id: '/imagine/music'
+      path: '/music'
+      fullPath: '/imagine/music'
+      preLoaderRoute: typeof ImagineMusicRouteImport
+      parentRoute: typeof ImagineRoute
+    }
+    '/imagine/image-history': {
+      id: '/imagine/image-history'
+      path: '/image-history'
+      fullPath: '/imagine/image-history'
+      preLoaderRoute: typeof ImagineImageHistoryRouteImport
+      parentRoute: typeof ImagineRoute
+    }
+    '/imagine/image-editor': {
+      id: '/imagine/image-editor'
+      path: '/image-editor'
+      fullPath: '/imagine/image-editor'
+      preLoaderRoute: typeof ImagineImageEditorRouteImport
+      parentRoute: typeof ImagineRoute
+    }
+    '/home/suggestions': {
+      id: '/home/suggestions'
+      path: '/suggestions'
+      fullPath: '/home/suggestions'
+      preLoaderRoute: typeof HomeSuggestionsRouteImport
+      parentRoute: typeof HomeRoute
+    }
+    '/home/recent': {
+      id: '/home/recent'
+      path: '/recent'
+      fullPath: '/home/recent'
+      preLoaderRoute: typeof HomeRecentRouteImport
+      parentRoute: typeof HomeRoute
+    }
+    '/home/actions': {
+      id: '/home/actions'
+      path: '/actions'
+      fullPath: '/home/actions'
+      preLoaderRoute: typeof HomeActionsRouteImport
+      parentRoute: typeof HomeRoute
+    }
+    '/explore/youtube': {
+      id: '/explore/youtube'
+      path: '/youtube'
+      fullPath: '/explore/youtube'
+      preLoaderRoute: typeof ExploreYoutubeRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/web': {
+      id: '/explore/web'
+      path: '/web'
+      fullPath: '/explore/web'
+      preLoaderRoute: typeof ExploreWebRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/research': {
+      id: '/explore/research'
+      path: '/research'
+      fullPath: '/explore/research'
+      preLoaderRoute: typeof ExploreResearchRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/quiz': {
+      id: '/explore/quiz'
+      path: '/quiz'
+      fullPath: '/explore/quiz'
+      preLoaderRoute: typeof ExploreQuizRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/pdf': {
+      id: '/explore/pdf'
+      path: '/pdf'
+      fullPath: '/explore/pdf'
+      preLoaderRoute: typeof ExplorePdfRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/mindmaps': {
+      id: '/explore/mindmaps'
+      path: '/mindmaps'
+      fullPath: '/explore/mindmaps'
+      preLoaderRoute: typeof ExploreMindmapsRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/flashcards': {
+      id: '/explore/flashcards'
+      path: '/flashcards'
+      fullPath: '/explore/flashcards'
+      preLoaderRoute: typeof ExploreFlashcardsRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/community/templates': {
+      id: '/community/templates'
+      path: '/templates'
+      fullPath: '/community/templates'
+      preLoaderRoute: typeof CommunityTemplatesRouteImport
+      parentRoute: typeof CommunityRoute
+    }
+    '/community/projects': {
+      id: '/community/projects'
+      path: '/projects'
+      fullPath: '/community/projects'
+      preLoaderRoute: typeof CommunityProjectsRouteImport
+      parentRoute: typeof CommunityRoute
+    }
+    '/community/leaderboard': {
+      id: '/community/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/community/leaderboard'
+      preLoaderRoute: typeof CommunityLeaderboardRouteImport
+      parentRoute: typeof CommunityRoute
+    }
+    '/code/terminal': {
+      id: '/code/terminal'
+      path: '/terminal'
+      fullPath: '/code/terminal'
+      preLoaderRoute: typeof CodeTerminalRouteImport
+      parentRoute: typeof CodeRoute
+    }
+    '/code/preview': {
+      id: '/code/preview'
+      path: '/preview'
+      fullPath: '/code/preview'
+      preLoaderRoute: typeof CodePreviewRouteImport
+      parentRoute: typeof CodeRoute
+    }
+    '/code/github': {
+      id: '/code/github'
+      path: '/github'
+      fullPath: '/code/github'
+      preLoaderRoute: typeof CodeGithubRouteImport
+      parentRoute: typeof CodeRoute
+    }
+    '/code/files': {
+      id: '/code/files'
+      path: '/files'
+      fullPath: '/code/files'
+      preLoaderRoute: typeof CodeFilesRouteImport
+      parentRoute: typeof CodeRoute
+    }
+    '/code/editor': {
+      id: '/code/editor'
+      path: '/editor'
+      fullPath: '/code/editor'
+      preLoaderRoute: typeof CodeEditorRouteImport
+      parentRoute: typeof CodeRoute
+    }
+    '/code/assistant': {
+      id: '/code/assistant'
+      path: '/assistant'
+      fullPath: '/code/assistant'
+      preLoaderRoute: typeof CodeAssistantRouteImport
+      parentRoute: typeof CodeRoute
+    }
+    '/chat/voice': {
+      id: '/chat/voice'
+      path: '/voice'
+      fullPath: '/chat/voice'
+      preLoaderRoute: typeof ChatVoiceRouteImport
+      parentRoute: typeof ChatRoute
+    }
+    '/chat/shared': {
+      id: '/chat/shared'
+      path: '/shared'
+      fullPath: '/chat/shared'
+      preLoaderRoute: typeof ChatSharedRouteImport
+      parentRoute: typeof ChatRoute
+    }
+    '/chat/search': {
+      id: '/chat/search'
+      path: '/search'
+      fullPath: '/chat/search'
+      preLoaderRoute: typeof ChatSearchRouteImport
+      parentRoute: typeof ChatRoute
+    }
+    '/chat/pinned': {
+      id: '/chat/pinned'
+      path: '/pinned'
+      fullPath: '/chat/pinned'
+      preLoaderRoute: typeof ChatPinnedRouteImport
+      parentRoute: typeof ChatRoute
+    }
+    '/chat/history': {
+      id: '/chat/history'
+      path: '/history'
+      fullPath: '/chat/history'
+      preLoaderRoute: typeof ChatHistoryRouteImport
       parentRoute: typeof ChatRoute
     }
     '/chat/$chatId': {
@@ -468,41 +2217,531 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/agents/video': {
+      id: '/agents/video'
+      path: '/video'
+      fullPath: '/agents/video'
+      preLoaderRoute: typeof AgentsVideoRouteImport
+      parentRoute: typeof AgentsRoute
+    }
+    '/agents/research': {
+      id: '/agents/research'
+      path: '/research'
+      fullPath: '/agents/research'
+      preLoaderRoute: typeof AgentsResearchRouteImport
+      parentRoute: typeof AgentsRoute
+    }
+    '/agents/planner': {
+      id: '/agents/planner'
+      path: '/planner'
+      fullPath: '/agents/planner'
+      preLoaderRoute: typeof AgentsPlannerRouteImport
+      parentRoute: typeof AgentsRoute
+    }
+    '/agents/memory': {
+      id: '/agents/memory'
+      path: '/memory'
+      fullPath: '/agents/memory'
+      preLoaderRoute: typeof AgentsMemoryRouteImport
+      parentRoute: typeof AgentsRoute
+    }
+    '/agents/judge': {
+      id: '/agents/judge'
+      path: '/judge'
+      fullPath: '/agents/judge'
+      preLoaderRoute: typeof AgentsJudgeRouteImport
+      parentRoute: typeof AgentsRoute
+    }
+    '/agents/image': {
+      id: '/agents/image'
+      path: '/image'
+      fullPath: '/agents/image'
+      preLoaderRoute: typeof AgentsImageRouteImport
+      parentRoute: typeof AgentsRoute
+    }
+    '/agents/coding': {
+      id: '/agents/coding'
+      path: '/coding'
+      fullPath: '/agents/coding'
+      preLoaderRoute: typeof AgentsCodingRouteImport
+      parentRoute: typeof AgentsRoute
+    }
+    '/agents/browser': {
+      id: '/agents/browser'
+      path: '/browser'
+      fullPath: '/agents/browser'
+      preLoaderRoute: typeof AgentsBrowserRouteImport
+      parentRoute: typeof AgentsRoute
+    }
+    '/agents/audio': {
+      id: '/agents/audio'
+      path: '/audio'
+      fullPath: '/agents/audio'
+      preLoaderRoute: typeof AgentsAudioRouteImport
+      parentRoute: typeof AgentsRoute
+    }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/training': {
+      id: '/admin/training'
+      path: '/training'
+      fullPath: '/admin/training'
+      preLoaderRoute: typeof AdminTrainingRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/security': {
+      id: '/admin/security'
+      path: '/security'
+      fullPath: '/admin/security'
+      preLoaderRoute: typeof AdminSecurityRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/prompts': {
+      id: '/admin/prompts'
+      path: '/prompts'
+      fullPath: '/admin/prompts'
+      preLoaderRoute: typeof AdminPromptsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/moderation': {
+      id: '/admin/moderation'
+      path: '/moderation'
+      fullPath: '/admin/moderation'
+      preLoaderRoute: typeof AdminModerationRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/models': {
+      id: '/admin/models'
+      path: '/models'
+      fullPath: '/admin/models'
+      preLoaderRoute: typeof AdminModelsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/mcp': {
+      id: '/admin/mcp'
+      path: '/mcp'
+      fullPath: '/admin/mcp'
+      preLoaderRoute: typeof AdminMcpRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/logs': {
+      id: '/admin/logs'
+      path: '/logs'
+      fullPath: '/admin/logs'
+      preLoaderRoute: typeof AdminLogsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/limits': {
+      id: '/admin/limits'
+      path: '/limits'
+      fullPath: '/admin/limits'
+      preLoaderRoute: typeof AdminLimitsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/keys': {
+      id: '/admin/keys'
+      path: '/keys'
+      fullPath: '/admin/keys'
+      preLoaderRoute: typeof AdminKeysRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/health': {
+      id: '/admin/health'
+      path: '/health'
+      fullPath: '/admin/health'
+      preLoaderRoute: typeof AdminHealthRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/broadcast': {
+      id: '/admin/broadcast'
+      path: '/broadcast'
+      fullPath: '/admin/broadcast'
+      preLoaderRoute: typeof AdminBroadcastRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/backup': {
+      id: '/admin/backup'
+      path: '/backup'
+      fullPath: '/admin/backup'
+      preLoaderRoute: typeof AdminBackupRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/analytics': {
+      id: '/admin/analytics'
+      path: '/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AdminAnalyticsRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminAnalyticsRoute: typeof AdminAnalyticsRoute
+  AdminBackupRoute: typeof AdminBackupRoute
+  AdminBroadcastRoute: typeof AdminBroadcastRoute
+  AdminHealthRoute: typeof AdminHealthRoute
+  AdminKeysRoute: typeof AdminKeysRoute
+  AdminLimitsRoute: typeof AdminLimitsRoute
+  AdminLogsRoute: typeof AdminLogsRoute
+  AdminMcpRoute: typeof AdminMcpRoute
+  AdminModelsRoute: typeof AdminModelsRoute
+  AdminModerationRoute: typeof AdminModerationRoute
+  AdminPromptsRoute: typeof AdminPromptsRoute
+  AdminSecurityRoute: typeof AdminSecurityRoute
+  AdminTrainingRoute: typeof AdminTrainingRoute
+  AdminUsersRoute: typeof AdminUsersRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAnalyticsRoute: AdminAnalyticsRoute,
+  AdminBackupRoute: AdminBackupRoute,
+  AdminBroadcastRoute: AdminBroadcastRoute,
+  AdminHealthRoute: AdminHealthRoute,
+  AdminKeysRoute: AdminKeysRoute,
+  AdminLimitsRoute: AdminLimitsRoute,
+  AdminLogsRoute: AdminLogsRoute,
+  AdminMcpRoute: AdminMcpRoute,
+  AdminModelsRoute: AdminModelsRoute,
+  AdminModerationRoute: AdminModerationRoute,
+  AdminPromptsRoute: AdminPromptsRoute,
+  AdminSecurityRoute: AdminSecurityRoute,
+  AdminTrainingRoute: AdminTrainingRoute,
+  AdminUsersRoute: AdminUsersRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface AgentsRouteChildren {
+  AgentsAudioRoute: typeof AgentsAudioRoute
+  AgentsBrowserRoute: typeof AgentsBrowserRoute
+  AgentsCodingRoute: typeof AgentsCodingRoute
+  AgentsImageRoute: typeof AgentsImageRoute
+  AgentsJudgeRoute: typeof AgentsJudgeRoute
+  AgentsMemoryRoute: typeof AgentsMemoryRoute
+  AgentsPlannerRoute: typeof AgentsPlannerRoute
+  AgentsResearchRoute: typeof AgentsResearchRoute
+  AgentsVideoRoute: typeof AgentsVideoRoute
+  AgentsIndexRoute: typeof AgentsIndexRoute
+}
+
+const AgentsRouteChildren: AgentsRouteChildren = {
+  AgentsAudioRoute: AgentsAudioRoute,
+  AgentsBrowserRoute: AgentsBrowserRoute,
+  AgentsCodingRoute: AgentsCodingRoute,
+  AgentsImageRoute: AgentsImageRoute,
+  AgentsJudgeRoute: AgentsJudgeRoute,
+  AgentsMemoryRoute: AgentsMemoryRoute,
+  AgentsPlannerRoute: AgentsPlannerRoute,
+  AgentsResearchRoute: AgentsResearchRoute,
+  AgentsVideoRoute: AgentsVideoRoute,
+  AgentsIndexRoute: AgentsIndexRoute,
+}
+
+const AgentsRouteWithChildren =
+  AgentsRoute._addFileChildren(AgentsRouteChildren)
+
 interface ChatRouteChildren {
   ChatChatIdRoute: typeof ChatChatIdRoute
+  ChatHistoryRoute: typeof ChatHistoryRoute
+  ChatPinnedRoute: typeof ChatPinnedRoute
+  ChatSearchRoute: typeof ChatSearchRoute
+  ChatSharedRoute: typeof ChatSharedRoute
+  ChatVoiceRoute: typeof ChatVoiceRoute
   ChatIndexRoute: typeof ChatIndexRoute
 }
 
 const ChatRouteChildren: ChatRouteChildren = {
   ChatChatIdRoute: ChatChatIdRoute,
+  ChatHistoryRoute: ChatHistoryRoute,
+  ChatPinnedRoute: ChatPinnedRoute,
+  ChatSearchRoute: ChatSearchRoute,
+  ChatSharedRoute: ChatSharedRoute,
+  ChatVoiceRoute: ChatVoiceRoute,
   ChatIndexRoute: ChatIndexRoute,
 }
 
 const ChatRouteWithChildren = ChatRoute._addFileChildren(ChatRouteChildren)
 
+interface CodeRouteChildren {
+  CodeAssistantRoute: typeof CodeAssistantRoute
+  CodeEditorRoute: typeof CodeEditorRoute
+  CodeFilesRoute: typeof CodeFilesRoute
+  CodeGithubRoute: typeof CodeGithubRoute
+  CodePreviewRoute: typeof CodePreviewRoute
+  CodeTerminalRoute: typeof CodeTerminalRoute
+  CodeIndexRoute: typeof CodeIndexRoute
+}
+
+const CodeRouteChildren: CodeRouteChildren = {
+  CodeAssistantRoute: CodeAssistantRoute,
+  CodeEditorRoute: CodeEditorRoute,
+  CodeFilesRoute: CodeFilesRoute,
+  CodeGithubRoute: CodeGithubRoute,
+  CodePreviewRoute: CodePreviewRoute,
+  CodeTerminalRoute: CodeTerminalRoute,
+  CodeIndexRoute: CodeIndexRoute,
+}
+
+const CodeRouteWithChildren = CodeRoute._addFileChildren(CodeRouteChildren)
+
+interface CommunityRouteChildren {
+  CommunityLeaderboardRoute: typeof CommunityLeaderboardRoute
+  CommunityProjectsRoute: typeof CommunityProjectsRoute
+  CommunityTemplatesRoute: typeof CommunityTemplatesRoute
+  CommunityIndexRoute: typeof CommunityIndexRoute
+}
+
+const CommunityRouteChildren: CommunityRouteChildren = {
+  CommunityLeaderboardRoute: CommunityLeaderboardRoute,
+  CommunityProjectsRoute: CommunityProjectsRoute,
+  CommunityTemplatesRoute: CommunityTemplatesRoute,
+  CommunityIndexRoute: CommunityIndexRoute,
+}
+
+const CommunityRouteWithChildren = CommunityRoute._addFileChildren(
+  CommunityRouteChildren,
+)
+
+interface ExploreRouteChildren {
+  ExploreFlashcardsRoute: typeof ExploreFlashcardsRoute
+  ExploreMindmapsRoute: typeof ExploreMindmapsRoute
+  ExplorePdfRoute: typeof ExplorePdfRoute
+  ExploreQuizRoute: typeof ExploreQuizRoute
+  ExploreResearchRoute: typeof ExploreResearchRoute
+  ExploreWebRoute: typeof ExploreWebRoute
+  ExploreYoutubeRoute: typeof ExploreYoutubeRoute
+  ExploreIndexRoute: typeof ExploreIndexRoute
+}
+
+const ExploreRouteChildren: ExploreRouteChildren = {
+  ExploreFlashcardsRoute: ExploreFlashcardsRoute,
+  ExploreMindmapsRoute: ExploreMindmapsRoute,
+  ExplorePdfRoute: ExplorePdfRoute,
+  ExploreQuizRoute: ExploreQuizRoute,
+  ExploreResearchRoute: ExploreResearchRoute,
+  ExploreWebRoute: ExploreWebRoute,
+  ExploreYoutubeRoute: ExploreYoutubeRoute,
+  ExploreIndexRoute: ExploreIndexRoute,
+}
+
+const ExploreRouteWithChildren =
+  ExploreRoute._addFileChildren(ExploreRouteChildren)
+
+interface HomeRouteChildren {
+  HomeActionsRoute: typeof HomeActionsRoute
+  HomeRecentRoute: typeof HomeRecentRoute
+  HomeSuggestionsRoute: typeof HomeSuggestionsRoute
+  HomeIndexRoute: typeof HomeIndexRoute
+}
+
+const HomeRouteChildren: HomeRouteChildren = {
+  HomeActionsRoute: HomeActionsRoute,
+  HomeRecentRoute: HomeRecentRoute,
+  HomeSuggestionsRoute: HomeSuggestionsRoute,
+  HomeIndexRoute: HomeIndexRoute,
+}
+
+const HomeRouteWithChildren = HomeRoute._addFileChildren(HomeRouteChildren)
+
+interface ImagineRouteChildren {
+  ImagineImageEditorRoute: typeof ImagineImageEditorRoute
+  ImagineImageHistoryRoute: typeof ImagineImageHistoryRoute
+  ImagineMusicRoute: typeof ImagineMusicRoute
+  ImagineThreeDRoute: typeof ImagineThreeDRoute
+  ImagineThreeDHistoryRoute: typeof ImagineThreeDHistoryRoute
+  ImagineVideoRoute: typeof ImagineVideoRoute
+  ImagineVideoHistoryRoute: typeof ImagineVideoHistoryRoute
+  ImagineVoiceRoute: typeof ImagineVoiceRoute
+  ImagineVoiceCloneRoute: typeof ImagineVoiceCloneRoute
+  ImagineIndexRoute: typeof ImagineIndexRoute
+}
+
+const ImagineRouteChildren: ImagineRouteChildren = {
+  ImagineImageEditorRoute: ImagineImageEditorRoute,
+  ImagineImageHistoryRoute: ImagineImageHistoryRoute,
+  ImagineMusicRoute: ImagineMusicRoute,
+  ImagineThreeDRoute: ImagineThreeDRoute,
+  ImagineThreeDHistoryRoute: ImagineThreeDHistoryRoute,
+  ImagineVideoRoute: ImagineVideoRoute,
+  ImagineVideoHistoryRoute: ImagineVideoHistoryRoute,
+  ImagineVoiceRoute: ImagineVoiceRoute,
+  ImagineVoiceCloneRoute: ImagineVoiceCloneRoute,
+  ImagineIndexRoute: ImagineIndexRoute,
+}
+
+const ImagineRouteWithChildren =
+  ImagineRoute._addFileChildren(ImagineRouteChildren)
+
+interface LearnRouteChildren {
+  LearnCareerRoute: typeof LearnCareerRoute
+  LearnExamRoute: typeof LearnExamRoute
+  LearnStudyRoute: typeof LearnStudyRoute
+  LearnIndexRoute: typeof LearnIndexRoute
+}
+
+const LearnRouteChildren: LearnRouteChildren = {
+  LearnCareerRoute: LearnCareerRoute,
+  LearnExamRoute: LearnExamRoute,
+  LearnStudyRoute: LearnStudyRoute,
+  LearnIndexRoute: LearnIndexRoute,
+}
+
+const LearnRouteWithChildren = LearnRoute._addFileChildren(LearnRouteChildren)
+
+interface McpRouteChildren {
+  McpBrowserRoute: typeof McpBrowserRoute
+  McpCanvaRoute: typeof McpCanvaRoute
+  McpDriveRoute: typeof McpDriveRoute
+  McpFigmaRoute: typeof McpFigmaRoute
+  McpGithubRoute: typeof McpGithubRoute
+  McpResearchRoute: typeof McpResearchRoute
+  McpSearchRoute: typeof McpSearchRoute
+  McpIndexRoute: typeof McpIndexRoute
+}
+
+const McpRouteChildren: McpRouteChildren = {
+  McpBrowserRoute: McpBrowserRoute,
+  McpCanvaRoute: McpCanvaRoute,
+  McpDriveRoute: McpDriveRoute,
+  McpFigmaRoute: McpFigmaRoute,
+  McpGithubRoute: McpGithubRoute,
+  McpResearchRoute: McpResearchRoute,
+  McpSearchRoute: McpSearchRoute,
+  McpIndexRoute: McpIndexRoute,
+}
+
+const McpRouteWithChildren = McpRoute._addFileChildren(McpRouteChildren)
+
+interface ModelsRouteChildren {
+  ModelsCloudRoute: typeof ModelsCloudRoute
+  ModelsDownloadRoute: typeof ModelsDownloadRoute
+  ModelsMarketplaceRoute: typeof ModelsMarketplaceRoute
+  ModelsOllamaRoute: typeof ModelsOllamaRoute
+  ModelsUploadRoute: typeof ModelsUploadRoute
+  ModelsIndexRoute: typeof ModelsIndexRoute
+}
+
+const ModelsRouteChildren: ModelsRouteChildren = {
+  ModelsCloudRoute: ModelsCloudRoute,
+  ModelsDownloadRoute: ModelsDownloadRoute,
+  ModelsMarketplaceRoute: ModelsMarketplaceRoute,
+  ModelsOllamaRoute: ModelsOllamaRoute,
+  ModelsUploadRoute: ModelsUploadRoute,
+  ModelsIndexRoute: ModelsIndexRoute,
+}
+
+const ModelsRouteWithChildren =
+  ModelsRoute._addFileChildren(ModelsRouteChildren)
+
+interface NotificationsRouteChildren {
+  NotificationsIndexRoute: typeof NotificationsIndexRoute
+}
+
+const NotificationsRouteChildren: NotificationsRouteChildren = {
+  NotificationsIndexRoute: NotificationsIndexRoute,
+}
+
+const NotificationsRouteWithChildren = NotificationsRoute._addFileChildren(
+  NotificationsRouteChildren,
+)
+
+interface ProfileRouteChildren {
+  ProfileSecurityRoute: typeof ProfileSecurityRoute
+  ProfileStatsRoute: typeof ProfileStatsRoute
+  ProfileSubscriptionRoute: typeof ProfileSubscriptionRoute
+  ProfileIndexRoute: typeof ProfileIndexRoute
+}
+
+const ProfileRouteChildren: ProfileRouteChildren = {
+  ProfileSecurityRoute: ProfileSecurityRoute,
+  ProfileStatsRoute: ProfileStatsRoute,
+  ProfileSubscriptionRoute: ProfileSubscriptionRoute,
+  ProfileIndexRoute: ProfileIndexRoute,
+}
+
+const ProfileRouteWithChildren =
+  ProfileRoute._addFileChildren(ProfileRouteChildren)
+
+interface SettingsRouteChildren {
+  SettingsAiRoute: typeof SettingsAiRoute
+  SettingsAppearanceRoute: typeof SettingsAppearanceRoute
+  SettingsBackupRoute: typeof SettingsBackupRoute
+  SettingsIntegrationsRoute: typeof SettingsIntegrationsRoute
+  SettingsLanguageRoute: typeof SettingsLanguageRoute
+  SettingsMemoryRoute: typeof SettingsMemoryRoute
+  SettingsNotificationsRoute: typeof SettingsNotificationsRoute
+  SettingsPrivacyRoute: typeof SettingsPrivacyRoute
+  SettingsVoiceRoute: typeof SettingsVoiceRoute
+  SettingsIndexRoute: typeof SettingsIndexRoute
+}
+
+const SettingsRouteChildren: SettingsRouteChildren = {
+  SettingsAiRoute: SettingsAiRoute,
+  SettingsAppearanceRoute: SettingsAppearanceRoute,
+  SettingsBackupRoute: SettingsBackupRoute,
+  SettingsIntegrationsRoute: SettingsIntegrationsRoute,
+  SettingsLanguageRoute: SettingsLanguageRoute,
+  SettingsMemoryRoute: SettingsMemoryRoute,
+  SettingsNotificationsRoute: SettingsNotificationsRoute,
+  SettingsPrivacyRoute: SettingsPrivacyRoute,
+  SettingsVoiceRoute: SettingsVoiceRoute,
+  SettingsIndexRoute: SettingsIndexRoute,
+}
+
+const SettingsRouteWithChildren = SettingsRoute._addFileChildren(
+  SettingsRouteChildren,
+)
+
+interface WorkspaceRouteChildren {
+  WorkspaceCalendarRoute: typeof WorkspaceCalendarRoute
+  WorkspaceDocumentsRoute: typeof WorkspaceDocumentsRoute
+  WorkspaceFilesRoute: typeof WorkspaceFilesRoute
+  WorkspaceProjectsRoute: typeof WorkspaceProjectsRoute
+  WorkspaceTasksRoute: typeof WorkspaceTasksRoute
+  WorkspaceIndexRoute: typeof WorkspaceIndexRoute
+}
+
+const WorkspaceRouteChildren: WorkspaceRouteChildren = {
+  WorkspaceCalendarRoute: WorkspaceCalendarRoute,
+  WorkspaceDocumentsRoute: WorkspaceDocumentsRoute,
+  WorkspaceFilesRoute: WorkspaceFilesRoute,
+  WorkspaceProjectsRoute: WorkspaceProjectsRoute,
+  WorkspaceTasksRoute: WorkspaceTasksRoute,
+  WorkspaceIndexRoute: WorkspaceIndexRoute,
+}
+
+const WorkspaceRouteWithChildren = WorkspaceRoute._addFileChildren(
+  WorkspaceRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
-  AgentsRoute: AgentsRoute,
+  AdminRoute: AdminRouteWithChildren,
+  AgentsRoute: AgentsRouteWithChildren,
   AuthRoute: AuthRoute,
   ChatRoute: ChatRouteWithChildren,
-  CodeRoute: CodeRoute,
-  CommunityRoute: CommunityRoute,
-  ExploreRoute: ExploreRoute,
-  HomeRoute: HomeRoute,
-  ImagineRoute: ImagineRoute,
-  LearnRoute: LearnRoute,
-  McpRoute: McpRoute,
-  ModelsRoute: ModelsRoute,
-  NotificationsRoute: NotificationsRoute,
-  ProfileRoute: ProfileRoute,
+  CodeRoute: CodeRouteWithChildren,
+  CommunityRoute: CommunityRouteWithChildren,
+  ExploreRoute: ExploreRouteWithChildren,
+  HomeRoute: HomeRouteWithChildren,
+  ImagineRoute: ImagineRouteWithChildren,
+  LearnRoute: LearnRouteWithChildren,
+  McpRoute: McpRouteWithChildren,
+  ModelsRoute: ModelsRouteWithChildren,
+  NotificationsRoute: NotificationsRouteWithChildren,
+  ProfileRoute: ProfileRouteWithChildren,
   ResetPasswordRoute: ResetPasswordRoute,
-  SettingsRoute: SettingsRoute,
+  SettingsRoute: SettingsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  WorkspaceRoute: WorkspaceRoute,
+  WorkspaceRoute: WorkspaceRouteWithChildren,
   ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport
