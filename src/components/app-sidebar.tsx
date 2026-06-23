@@ -1,3 +1,4 @@
+import { Logo } from "@/components/logo";
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
   Home,
