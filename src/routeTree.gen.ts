@@ -14,6 +14,7 @@ import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ChatIndexRouteImport } from './routes/chat.index'
+import { Route as ChatChatIdRouteImport } from './routes/chat.$chatId'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 
 const HomeRoute = HomeRouteImport.update({
@@ -41,6 +42,11 @@ const ChatIndexRoute = ChatIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ChatRoute,
 } as any)
+const ChatChatIdRoute = ChatChatIdRouteImport.update({
+  id: '/$chatId',
+  path: '/$chatId',
+  getParentRoute: () => ChatRoute,
+} as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
   path: '/api/chat',
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/chat': typeof ChatRouteWithChildren
   '/home': typeof HomeRoute
   '/api/chat': typeof ApiChatRoute
+  '/chat/$chatId': typeof ChatChatIdRoute
   '/chat/': typeof ChatIndexRoute
 }
 export interface FileRoutesByTo {
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/home': typeof HomeRoute
   '/api/chat': typeof ApiChatRoute
+  '/chat/$chatId': typeof ChatChatIdRoute
   '/chat': typeof ChatIndexRoute
 }
 export interface FileRoutesById {
@@ -69,14 +77,30 @@ export interface FileRoutesById {
   '/chat': typeof ChatRouteWithChildren
   '/home': typeof HomeRoute
   '/api/chat': typeof ApiChatRoute
+  '/chat/$chatId': typeof ChatChatIdRoute
   '/chat/': typeof ChatIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/chat' | '/home' | '/api/chat' | '/chat/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/chat'
+    | '/home'
+    | '/api/chat'
+    | '/chat/$chatId'
+    | '/chat/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/home' | '/api/chat' | '/chat'
-  id: '__root__' | '/' | '/auth' | '/chat' | '/home' | '/api/chat' | '/chat/'
+  to: '/' | '/auth' | '/home' | '/api/chat' | '/chat/$chatId' | '/chat'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/chat'
+    | '/home'
+    | '/api/chat'
+    | '/chat/$chatId'
+    | '/chat/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -124,6 +148,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChatIndexRouteImport
       parentRoute: typeof ChatRoute
     }
+    '/chat/$chatId': {
+      id: '/chat/$chatId'
+      path: '/$chatId'
+      fullPath: '/chat/$chatId'
+      preLoaderRoute: typeof ChatChatIdRouteImport
+      parentRoute: typeof ChatRoute
+    }
     '/api/chat': {
       id: '/api/chat'
       path: '/api/chat'
@@ -135,10 +166,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface ChatRouteChildren {
+  ChatChatIdRoute: typeof ChatChatIdRoute
   ChatIndexRoute: typeof ChatIndexRoute
 }
 
 const ChatRouteChildren: ChatRouteChildren = {
+  ChatChatIdRoute: ChatChatIdRoute,
   ChatIndexRoute: ChatIndexRoute,
 }
 
