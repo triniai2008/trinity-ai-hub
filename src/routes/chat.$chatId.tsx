@@ -19,11 +19,17 @@ export const Route = createFileRoute("/chat/$chatId")({
 });
 
 const MODELS = [
-  { id: "google/gemini-3-flash-preview", label: "Gemini 3 Flash" },
-  { id: "google/gemini-2.5-flash", label: "Gemini 2.5 Flash" },
-  { id: "google/gemini-2.5-pro", label: "Gemini 2.5 Pro" },
-  { id: "openai/gpt-5-mini", label: "GPT-5 mini" },
-  { id: "openai/gpt-5", label: "GPT-5" },
+  { id: "", label: "Auto (Trinity routes)" },
+  { id: "deepseek-v3", label: "DeepSeek V3" },
+  { id: "qwen-3", label: "Qwen 3" },
+  { id: "llama", label: "Llama 3.3" },
+  { id: "gemma-3", label: "Gemma 3" },
+  { id: "mistral", label: "Mistral" },
+  { id: "deepseek-coder", label: "DeepSeek Coder" },
+  { id: "qwen-coder", label: "Qwen Coder" },
+  { id: "gpt", label: "GPT-4o (premium)" },
+  { id: "claude", label: "Claude 3.5 Sonnet (premium)" },
+  { id: "gemini", label: "Gemini 2.5 Pro (premium)" },
 ] as const;
 
 const THINKING = [
