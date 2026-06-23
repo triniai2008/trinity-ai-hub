@@ -1,79 +1,123 @@
 
-# TriniAI — Phased Build Plan
+# TriniAI Phase 2 — Trinity 1.0 Brain + Multi-Provider + Turso + External Supabase
 
-Your spec covers ~100 pages, 15+ modules, a multi-model AI router (Trinity 1.0), agents, MCPs, admin panel, moderation, Turso, Google Sheets sync, Capacitor, etc. That's a multi-month product, not a single build. Shipping it all at once would mean ~100 broken placeholder pages and no working core.
+This is a multi-turn build. I'll do it in 4 staged sub-phases so each one is testable. Below is the full plan; I'll execute Stage A on approval, then Stage B/C/D in follow-up turns.
 
-I'll build it in phases. **Phase 1** below is what I'll implement now — a real, usable foundation. Later phases are scoped but not built until you approve each.
-
----
-
-## Phase 1 — Foundation & Chat (build now)
-
-Goal: a working ChatGPT-style shell with real AI chat, auth, and the full navigation skeleton so every later module slots in cleanly.
-
-**Design system**
-- Black/white minimal theme (dark default, light toggle), Inter, thin borders, rounded corners, no gradients/glass
-- Tokens in `src/styles.css`: `--background #0A0A0A`, sidebar `#111`, card `#1A1A1A`, border `#2A2A2A`, muted text `#A1A1AA`; light mirror
-- Shadcn variants tuned to the system
-
-**Shell & navigation**
-- Root layout with collapsible desktop sidebar + mobile bottom nav (Home, Chat, Imagine, Code, More)
-- "More" drawer for the remaining modules
-- Command palette (⌘K), toast system, error boundary, skeletons, empty states
-- Top bar: new chat, theme toggle, profile menu
-
-**Auth (Lovable Cloud)**
-- Enable Lovable Cloud
-- Email/password + Google sign-in, `/auth` and `/reset-password`
-- `profiles` table + trigger, `user_roles` table (user/vip/moderator/admin/super_admin) with `has_role()` security-definer
-
-**Chat module (real, working)**
-- New Chat, Chat History sidebar, rename/delete/pin/archive
-- Streaming responses via Lovable AI Gateway (default `google/gemini-3-flash-preview`)
-- Model selector (Gemini/GPT-5/Claude-equivalents from allowlist) + Thinking Mode selector (Normal/Medium/High — Phase 1 routes all to single model; multi-model judge lands in Phase 3)
-- Markdown + code blocks (syntax highlight), copy, regenerate, edit prompt
-- Conversation persistence in Cloud (`chats`, `messages` tables with RLS + GRANTs)
-
-**Page stubs (navigable, labeled "Coming soon")**
-- Imagine, Code, Explore, Agents, Models, MCP Hub, Workspace, Community, Learn, Notifications, Profile, Settings, Admin
-- Each is a real route with proper `head()` metadata so navigation works end-to-end
-
-**SEO**
-- `sitemap.xml`, `robots.txt`, per-route titles/descriptions
+## Secrets (stored, ready)
+EXTERNAL_SUPABASE_URL, EXTERNAL_SUPABASE_PUBLISHABLE_KEY, EXTERNAL_SUPABASE_DB_URL, TURSO_DATABASE_URL, TURSO_AUTH_TOKEN, HUGGINGFACE_API_KEY, OPENROUTER_API_KEY. LOVABLE_API_KEY already present.
 
 ---
 
-## Phase 2 — Imagine + Settings + Profile
-Image generation (gpt-image-2), history, prompt input, aspect ratio/style controls. Real Settings (appearance, AI, privacy, language). Real Profile (account, usage, subscription stub).
+## Stage A — Foundations (this turn after approval)
 
-## Phase 3 — Trinity Router (multi-model)
-High Thinking mode: fan out to N models in parallel, judge agent picks best, optional "show all responses" view. Memory engine (per-user facts table) + feedback like/dislike feeding `training_dataset`.
+### A1. External Supabase swap (auth + Postgres)
+- Rewrite `.env` → point VITE_SUPABASE_* + SUPABASE_* at `frnntlkjycxgwblbuhqo`.
+- Re-run our migrations (profiles, user_roles + enum, chats, messages, has_role, handle_new_user trigger) against the new project via a one-shot SQL script the user runs (we can't auto-migrate an external Supabase from Lovable Cloud tools).
+- Regenerate `src/integrations/supabase/types.ts` manually or keep current shape since schema is identical.
+- **Known loss**: Google OAuth via `@lovable.dev/cloud-auth-js` broker stops working. User must configure Google provider directly in their Supabase dashboard → Auth → Providers, with redirect URL `https://<preview>/auth/callback`. Email/password keeps working.
 
-## Phase 4 — Code module
-Monaco editor, file explorer, AI assist panel, live preview iframe, GitHub OAuth + push.
+### A2. Turso DB layer
+- `bun add @libsql/client`.
+- New `src/integrations/turso/client.server.ts` (server-only, service-role-equivalent).
+- New migrations file `turso/schema.sql` with full mirror tables:
+  `users, profiles, chats, messages, memories, projects, files, notifications, models, agents, api_keys, feedback, usage_logs, moderation_logs, training_dataset, mcp_connections, settings`.
+- Idempotent bootstrap server fn `ensureTursoSchema()` that runs `CREATE TABLE IF NOT EXISTS` on cold start.
+- Write-through pattern: Supabase = source of truth for auth/chats/messages; Turso receives async mirror writes for `memories, usage_logs, feedback, training_dataset, moderation_logs, mcp_connections, settings` (the Trinity-specific tables Supabase doesn't have).
+- Read pattern: Trinity-only tables read directly from Turso.
 
-## Phase 5 — Explore (research)
-Web search MCP, deep research agent, PDF reader, YouTube transcript, flashcards/quiz generation.
-
-## Phase 6 — Workspace + Learn + Community
-Notes (rich text), tasks, calendar, files. AI tutor, streaks, achievements. Teams, templates, leaderboard.
-
-## Phase 7 — Models + MCP Hub + Agents pages
-Model marketplace UI, BYO API keys (encrypted), Ollama bridge (local). MCP install flow + permissions. Agent config pages.
-
-## Phase 8 — Admin panel + Moderation + Analytics
-Role-gated `/admin/*`, user table, broadcasts, moderation queue, usage analytics charts, limits manager, backup/export.
-
-## Phase 9 — Mobile (Capacitor) + Offline (IndexedDB sync)
+### A3. Fix routing runtime error
+Quietly fix the "Expected to find a match below the root match in SPA mode" invariant (likely a missing `<Outlet />` in a parent or a stale route in `routeTree.gen.ts` after the 100-route scaffold).
 
 ---
 
-## Technical notes
-- Stack stays TanStack Start + Lovable Cloud (Supabase under the hood) — Turso/Cloudflare Workers in your spec are replaced by Lovable's managed equivalents unless you specifically want to self-host later
-- Google Sheets sync deferred to Phase 8 (backup/export)
-- All AI calls go through Lovable AI Gateway server functions; user-supplied API keys land in Phase 7
-- Roles in dedicated `user_roles` table (never on profiles)
+## Stage B — Trinity 1.0 Router (next turn)
+
+### B1. Provider abstraction
+```
+src/lib/trinity/providers/
+  openrouter.server.ts   // primary, fetch-based, supports all listed text models
+  huggingface.server.ts  // fallback, Inference API
+  ollama.server.ts       // local, base URL from user setting, optional
+  lovable.server.ts      // existing gateway, kept as 4th fallback
+```
+Each exports `streamChat({ model, messages, signal })` returning an AI-SDK-compatible stream.
+
+### B2. Model registry (`src/lib/trinity/models.ts`)
+Typed catalog of every model in your spec (DeepSeek V3, Qwen 3, Gemma 3, Llama, Mistral, Phi, GPT, Claude, Gemini, DeepSeek/Qwen Coder, FLUX, SDXL, SD, Wan, CogVideoX, LTX, Whisper, MusicGen, Kokoro, Piper, Stable Audio, Hunyuan3D, TripoSR) with: id, provider, capability tags (chat/code/math/writing/research/image/video/audio/3D), priority, premium flag.
+
+### B3. Router (`src/lib/trinity/router.server.ts`)
+Pure function `route(task, mode, userPrefs) → ModelPlan`:
+- Detects task type (chat/code/math/writing/research/image/video/voice/3D) from message + system hint.
+- Normal mode → 1 model (highest priority available for task).
+- Medium → 3-5 models from priority list.
+- High → all enabled models for the task.
+
+### B4. Updated `/api/chat` route
+- Calls `route()` → gets `ModelPlan`.
+- Normal: streams the single model directly.
+- Medium/High: runs models in parallel with `Promise.allSettled`, then hands to Judge.
+
+### B5. Judge agent (`src/lib/trinity/judge.server.ts`)
+Uses a fast model (Gemini 3 Flash or GPT-5-mini) with a strict JSON-output prompt scoring each response on accuracy/reasoning/creativity/code-quality/hallucination/length. Returns winner index.
+
+### B6. Consensus engine (High mode only)
+Synthesizes the top-3 judged responses into one final answer via Claude/GPT.
 
 ---
 
-**Confirm to proceed with Phase 1**, or tell me to reshape (e.g. "skip auth, just chat" / "do Imagine in Phase 1 too" / "use Turso not Cloud").
+## Stage C — Agents + MCP Routing (turn 3)
+
+- `src/lib/trinity/agents/` — coding, research, image, video, voice, memory, planner. Each is a system-prompt + tool-set + preferred model.
+- MCP router: reads `mcp_connections` table, hands tool calls to right MCP server (Canva, GitHub, Figma, Drive, Search, Browser). Uses AI SDK's MCP client per the `ai-sdk-mcp-client` guidance.
+- Memory engine: writes user prefs to `memories` table after each chat; injects top-N into system prompt.
+- Feedback learning: 👍/👎 buttons already roughed in — wire to `feedback` + `training_dataset` tables.
+
+---
+
+## Stage D — Error/fallback + image/video/voice/3D (turn 4)
+
+- `src/lib/trinity/fallback.server.ts` — provider chain `User Key → OpenRouter → HF → Ollama → cached → friendly error`, with retry strategy 1s/3s/5s.
+- Hook into every provider call. Surface user-friendly messages, never raw stack traces.
+- Image module: FLUX (HF) → SDXL → SD fallback. Wire `/imagine` page.
+- Video: Wan (HF/Replicate) → CogVideoX → LTX.
+- Voice: Kokoro → Piper fallback (HF Inference).
+- 3D: Hunyuan3D → TripoSR.
+- Whisper STT endpoint for `/chat/voice`.
+- Logging: every model call writes to `usage_logs` (Turso).
+
+---
+
+## Technical specifics
+
+### Stage A files touched
+- **edit** `.env` (rewrite Supabase vars)
+- **edit** `src/integrations/supabase/client.ts` — no change needed, reads from env
+- **create** `src/integrations/turso/client.server.ts`
+- **create** `src/integrations/turso/schema.ts` (TS schema constants + bootstrap)
+- **create** `src/lib/turso-mirror.functions.ts` (server fns for memory/feedback/usage writes)
+- **edit** `package.json` + `bun.lock` (add `@libsql/client`)
+- **investigate + fix** routing invariant (likely `chat.tsx` or a layout missing `<Outlet />`)
+
+### What you'll need to do manually after Stage A
+1. In your external Supabase dashboard → SQL editor, run the migration SQL I'll output (copy/paste).
+2. In external Supabase → Auth → Providers → enable Email, and enable Google with your own OAuth client ID/secret. Set Site URL to your preview URL.
+3. Set redirect URLs in Supabase Auth settings.
+
+I'll output the exact SQL and dashboard steps at the end of Stage A.
+
+### What stays the same
+- All 100 route files
+- Existing chat UI / model selector / thinking-mode UI
+- Tailwind theme + module sidebar architecture
+
+---
+
+## Risks I'm flagging
+- **External Supabase migration is one-way and manual.** Once we switch `.env`, the Lovable Cloud Supabase data (your existing test chats) won't be visible. Confirm you don't need to export it first.
+- **Google OAuth requires your own setup** in the new project — not 1-click anymore.
+- **OpenRouter/HF cost**: Medium/High modes hit 3-7 models per message. Watch the bill. I'll add a per-user daily cap via `daily_limit` field.
+- **Turso schema drift**: Trinity tables only live in Turso; if Turso goes down, those features degrade (memory/logs disabled, chat still works).
+
+---
+
+Reply **"go A"** to start Stage A. Or tell me to adjust scope/order.
