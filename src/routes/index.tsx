@@ -1,3 +1,4 @@
+import { Logo } from "@/components/logo";
 import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
@@ -33,9 +34,7 @@ function Landing() {
     <div className="min-h-screen bg-background text-foreground">
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-foreground text-background font-bold">
-            T
-          </div>
+          <Logo className="h-9 w-9 rounded-lg" />
           <span className="text-sm font-semibold tracking-tight">TriniAI</span>
         </div>
         <div className="flex items-center gap-2">
