@@ -140,12 +140,14 @@ export const MODULES: ModuleDef[] = [
     description: "Cloud and local AI models.",
     pages: [
       { slug: "", label: "Installed Models", description: "Active models." },
+      { slug: "architecture", label: "Trinity Architecture", description: "How Trinity routes every task." },
       { slug: "cloud", label: "Cloud Models", description: "Online models." },
       { slug: "download", label: "Download Models", description: "Marketplace downloads." },
       { slug: "upload", label: "Upload Models", description: "Import custom models." },
       { slug: "ollama", label: "Ollama Models", description: "Local models." },
       { slug: "marketplace", label: "Model Marketplace", description: "Discover models." },
     ],
+
   },
   {
     key: "mcp",
