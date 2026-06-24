@@ -14,6 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
+      agents: {
+        Row: {
+          created_at: string
+          description: string | null
+          enabled: boolean
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          enabled?: boolean
+          id: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          enabled?: boolean
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      api_keys: {
+        Row: {
+          created_at: string
+          encrypted_key: string
+          id: string
+          label: string | null
+          provider: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          encrypted_key: string
+          id?: string
+          label?: string | null
+          provider: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          encrypted_key?: string
+          id?: string
+          label?: string | null
+          provider?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       chats: {
         Row: {
           archived: boolean
@@ -44,6 +95,110 @@ export type Database = {
           title?: string
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      feedback: {
+        Row: {
+          answer: string | null
+          comment: string | null
+          created_at: string
+          disliked: boolean
+          id: string
+          liked: boolean
+          message_id: string | null
+          question: string | null
+          user_id: string
+        }
+        Insert: {
+          answer?: string | null
+          comment?: string | null
+          created_at?: string
+          disliked?: boolean
+          id?: string
+          liked?: boolean
+          message_id?: string | null
+          question?: string | null
+          user_id: string
+        }
+        Update: {
+          answer?: string | null
+          comment?: string | null
+          created_at?: string
+          disliked?: boolean
+          id?: string
+          liked?: boolean
+          message_id?: string | null
+          question?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feedback_message_id_fkey"
+            columns: ["message_id"]
+            isOneToOne: false
+            referencedRelation: "messages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mcp_connections: {
+        Row: {
+          config: Json
+          created_at: string
+          enabled: boolean
+          id: string
+          name: string
+          permissions: string
+          user_id: string
+        }
+        Insert: {
+          config?: Json
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          name: string
+          permissions?: string
+          user_id: string
+        }
+        Update: {
+          config?: Json
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          name?: string
+          permissions?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      memories: {
+        Row: {
+          created_at: string
+          id: string
+          importance: number
+          key: string
+          updated_at: string
+          user_id: string
+          value: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          importance?: number
+          key: string
+          updated_at?: string
+          user_id: string
+          value: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          importance?: number
+          key?: string
+          updated_at?: string
+          user_id?: string
+          value?: string
         }
         Relationships: []
       }
@@ -88,33 +243,219 @@ export type Database = {
           },
         ]
       }
+      models: {
+        Row: {
+          created_at: string
+          enabled: boolean
+          id: string
+          name: string
+          premium: boolean
+          provider: string
+        }
+        Insert: {
+          created_at?: string
+          enabled?: boolean
+          id: string
+          name: string
+          premium?: boolean
+          provider: string
+        }
+        Update: {
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          name?: string
+          premium?: boolean
+          provider?: string
+        }
+        Relationships: []
+      }
+      moderation_logs: {
+        Row: {
+          action: string | null
+          category: string
+          created_at: string
+          id: string
+          message: string
+          risk_level: string
+          user_id: string
+        }
+        Insert: {
+          action?: string | null
+          category: string
+          created_at?: string
+          id?: string
+          message: string
+          risk_level?: string
+          user_id: string
+        }
+        Update: {
+          action?: string | null
+          category?: string
+          created_at?: string
+          id?: string
+          message?: string
+          risk_level?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          read: boolean
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          read?: boolean
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          read?: boolean
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
           bio: string | null
           created_at: string
+          daily_limit: number
           display_name: string | null
           id: string
+          language: string
+          subscription: string
           theme: string
+          timezone: string
           updated_at: string
         }
         Insert: {
           avatar_url?: string | null
           bio?: string | null
           created_at?: string
+          daily_limit?: number
           display_name?: string | null
           id: string
+          language?: string
+          subscription?: string
           theme?: string
+          timezone?: string
           updated_at?: string
         }
         Update: {
           avatar_url?: string | null
           bio?: string | null
           created_at?: string
+          daily_limit?: number
           display_name?: string | null
           id?: string
+          language?: string
+          subscription?: string
           theme?: string
+          timezone?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      training_dataset: {
+        Row: {
+          answer: string
+          approved: boolean
+          created_at: string
+          id: string
+          question: string
+          source_user_id: string | null
+        }
+        Insert: {
+          answer: string
+          approved?: boolean
+          created_at?: string
+          id?: string
+          question: string
+          source_user_id?: string | null
+        }
+        Update: {
+          answer?: string
+          approved?: boolean
+          created_at?: string
+          id?: string
+          question?: string
+          source_user_id?: string | null
+        }
+        Relationships: []
+      }
+      usage_logs: {
+        Row: {
+          audio: number
+          day: string
+          id: string
+          images: number
+          messages: number
+          three_d_models: number
+          tokens: number
+          user_id: string
+          videos: number
+        }
+        Insert: {
+          audio?: number
+          day?: string
+          id?: string
+          images?: number
+          messages?: number
+          three_d_models?: number
+          tokens?: number
+          user_id: string
+          videos?: number
+        }
+        Update: {
+          audio?: number
+          day?: string
+          id?: string
+          images?: number
+          messages?: number
+          three_d_models?: number
+          tokens?: number
+          user_id?: string
+          videos?: number
         }
         Relationships: []
       }
@@ -138,6 +479,50 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      workspace_files: {
+        Row: {
+          created_at: string
+          file_name: string
+          folder: string
+          id: string
+          mime_type: string | null
+          project_id: string | null
+          size_bytes: number | null
+          url: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          file_name: string
+          folder?: string
+          id?: string
+          mime_type?: string | null
+          project_id?: string | null
+          size_bytes?: number | null
+          url?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          file_name?: string
+          folder?: string
+          id?: string
+          mime_type?: string | null
+          project_id?: string | null
+          size_bytes?: number | null
+          url?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workspace_files_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
