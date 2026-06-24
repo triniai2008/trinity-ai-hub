@@ -255,7 +255,9 @@ export const MODULES: ModuleDef[] = [
     description: "Administration and moderation.",
     pages: [
       { slug: "", label: "Dashboard", description: "Analytics overview." },
+      { slug: "architecture", label: "Backend Architecture", description: "Stack, schema, sync, and fallback." },
       { slug: "users", label: "Users", description: "Manage accounts." },
+
       { slug: "logs", label: "Chat Logs", description: "Moderation." },
       { slug: "models", label: "Models", description: "Enable/disable models." },
       { slug: "mcp", label: "MCP Hub", description: "Manage integrations." },
