@@ -65,6 +65,7 @@ import { Route as ModelsOllamaRouteImport } from './routes/models.ollama'
 import { Route as ModelsMarketplaceRouteImport } from './routes/models.marketplace'
 import { Route as ModelsDownloadRouteImport } from './routes/models.download'
 import { Route as ModelsCloudRouteImport } from './routes/models.cloud'
+import { Route as ModelsArchitectureRouteImport } from './routes/models.architecture'
 import { Route as McpSearchRouteImport } from './routes/mcp.search'
 import { Route as McpResearchRouteImport } from './routes/mcp.research'
 import { Route as McpGithubRouteImport } from './routes/mcp.github'
@@ -412,6 +413,11 @@ const ModelsDownloadRoute = ModelsDownloadRouteImport.update({
 const ModelsCloudRoute = ModelsCloudRouteImport.update({
   id: '/cloud',
   path: '/cloud',
+  getParentRoute: () => ModelsRoute,
+} as any)
+const ModelsArchitectureRoute = ModelsArchitectureRouteImport.update({
+  id: '/architecture',
+  path: '/architecture',
   getParentRoute: () => ModelsRoute,
 } as any)
 const McpSearchRoute = McpSearchRouteImport.update({
@@ -843,6 +849,7 @@ export interface FileRoutesByFullPath {
   '/mcp/github': typeof McpGithubRoute
   '/mcp/research': typeof McpResearchRoute
   '/mcp/search': typeof McpSearchRoute
+  '/models/architecture': typeof ModelsArchitectureRoute
   '/models/cloud': typeof ModelsCloudRoute
   '/models/download': typeof ModelsDownloadRoute
   '/models/marketplace': typeof ModelsMarketplaceRoute
@@ -954,6 +961,7 @@ export interface FileRoutesByTo {
   '/mcp/github': typeof McpGithubRoute
   '/mcp/research': typeof McpResearchRoute
   '/mcp/search': typeof McpSearchRoute
+  '/models/architecture': typeof ModelsArchitectureRoute
   '/models/cloud': typeof ModelsCloudRoute
   '/models/download': typeof ModelsDownloadRoute
   '/models/marketplace': typeof ModelsMarketplaceRoute
@@ -1081,6 +1089,7 @@ export interface FileRoutesById {
   '/mcp/github': typeof McpGithubRoute
   '/mcp/research': typeof McpResearchRoute
   '/mcp/search': typeof McpSearchRoute
+  '/models/architecture': typeof ModelsArchitectureRoute
   '/models/cloud': typeof ModelsCloudRoute
   '/models/download': typeof ModelsDownloadRoute
   '/models/marketplace': typeof ModelsMarketplaceRoute
@@ -1209,6 +1218,7 @@ export interface FileRouteTypes {
     | '/mcp/github'
     | '/mcp/research'
     | '/mcp/search'
+    | '/models/architecture'
     | '/models/cloud'
     | '/models/download'
     | '/models/marketplace'
@@ -1320,6 +1330,7 @@ export interface FileRouteTypes {
     | '/mcp/github'
     | '/mcp/research'
     | '/mcp/search'
+    | '/models/architecture'
     | '/models/cloud'
     | '/models/download'
     | '/models/marketplace'
@@ -1446,6 +1457,7 @@ export interface FileRouteTypes {
     | '/mcp/github'
     | '/mcp/research'
     | '/mcp/search'
+    | '/models/architecture'
     | '/models/cloud'
     | '/models/download'
     | '/models/marketplace'
@@ -1900,6 +1912,13 @@ declare module '@tanstack/react-router' {
       path: '/cloud'
       fullPath: '/models/cloud'
       preLoaderRoute: typeof ModelsCloudRouteImport
+      parentRoute: typeof ModelsRoute
+    }
+    '/models/architecture': {
+      id: '/models/architecture'
+      path: '/architecture'
+      fullPath: '/models/architecture'
+      preLoaderRoute: typeof ModelsArchitectureRouteImport
       parentRoute: typeof ModelsRoute
     }
     '/mcp/search': {
@@ -2621,6 +2640,7 @@ const McpRouteChildren: McpRouteChildren = {
 const McpRouteWithChildren = McpRoute._addFileChildren(McpRouteChildren)
 
 interface ModelsRouteChildren {
+  ModelsArchitectureRoute: typeof ModelsArchitectureRoute
   ModelsCloudRoute: typeof ModelsCloudRoute
   ModelsDownloadRoute: typeof ModelsDownloadRoute
   ModelsMarketplaceRoute: typeof ModelsMarketplaceRoute
@@ -2630,6 +2650,7 @@ interface ModelsRouteChildren {
 }
 
 const ModelsRouteChildren: ModelsRouteChildren = {
+  ModelsArchitectureRoute: ModelsArchitectureRoute,
   ModelsCloudRoute: ModelsCloudRoute,
   ModelsDownloadRoute: ModelsDownloadRoute,
   ModelsMarketplaceRoute: ModelsMarketplaceRoute,
