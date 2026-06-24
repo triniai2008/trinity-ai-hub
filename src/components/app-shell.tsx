@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Navigate } from "@tanstack/react-router";
 import { AppSidebar } from "./app-sidebar";
 import { MobileNav } from "./mobile-nav";
+import { CommandPalette } from "./command-palette";
 import { useAuth } from "@/hooks/use-auth";
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -25,6 +26,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         {children}
       </main>
       <MobileNav />
+      <CommandPalette />
     </div>
   );
 }
