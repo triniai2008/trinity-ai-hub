@@ -133,6 +133,7 @@ import { Route as AdminKeysRouteImport } from './routes/admin.keys'
 import { Route as AdminHealthRouteImport } from './routes/admin.health'
 import { Route as AdminBroadcastRouteImport } from './routes/admin.broadcast'
 import { Route as AdminBackupRouteImport } from './routes/admin.backup'
+import { Route as AdminArchitectureRouteImport } from './routes/admin.architecture'
 import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 
 const WorkspaceRoute = WorkspaceRouteImport.update({
@@ -755,6 +756,11 @@ const AdminBackupRoute = AdminBackupRouteImport.update({
   path: '/backup',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminArchitectureRoute = AdminArchitectureRouteImport.update({
+  id: '/architecture',
+  path: '/architecture',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
   id: '/analytics',
   path: '/analytics',
@@ -782,6 +788,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/workspace': typeof WorkspaceRouteWithChildren
   '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/architecture': typeof AdminArchitectureRoute
   '/admin/backup': typeof AdminBackupRoute
   '/admin/broadcast': typeof AdminBroadcastRoute
   '/admin/health': typeof AdminHealthRoute
@@ -894,6 +901,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/architecture': typeof AdminArchitectureRoute
   '/admin/backup': typeof AdminBackupRoute
   '/admin/broadcast': typeof AdminBroadcastRoute
   '/admin/health': typeof AdminHealthRoute
@@ -1022,6 +1030,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/workspace': typeof WorkspaceRouteWithChildren
   '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/architecture': typeof AdminArchitectureRoute
   '/admin/backup': typeof AdminBackupRoute
   '/admin/broadcast': typeof AdminBroadcastRoute
   '/admin/health': typeof AdminHealthRoute
@@ -1151,6 +1160,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/workspace'
     | '/admin/analytics'
+    | '/admin/architecture'
     | '/admin/backup'
     | '/admin/broadcast'
     | '/admin/health'
@@ -1263,6 +1273,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sitemap.xml'
     | '/admin/analytics'
+    | '/admin/architecture'
     | '/admin/backup'
     | '/admin/broadcast'
     | '/admin/health'
@@ -1390,6 +1401,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/workspace'
     | '/admin/analytics'
+    | '/admin/architecture'
     | '/admin/backup'
     | '/admin/broadcast'
     | '/admin/health'
@@ -2390,6 +2402,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBackupRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/architecture': {
+      id: '/admin/architecture'
+      path: '/architecture'
+      fullPath: '/admin/architecture'
+      preLoaderRoute: typeof AdminArchitectureRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/analytics': {
       id: '/admin/analytics'
       path: '/analytics'
@@ -2402,6 +2421,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminAnalyticsRoute: typeof AdminAnalyticsRoute
+  AdminArchitectureRoute: typeof AdminArchitectureRoute
   AdminBackupRoute: typeof AdminBackupRoute
   AdminBroadcastRoute: typeof AdminBroadcastRoute
   AdminHealthRoute: typeof AdminHealthRoute
@@ -2420,6 +2440,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAnalyticsRoute: AdminAnalyticsRoute,
+  AdminArchitectureRoute: AdminArchitectureRoute,
   AdminBackupRoute: AdminBackupRoute,
   AdminBroadcastRoute: AdminBroadcastRoute,
   AdminHealthRoute: AdminHealthRoute,
