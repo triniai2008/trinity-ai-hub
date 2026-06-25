@@ -43,11 +43,15 @@ export const Route = createFileRoute("/api/chat")({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        const authError = await verifyAuth(request);
+        if (authError) return authError;
+
         const body = (await request.json()) as ChatBody;
         const uiMessages = body.messages;
         if (!Array.isArray(uiMessages)) {
           return new Response("messages required", { status: 400 });
         }
+
 
         const mode: ThinkingMode = body.thinkingMode ?? "normal";
         const modelMessages = await convertToModelMessages(uiMessages);
