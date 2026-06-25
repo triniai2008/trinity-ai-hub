@@ -106,9 +106,10 @@ export const Route = createFileRoute("/api/chat")({
             headers: { "X-Trinity-Winner": winner.model.id, "X-Trinity-Mode": mode },
           });
         } catch (err) {
-          const msg = err instanceof Error ? err.message : String(err);
-          return new Response(`Trinity error: ${msg}`, { status: 500 });
+          console.error("[chat] error:", err);
+          return new Response("Internal server error", { status: 500 });
         }
+
       },
     },
   },
