@@ -132,13 +132,22 @@ export function SubPageStub({
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-1.5 text-xs font-medium hover:bg-sidebar-accent">
+          <Link
+            to="/chat"
+            search={{ seed: `New ${page.label.toLowerCase()}` }}
+            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-1.5 text-xs font-medium hover:bg-sidebar-accent"
+          >
             <Plus className="h-3.5 w-3.5" /> New
-          </button>
-          <button className="inline-flex items-center gap-1.5 rounded-md bg-foreground px-3 py-1.5 text-xs font-medium text-background hover:opacity-90">
+          </Link>
+          <Link
+            to="/chat"
+            search={{ seed: `Open ${mod.label} → ${page.label} in Trinity` }}
+            className="inline-flex items-center gap-1.5 rounded-md bg-foreground px-3 py-1.5 text-xs font-medium text-background hover:opacity-90"
+          >
             Open in Trinity <ArrowUpRight className="h-3.5 w-3.5" />
-          </button>
+          </Link>
         </div>
+
       </div>
 
       {/* Highlight tiles */}
