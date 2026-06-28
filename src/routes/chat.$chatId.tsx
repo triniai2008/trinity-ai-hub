@@ -120,18 +120,23 @@ function ChatThread() {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages.length, status]);
 
-  // Auto-trigger if coming from new chat with a seeded user message
+  // Auto-trigger if coming from new chat with a seeded user message.
+  // Use regenerate() only when there's already an assistant message; otherwise
+  // re-send the seeded user text via sendMessage so the request actually fires.
+  const autoTriggeredRef = useRef(false);
   useEffect(() => {
-    if (auto && initial && initial.length === 1 && initial[0].role === "user" && status === "ready") {
-      const text = initial[0].parts
-        .map((p) => (p.type === "text" ? p.text : ""))
-        .join("");
-      // Mark this user msg as already saved (was saved on create)
-      savedIdsRef.current.add(initial[0].id);
-      regenerate(); // resend last user message to get assistant response
-      navigate({ to: "/chat/$chatId", params: { chatId }, search: {}, replace: true });
-      void text;
-    }
+    if (autoTriggeredRef.current) return;
+    if (!auto || !initial || status !== "ready") return;
+    const last = initial[initial.length - 1];
+    if (!last || last.role !== "user") return;
+    const text = last.parts.map((p) => (p.type === "text" ? p.text : "")).join("").trim();
+    if (!text) return;
+    autoTriggeredRef.current = true;
+    initial.forEach((m) => savedIdsRef.current.add(m.id));
+    // Strip ?auto=1 first so a re-render can't re-fire.
+    navigate({ to: "/chat/$chatId", params: { chatId }, search: {}, replace: true });
+    // Fire-and-forget; useChat onError will toast on failure.
+    void sendMessage({ text });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initial, status]);
 
