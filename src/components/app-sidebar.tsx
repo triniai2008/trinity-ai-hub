@@ -41,11 +41,11 @@ const NAV = [
   { to: "/notifications", label: "Notifications", icon: Bell },
 ] as const;
 
-const BOTTOM = [
+const BOTTOM_BASE = [
   { to: "/profile", label: "Profile", icon: UserIcon },
   { to: "/settings", label: "Settings", icon: Settings },
-  { to: "/admin", label: "Admin", icon: Shield },
 ] as const;
+const ADMIN_ITEM = { to: "/admin", label: "Admin", icon: Shield } as const;
 
 function useTheme() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
