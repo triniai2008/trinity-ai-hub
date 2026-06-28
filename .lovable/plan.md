@@ -1,91 +1,33 @@
-# PART 3 — Frontend Components, Workflows & Interactions
+# All-Four Tracks Plan
 
-This is a very large scope (hundreds of components across 15+ modules). To ship something coherent rather than a thin stub of everything, I'll build in **3 waves**. Each wave leaves the app fully usable.
+Scope is large — I'll ship in 4 batches, one per turn. Confirm and I start with Batch 1 immediately.
 
----
+## Batch 1 — Bug fixes + key rotation (this turn after approval)
+- Rotate `LOVABLE_API_KEY` (the user-leaked HF + NVIDIA keys must be rotated by the user at HuggingFace/NVIDIA consoles — I'll re-link instructions).
+- Chat "Something went wrong" — already patched `regenerate→sendMessage` in `chat.$chatId.tsx`; verify with Playwright against the live preview, fix any remaining crash path in `routes/api/chat.ts`.
+- "New" buttons not working — audit all `New …` buttons (sidebar, modules) for missing `onClick` / dead navigation, wire to correct routes.
+- Navigation errors between pages — check route guards in `_authenticated`, fix any broken `<Link to>` targets surfaced by tsgo.
 
-## Wave 1 — Shell, Chat, Common Primitives (this turn)
+## Batch 2 — NVIDIA + expanded HF model registry
+- Add provider adapter `src/lib/providers/nvidia.ts` (build.nvidia.com OpenAI-compatible endpoint, uses `NVIDIA_API_KEY`).
+- Add provider adapter `src/lib/providers/huggingface.ts` (Inference API, `HUGGINGFACE_API_KEY` with `HUGGINGFACE_API_KEY_BACKUP` fallback).
+- Extend model registry (`src/lib/models/catalog.ts`) with the full HF list the user pasted (DeepSeek V3, Qwen3, Llama 4 Scout, Gemma 3, Mistral Small 3, DINOv2, Florence-2, SAM 2, TimesFM, Chronos, GraphSAGE, GAT, RT-2, etc.) tagged by modality/category. No per-model UI — they appear in the existing model picker.
+- Wire router so chat backend can dispatch to NVIDIA / HF based on selected model id.
 
-The core experience users actually touch first.
+## Batch 3 — Trinity 14-step workflow engine
+Replace the chat backend (`src/routes/api/chat.ts`) with a Trinity pipeline:
+1. classify → 2. enhance prompt → 3. retrieve context → 4. plan → 5. route to model(s) → 6. parallel execute → 7. judge/score → 8. consensus → 9. verify facts → 10. tool calls → 11. self-critique → 12. optimize → 13. format → 14. stream.
 
-**Root layout polish**
-- Top navbar with: global search trigger (⌘K), theme switcher, notification bell, profile menu, breadcrumbs
-- Command palette (`cmdk`) — navigate any route, switch model, new chat, quick actions
-- Toast system (sonner — already present)
-- Global ErrorBoundary + standard EmptyState component
-- Skeleton primitives + LoadingDots
+Implemented as a streamable AI SDK chain with `streamText` + intermediate `data-stream` parts so the UI can show step progress. Configurable via `src/lib/trinity/config.ts`.
 
-**Chat experience (the heart of the app)**
-- AI Elements installed: `conversation`, `message`, `prompt-input`, `shimmer`, `tool`, `code-block`
-- User bubble / Assistant message (no bg) with proper markdown + syntax highlighting
-- Message actions: Copy, Regenerate, Edit Prompt, Retry, Continue, Share
-- Model badge + Thinking badge on each assistant message
-- Model selector + Thinking-mode selector in composer (Normal / Medium / High)
-- Typing indicator using Shimmer "Thinking…"
-- Multi-response viewer (Medium/High shows candidates + judge winner)
-- Citations block, Image/Video/Audio inline viewers
-- Chat sidebar: Folders, Pinned, Search chats, History
-
-**Common components** (single shared file `src/components/common.tsx`)
-- EmptyState, SectionHeader, StatCard, LoadingDots, Skeleton presets
-
-**Modals**
-- New Chat, Rename, Delete, Share, Export, Clear History, Logout, Connect API Key, Upload File
-
----
-
-## Wave 2 — Imagine, Code, Models, Agents, MCP (next prompt)
-
-- Imagine: prompt input + style/aspect/resolution selectors, history grid, preview/download/share, generation queue
-- Code: file explorer, editor (Monaco), AI assistant panel, terminal, live preview, diff viewer, GitHub panel
-- Models: install/cloud/local/upload pages with enable toggles, temperature, duplicate, perf stats
-- Agents: per-agent card pages with stats + run-now
-- MCP: marketplace, connection status, permissions, logs
-
-## Wave 3 — Workspace, Learn, Community, Admin, Profile, Settings (final prompt)
-
-- Workspace: notes editor, docs, tasks, calendar, files, tags, archive
-- Learn: tutor, flashcards, quiz, mind maps, streaks, achievements
-- Community: teams, templates, comments, likes, leaderboard
-- Admin: dashboard, users, analytics, moderation, broadcast, training dataset
-- Profile + Settings: account, security, devices, sessions, preferences, all settings pages
-
----
-
-## Design constraints (applied to all waves)
-
-- **Theme**: Black & white, minimal, ChatGPT/Claude/Cursor-inspired
-- **Tokens only**: no hard-coded colors; use `bg-background`, `text-foreground`, `text-muted-foreground`, `border-border`, `bg-primary/primary-foreground`
-- **No glassmorphism / heavy effects**
-- **Animations**: fade, slide, shimmer, skeleton — nothing more
-- **Mobile first**: bottom nav stays, sidebar collapses on `<md`
-- **Accessibility**: shadcn primitives, aria-labels on icon buttons, focus-visible rings
-- **AI Elements gate**: chat surface built on the AI Elements registry, not hand-rolled bubbles
-
----
+## Batch 4 — Student dashboard + Google Drive + PDF local storage
+- Personalized dashboard route `/dashboard` reading `profiles.onboarding_answers` (add jsonb column via migration) — widgets: study goals, recommended modules, recent chats, upcoming, AI suggestions.
+- Google Drive: per-user OAuth (Supabase Google provider already enabled). Add `drive.readonly` scope, store refresh token in `user_integrations` table, server fn `listDriveFiles`.
+- PDF local storage: IndexedDB wrapper in `src/lib/pdf-store.ts` (Dexie), upload UI on dashboard, render with pdfjs-dist in viewer route.
 
 ## Technical notes
+- All new server logic via `createServerFn` per stack rules.
+- Each batch ends with a Playwright smoke check.
+- Keys: `NVIDIA_API_KEY`, `HUGGINGFACE_API_KEY`, `HUGGINGFACE_API_KEY_BACKUP` already saved as secrets.
 
-- `bun add cmdk react-markdown remark-gfm rehype-highlight` (markdown + syntax highlight for chat)
-- Install AI Elements: `bunx ai-elements@latest add conversation message prompt-input shimmer tool code-block`
-- New files (Wave 1 only):
-  - `src/components/command-palette.tsx`
-  - `src/components/theme-switcher.tsx`
-  - `src/components/notification-bell.tsx`
-  - `src/components/profile-menu.tsx`
-  - `src/components/breadcrumbs.tsx`
-  - `src/components/common.tsx` (EmptyState, StatCard, LoadingDots, SectionHeader)
-  - `src/components/error-boundary.tsx`
-  - `src/components/chat/*` (Composer, Message, ModelBadge, ThinkingBadge, MultiResponseViewer, MessageActions)
-  - `src/components/modals/*` (NewChat, Rename, Delete, Share, Export)
-- Updates: `src/routes/__root.tsx` (navbar + command palette), `src/components/app-sidebar.tsx`, `src/routes/chat.$chatId.tsx`, `src/routes/chat.index.tsx`
-
----
-
-## What I need from you
-
-1. **Confirm wave 1 scope above** — or tell me to compress all 3 waves into one (it will be shallower per page).
-2. **Command palette**: include AI actions (Generate image, Start research) or navigation only?
-3. **Chat composer extras**: attachments + voice input button visible in wave 1, or wave 2?
-
-Reply with anything (or just "go") and I'll start Wave 1.
+Reply **go** to start Batch 1, or tell me to re-order / drop a batch.

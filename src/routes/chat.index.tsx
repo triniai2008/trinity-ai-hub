@@ -1,12 +1,16 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Sparkles } from "lucide-react";
+import { z } from "zod";
+
+const searchSchema = z.object({ seed: z.string().optional() });
 
 export const Route = createFileRoute("/chat/")({
+  validateSearch: searchSchema,
   component: NewChat,
 });
 
@@ -19,8 +23,11 @@ const SUGGESTIONS = [
 
 function NewChat() {
   const navigate = useNavigate();
-  const [input, setInput] = useState("");
+  const { seed } = Route.useSearch();
+  const [input, setInput] = useState(seed ?? "");
   const [busy, setBusy] = useState(false);
+  useEffect(() => { if (seed) setInput(seed); }, [seed]);
+
 
   const start = async (prompt: string) => {
     if (!prompt.trim() || busy) return;
