@@ -41,11 +41,11 @@ const NAV = [
   { to: "/notifications", label: "Notifications", icon: Bell },
 ] as const;
 
-const BOTTOM = [
+const BOTTOM_BASE = [
   { to: "/profile", label: "Profile", icon: UserIcon },
   { to: "/settings", label: "Settings", icon: Settings },
-  { to: "/admin", label: "Admin", icon: Shield },
 ] as const;
+const ADMIN_ITEM = { to: "/admin", label: "Admin", icon: Shield } as const;
 
 function useTheme() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
@@ -67,6 +67,21 @@ export function AppSidebar({ onNavigate }: { onNavigate?: () => void }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const navigate = useNavigate();
   const { theme, toggle } = useTheme();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data: userRes } = await supabase.auth.getUser();
+      const uid = userRes?.user?.id;
+      if (!uid) return;
+      const { data } = await supabase.rpc("has_role", { _user_id: uid, _role: "admin" });
+      if (!cancelled) setIsAdmin(Boolean(data));
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+  const bottomItems = isAdmin ? [...BOTTOM_BASE, ADMIN_ITEM] : BOTTOM_BASE;
 
   const isActive = (to: string) => (to === "/" ? path === "/" : path.startsWith(to));
 
@@ -74,6 +89,7 @@ export function AppSidebar({ onNavigate }: { onNavigate?: () => void }) {
     await supabase.auth.signOut();
     navigate({ to: "/auth", replace: true });
   };
+
 
   return (
     <aside className="flex h-full w-64 shrink-0 flex-col border-r border-border bg-sidebar text-sidebar-foreground">
@@ -121,7 +137,7 @@ export function AppSidebar({ onNavigate }: { onNavigate?: () => void }) {
         <div className="my-3 border-t border-sidebar-border" />
 
         <ul className="space-y-0.5">
-          {BOTTOM.map((item) => {
+          {bottomItems.map((item) => {
             const Icon = item.icon;
             return (
               <li key={item.to}>
