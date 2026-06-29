@@ -1,5 +1,5 @@
 // Trinity 1.0 model registry. Client-safe (just metadata, no keys).
-export type Provider = "openrouter" | "huggingface" | "lovable" | "ollama";
+export type Provider = "openrouter" | "huggingface" | "lovable" | "ollama" | "nvidia";
 export type Capability =
   | "chat"
   | "code"
@@ -63,6 +63,24 @@ export const MODELS: ModelDef[] = [
   // ── 3D ──
   { id: "hunyuan3d",  label: "Hunyuan3D",    provider: "huggingface", providerId: "tencent/Hunyuan3D-2", capabilities: ["3d"], priority: "very_high" },
   { id: "triposr",    label: "TripoSR",      provider: "huggingface", providerId: "stabilityai/TripoSR", capabilities: ["3d"], priority: "high" },
+
+  // ── NVIDIA NIM (build.nvidia.com) — free tier, OpenAI-compatible ──
+  { id: "nvidia-nemotron-70b", label: "Llama 3.1 Nemotron 70B",     provider: "nvidia", providerId: "nvidia/llama-3.1-nemotron-70b-instruct", capabilities: ["chat", "writing", "research"], priority: "very_high", free: true },
+  { id: "nvidia-nemotron-ultra", label: "Llama 3.1 Nemotron Ultra", provider: "nvidia", providerId: "nvidia/llama-3.1-nemotron-ultra-253b-v1", capabilities: ["chat", "research", "math"], priority: "very_high", free: true },
+  { id: "nvidia-nemotron-super", label: "Llama 3.3 Nemotron Super", provider: "nvidia", providerId: "nvidia/llama-3.3-nemotron-super-49b-v1", capabilities: ["chat", "math", "research"], priority: "high", free: true },
+  { id: "nvidia-deepseek-r1",  label: "DeepSeek R1 (NVIDIA)",       provider: "nvidia", providerId: "deepseek-ai/deepseek-r1", capabilities: ["chat", "math", "research", "code"], priority: "very_high", free: true },
+  { id: "nvidia-qwen3-coder",  label: "Qwen3 Coder 480B (NVIDIA)",  provider: "nvidia", providerId: "qwen/qwen3-coder-480b-a35b-instruct", capabilities: ["code"], priority: "very_high", free: true },
+  { id: "nvidia-llama4-maverick", label: "Llama 4 Maverick",        provider: "nvidia", providerId: "meta/llama-4-maverick-17b-128e-instruct", capabilities: ["chat", "writing"], priority: "high", free: true },
+  { id: "nvidia-llama4-scout", label: "Llama 4 Scout",              provider: "nvidia", providerId: "meta/llama-4-scout-17b-16e-instruct", capabilities: ["chat"], priority: "high", free: true },
+  { id: "nvidia-mistral-small", label: "Mistral Small 3 (NVIDIA)",  provider: "nvidia", providerId: "mistralai/mistral-small-24b-instruct", capabilities: ["chat"], priority: "high", free: true },
+  { id: "nvidia-gemma3-27b",   label: "Gemma 3 27B (NVIDIA)",       provider: "nvidia", providerId: "google/gemma-3-27b-it", capabilities: ["chat"], priority: "high", free: true },
+
+  // ── Extended HF text models (routed via HF Inference Providers) ──
+  { id: "hf-deepseek-v3",     label: "DeepSeek V3 (HF)",     provider: "huggingface", providerId: "deepseek-ai/DeepSeek-V3", capabilities: ["chat", "code", "math"], priority: "very_high", free: true },
+  { id: "hf-qwen3-235b",      label: "Qwen3 235B (HF)",      provider: "huggingface", providerId: "Qwen/Qwen3-235B-A22B", capabilities: ["chat", "math"], priority: "high", free: true },
+  { id: "hf-llama4-scout",    label: "Llama 4 Scout (HF)",   provider: "huggingface", providerId: "meta-llama/Llama-4-Scout-17B-16E-Instruct", capabilities: ["chat"], priority: "high", free: true },
+  { id: "hf-gemma3-27b",      label: "Gemma 3 27B (HF)",     provider: "huggingface", providerId: "google/gemma-3-27b-it", capabilities: ["chat"], priority: "medium", free: true },
+  { id: "hf-mistral-small3",  label: "Mistral Small 3 (HF)", provider: "huggingface", providerId: "mistralai/Mistral-Small-3.1-24B-Instruct-2503", capabilities: ["chat"], priority: "medium", free: true },
 ];
 
 export type ThinkingMode = "normal" | "medium" | "high";

@@ -2,6 +2,7 @@
 import { streamText, generateText, type LanguageModel, type ModelMessage } from "ai";
 import { createOpenRouterProvider } from "./providers/openrouter.server";
 import { createHuggingFaceTextProvider } from "./providers/huggingface.server";
+import { createNvidiaProvider } from "./providers/nvidia.server";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
 import { type ModelDef, type ThinkingMode, type Capability, planForMode, detectCapability, getModel } from "./models";
 
@@ -25,9 +26,14 @@ export function buildModel(def: ModelDef): LanguageModel | null {
     return createOpenRouterProvider(key)(def.providerId);
   }
   if (def.provider === "huggingface") {
-    const key = process.env.HUGGINGFACE_API_KEY;
+    const key = process.env.HUGGINGFACE_API_KEY ?? process.env.HUGGINGFACE_API_KEY_BACKUP;
     if (!key) return fallbackLovable(def);
     return createHuggingFaceTextProvider(key)(def.providerId);
+  }
+  if (def.provider === "nvidia") {
+    const key = process.env.NVIDIA_API_KEY;
+    if (!key) return fallbackLovable(def);
+    return createNvidiaProvider(key)(def.providerId);
   }
   if (def.provider === "lovable") {
     return fallbackLovable(def);
