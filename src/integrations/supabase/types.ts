@@ -336,6 +336,7 @@ export type Database = {
           display_name: string | null
           id: string
           language: string
+          onboarding_answers: Json
           subscription: string
           theme: string
           timezone: string
@@ -349,6 +350,7 @@ export type Database = {
           display_name?: string | null
           id: string
           language?: string
+          onboarding_answers?: Json
           subscription?: string
           theme?: string
           timezone?: string
@@ -362,6 +364,7 @@ export type Database = {
           display_name?: string | null
           id?: string
           language?: string
+          onboarding_answers?: Json
           subscription?: string
           theme?: string
           timezone?: string
@@ -456,6 +459,39 @@ export type Database = {
           tokens?: number
           user_id?: string
           videos?: number
+        }
+        Relationships: []
+      }
+      user_integrations: {
+        Row: {
+          created_at: string
+          id: string
+          meta: Json
+          provider: string
+          refresh_token: string | null
+          scope: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          meta?: Json
+          provider: string
+          refresh_token?: string | null
+          scope?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          meta?: Json
+          provider?: string
+          refresh_token?: string | null
+          scope?: string | null
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
