@@ -19,7 +19,7 @@ export const Route = createFileRoute("/chat/$chatId")({
 });
 
 const MODELS = [
-  { id: "", label: "Auto (Trinity routes)" },
+  { id: "auto", label: "Auto (Trinity routes)" },
   { id: "deepseek-v3", label: "DeepSeek V3" },
   { id: "qwen-3", label: "Qwen 3" },
   { id: "llama", label: "Llama 3.3" },
@@ -27,6 +27,15 @@ const MODELS = [
   { id: "mistral", label: "Mistral" },
   { id: "deepseek-coder", label: "DeepSeek Coder" },
   { id: "qwen-coder", label: "Qwen Coder" },
+  { id: "nvidia-nemotron-70b", label: "Llama 3.1 Nemotron 70B" },
+  { id: "nvidia-nemotron-ultra", label: "Llama 3.1 Nemotron Ultra" },
+  { id: "nvidia-nemotron-super", label: "Llama 3.3 Nemotron Super" },
+  { id: "nvidia-deepseek-r1", label: "DeepSeek R1 (NVIDIA)" },
+  { id: "nvidia-qwen3-coder", label: "Qwen3 Coder 480B (NVIDIA)" },
+  { id: "nvidia-llama4-maverick", label: "Llama 4 Maverick" },
+  { id: "nvidia-llama4-scout", label: "Llama 4 Scout" },
+  { id: "nvidia-mistral-small", label: "Mistral Small 3 (NVIDIA)" },
+  { id: "nvidia-gemma3-27b", label: "Gemma 3 27B (NVIDIA)" },
   { id: "gpt", label: "GPT-4o (premium)" },
   { id: "claude", label: "Claude 3.5 Sonnet (premium)" },
   { id: "gemini", label: "Gemini 2.5 Pro (premium)" },
@@ -84,7 +93,7 @@ function ChatThread() {
       new DefaultChatTransport({
         api: "/api/chat",
         prepareSendMessagesRequest: ({ messages, body }) => ({
-          body: { messages, model, thinkingMode: thinking, ...(body ?? {}) },
+          body: { messages, ...(model === "auto" ? {} : { model }), thinkingMode: thinking, ...(body ?? {}) },
         }),
       }),
     [model, thinking],
