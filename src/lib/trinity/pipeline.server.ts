@@ -129,19 +129,39 @@ export function runTrinityPipeline(opts: TrinityOptions) {
       // 13 format
       emit("format", "done", "markdown");
 
-      // 14 stream — re-stream from winner so client sees true streaming
+      // 14 stream — re-stream from winner, with automatic fallback to Lovable gateway
       emit("stream", "start", winnerDef.label);
-      const winnerModel = buildModel(winnerDef);
-      if (!winnerModel) {
-        writer.write({ type: "data-trinity-step", data: { step: "stream", status: "skip", detail: "no provider" }, transient: true });
-        return;
+      const tryStream = async (def: ReturnType<typeof getModel> | typeof winnerDef, label: string) => {
+        if (!def) return false;
+        const m = buildModel(def);
+        if (!m) return false;
+        try {
+          const result = streamText({
+            model: m,
+            system: enhancedSystem,
+            messages: opts.modelMessages,
+            onError: (e) => {
+              console.error(`[trinity] stream error on ${label}:`, e);
+            },
+          });
+          writer.merge(result.toUIMessageStream());
+          return true;
+        } catch (err) {
+          console.error(`[trinity] failed to start stream on ${label}:`, err);
+          return false;
+        }
+      };
+
+      let ok = await tryStream(winnerDef, winnerDef.label);
+      if (!ok) {
+        // Fallback chain: winner → gemini → lovable default
+        emit("stream", "skip", `${winnerDef.label} failed, falling back`);
+        const gem = getModel("gemini");
+        if (gem && gem.id !== winnerDef.id) ok = await tryStream(gem, "Gemini fallback");
       }
-      const result = streamText({
-        model: winnerModel,
-        system: enhancedSystem,
-        messages: opts.modelMessages,
-      });
-      writer.merge(result.toUIMessageStream());
+      if (!ok) {
+        writer.write({ type: "data-trinity-step", data: { step: "stream", status: "skip", detail: "all providers failed" }, transient: true });
+      }
     },
   });
 }
