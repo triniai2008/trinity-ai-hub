@@ -162,3 +162,59 @@
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
+
+/* ── Glass-minimal design system ── */
+@keyframes aurora-drift {
+  0%, 100% { transform: translate3d(0,0,0) scale(1); }
+  33% { transform: translate3d(6%, -4%, 0) scale(1.08); }
+  66% { transform: translate3d(-4%, 5%, 0) scale(0.94); }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-aurora { animation: aurora-drift 18s ease-in-out infinite; }
+.animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 8s ease infinite;
+}
+
+.glass {
+  background: color-mix(in oklab, var(--color-background) 55%, transparent);
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid color-mix(in oklab, var(--color-foreground) 8%, transparent);
+}
+.glass-strong {
+  background: color-mix(in oklab, var(--color-background) 78%, transparent);
+  backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid color-mix(in oklab, var(--color-foreground) 12%, transparent);
+}
+.glass-card {
+  background: color-mix(in oklab, var(--color-card) 60%, transparent);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid color-mix(in oklab, var(--color-foreground) 8%, transparent);
+  box-shadow: 0 1px 0 color-mix(in oklab, white 6%, transparent) inset,
+              0 20px 60px -30px color-mix(in oklab, black 40%, transparent);
+}
+.text-gradient {
+  background: linear-gradient(120deg,
+    oklch(0.62 0.19 256),
+    oklch(0.72 0.14 220),
+    oklch(0.68 0.18 300));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.grid-noise {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-foreground) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-foreground) 5%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+}
+
