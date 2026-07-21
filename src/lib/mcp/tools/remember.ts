@@ -22,7 +22,7 @@ export default defineTool({
     await turso().execute({
       sql: `INSERT INTO memories (user_id, key, value, importance, created_at, updated_at)
             VALUES (?, ?, ?, ?, ?, ?)`,
-      args: [ctx.getUserId(), key, value, importance ?? 1, now, now],
+      args: [ctx.getUserId(), key, value, importance ?? 1, now, now] as (string | number)[],
     });
     return {
       content: [{ type: "text", text: `Saved memory "${key}".` }],

@@ -24,12 +24,12 @@ export default defineTool({
           sql: `SELECT key, value, importance, updated_at FROM memories
                 WHERE user_id = ? AND (lower(key) LIKE ? OR lower(value) LIKE ?)
                 ORDER BY importance DESC, updated_at DESC LIMIT ?`,
-          args: [userId, `%${query.toLowerCase()}%`, `%${query.toLowerCase()}%`, max],
+          args: [userId, `%${query.toLowerCase()}%`, `%${query.toLowerCase()}%`, max] as (string | number)[],
         })
       : await turso().execute({
           sql: `SELECT key, value, importance, updated_at FROM memories
                 WHERE user_id = ? ORDER BY importance DESC, updated_at DESC LIMIT ?`,
-          args: [userId, max],
+          args: [userId, max] as (string | number)[],
         });
     const rows = result.rows.map((r) => ({
       key: r.key as string,
