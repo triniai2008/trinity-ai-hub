@@ -17,21 +17,42 @@ export const Route = createFileRoute("/auth")({
       { name: "robots", content: "noindex" },
     ],
   }),
+  validateSearch: (s: Record<string, unknown>) => ({
+    next: typeof s.next === "string" ? s.next : undefined,
+  }),
   component: AuthPage,
 });
 
+// Only accept same-origin relative paths (preserves OAuth consent return URLs safely).
+function safeNext(next: string | undefined): string | null {
+  if (!next) return null;
+  if (!next.startsWith("/") || next.startsWith("//")) return null;
+  return next;
+}
+
 function AuthPage() {
   const navigate = useNavigate();
+  const { next } = Route.useSearch();
+  const returnTo = safeNext(next);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [busy, setBusy] = useState(false);
 
+  const goHome = () => {
+    if (returnTo) {
+      window.location.href = returnTo;
+    } else {
+      navigate({ to: "/home", replace: true });
+    }
+  };
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/home", replace: true });
+      if (data.session) goHome();
     });
-  }, [navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const signIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,38 +60,42 @@ function AuthPage() {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setBusy(false);
     if (error) return toast.error(error.message);
-    navigate({ to: "/home", replace: true });
+    goHome();
   };
 
   const signUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setBusy(true);
+    const emailRedirectTo = returnTo
+      ? window.location.origin + returnTo
+      : window.location.origin;
     const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: { name },
-        emailRedirectTo: window.location.origin,
+        emailRedirectTo,
       },
     });
     setBusy(false);
     if (error) return toast.error(error.message);
     toast.success("Account created. You're in.");
-    navigate({ to: "/home", replace: true });
+    goHome();
   };
 
   const google = async () => {
     setBusy(true);
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
-    });
+    const redirect_uri = returnTo
+      ? window.location.origin + returnTo
+      : window.location.origin;
+    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri });
     if (result.error) {
       setBusy(false);
       toast.error((result.error as Error).message ?? "Google sign-in failed");
       return;
     }
     if (result.redirected) return;
-    navigate({ to: "/home", replace: true });
+    goHome();
   };
 
   return (
