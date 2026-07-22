@@ -1,18 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { createUIMessageStream, createUIMessageStreamResponse, type UIMessage } from "ai";
+import { convertToModelMessages, streamText, type UIMessage } from "ai";
 import { createClient } from "@supabase/supabase-js";
-import { type ThinkingMode } from "@/lib/trinity/models";
+import {
+  createLovableAiGatewayProvider,
+  getLovableAiGatewayResponseHeaders,
+  getLovableAiGatewayRunId,
+  withLovableAiGatewayRunIdHeader,
+} from "@/lib/ai-gateway.server";
 
 /**
- * TriniAI chat gateway.
+ * TriniAI chat — powered by Lovable AI Gateway.
  *
- * This route is the Node.js gateway. It never talks to Gemini / OpenRouter /
- * HuggingFace directly — all model orchestration lives in the Agent Kernel
- * service reachable at AGENT_KERNEL_URL. We just:
- *   1. verify the caller's Supabase session
- *   2. forward messages to AGENT_KERNEL_URL/v1/chat/stream (SSE)
- *   3. translate SSE events into the AI SDK UI message stream the React
- *      client already consumes.
+ * Streams a top-tier chat model directly to the client with full markdown,
+ * code blocks and reasoning support, the ChatGPT / Claude experience.
  */
 
 async function verifyAuth(request: Request): Promise<{ userId: string } | Response> {
@@ -22,10 +22,7 @@ async function verifyAuth(request: Request): Promise<{ userId: string } | Respon
   if (!token || token.split(".").length !== 3) return new Response("Unauthorized", { status: 401 });
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_PUBLISHABLE_KEY;
-  if (!url || !key) {
-    console.error("[chat] Missing Supabase env for auth verification");
-    return new Response("Internal server error", { status: 500 });
-  }
+  if (!url || !key) return new Response("Internal server error", { status: 500 });
   const supabase = createClient(url, key, {
     auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
   });
@@ -34,50 +31,46 @@ async function verifyAuth(request: Request): Promise<{ userId: string } | Respon
   return { userId: String(data.claims.sub) };
 }
 
+const SYSTEM_PROMPT = `You are Trinity, the AI mind powering TriniAI — a powerful AI assistant in the spirit of ChatGPT and Claude. You are helpful, precise, and thorough.
+
+Formatting rules:
+- Reply in clean, well-structured markdown.
+- Use headings, bullet lists and tables when they aid clarity.
+- Put code in fenced code blocks with the correct language tag.
+- Use LaTeX ($...$ or $$...$$) for math when helpful.
+- Cite sources with inline links when you reference the web.
+
+Reasoning rules:
+- Think step-by-step for complex questions; keep the final answer focused.
+- If a request is ambiguous, ask one short clarifying question first.
+- Never fabricate facts, APIs, or citations. Say "I don't know" if unsure.
+- Refuse unsafe or illegal requests concisely and offer a safer alternative.`;
+
+// Curated allowlist — every id verified against the ai-models-chat catalog.
+const MODEL_ALLOWLIST = new Set([
+  "google/gemini-3-flash-preview",
+  "google/gemini-3.1-flash-lite",
+  "google/gemini-3.5-flash",
+  "google/gemini-3.6-flash",
+  "google/gemini-3.1-pro-preview",
+  "google/gemini-2.5-pro",
+  "google/gemini-2.5-flash",
+  "openai/gpt-5",
+  "openai/gpt-5-mini",
+  "openai/gpt-5.4",
+  "openai/gpt-5.4-mini",
+  "openai/gpt-5.5",
+]);
+
+// Powerful default — Gemini 3.1 Pro preview for depth, with cheap/fast fallback.
+const DEFAULT_MODEL = "google/gemini-3.1-pro-preview";
+const FAST_MODEL = "google/gemini-3-flash-preview";
+
 type ChatBody = {
   messages?: UIMessage[];
   model?: string;
-  thinkingMode?: ThinkingMode;
-  chatId?: string;
+  thinkingMode?: "normal" | "medium" | "high";
 };
-
-function uiMessagesToPlain(ui: UIMessage[]) {
-  return ui.map((m) => ({
-    role: m.role,
-    content: m.parts.map((p) => (p.type === "text" ? p.text : "")).join(""),
-  }));
-}
-
-// Minimal SSE line parser — reads `event:` / `data:` frames separated by `\n\n`.
-async function* parseSSE(res: Response): AsyncGenerator<{ event: string; data: unknown }> {
-  if (!res.body) return;
-  const reader = res.body.getReader();
-  const decoder = new TextDecoder();
-  let buf = "";
-  while (true) {
-    const { value, done } = await reader.read();
-    if (done) break;
-    buf += decoder.decode(value, { stream: true });
-    let idx: number;
-    while ((idx = buf.indexOf("\n\n")) !== -1) {
-      const frame = buf.slice(0, idx);
-      buf = buf.slice(idx + 2);
-      let event = "message";
-      const dataLines: string[] = [];
-      for (const line of frame.split("\n")) {
-        if (line.startsWith("event:")) event = line.slice(6).trim();
-        else if (line.startsWith("data:")) dataLines.push(line.slice(5).trim());
-      }
-      const raw = dataLines.join("\n");
-      if (!raw) continue;
-      try {
-        yield { event, data: JSON.parse(raw) };
-      } catch {
-        yield { event, data: raw };
-      }
-    }
-  }
-}
 
 export const Route = createFileRoute("/api/chat")({
   server: {
@@ -88,85 +81,49 @@ export const Route = createFileRoute("/api/chat")({
 
         const body = (await request.json()) as ChatBody;
         const uiMessages = body.messages;
-        if (!Array.isArray(uiMessages))
+        if (!Array.isArray(uiMessages) || uiMessages.length === 0)
           return new Response("messages required", { status: 400 });
 
-        const kernelUrl = process.env.AGENT_KERNEL_URL;
-        if (!kernelUrl) {
-          console.error("[chat] AGENT_KERNEL_URL is not configured");
-          return new Response("Agent service not configured", { status: 503 });
+        const lovableApiKey = process.env.LOVABLE_API_KEY;
+        if (!lovableApiKey) {
+          console.error("[chat] Missing LOVABLE_API_KEY");
+          return new Response("AI not configured", { status: 500 });
         }
 
-        const mode: ThinkingMode = body.thinkingMode ?? "normal";
-        const kernelBody = {
-          messages: uiMessagesToPlain(uiMessages),
-          mode,
-          model: body.model,
-          user_id: auth.userId,
-          metadata: { chat_id: body.chatId ?? null },
-        };
+        const mode = body.thinkingMode ?? "normal";
+        const requested = body.model && MODEL_ALLOWLIST.has(body.model) ? body.model : undefined;
+        const modelId = requested ?? (mode === "normal" ? FAST_MODEL : DEFAULT_MODEL);
 
-        const headers: Record<string, string> = { "content-type": "application/json" };
-        if (process.env.AGENT_KERNEL_SHARED_SECRET) {
-          headers.authorization = `Bearer ${process.env.AGENT_KERNEL_SHARED_SECRET}`;
-        }
+        const initialRunId = getLovableAiGatewayRunId(request);
+        const gateway = createLovableAiGatewayProvider(lovableApiKey, initialRunId);
 
-        let upstream: Response;
         try {
-          upstream = await fetch(`${kernelUrl.replace(/\/$/, "")}/v1/chat/stream`, {
-            method: "POST",
-            headers,
-            body: JSON.stringify(kernelBody),
+          const result = streamText({
+            model: gateway(modelId),
+            system: SYSTEM_PROMPT,
+            messages: await convertToModelMessages(uiMessages),
+            // Ask reasoning-capable Gemini models to "think" for medium/high modes.
+            providerOptions:
+              mode !== "normal"
+                ? { lovable: { reasoning: { effort: mode === "high" ? "high" : "medium" } } }
+                : undefined,
           });
+
+          const response = result.toUIMessageStreamResponse({
+            originalMessages: uiMessages,
+            sendReasoning: mode !== "normal",
+            headers: getLovableAiGatewayResponseHeaders(undefined, {
+              "X-Trinity-Model": modelId,
+              "X-Trinity-Mode": mode,
+              ...(initialRunId ? { "X-Lovable-AIG-Run-ID": initialRunId } : {}),
+            }),
+          });
+
+          return withLovableAiGatewayRunIdHeader(response, gateway);
         } catch (err) {
-          console.error("[chat] agent kernel unreachable:", err);
-          return new Response("Agent service unreachable", { status: 502 });
+          console.error("[chat] streamText error:", err);
+          return new Response("AI service error", { status: 502 });
         }
-
-        if (!upstream.ok || !upstream.body) {
-          const text = await upstream.text().catch(() => "");
-          console.error("[chat] agent kernel error:", upstream.status, text);
-          return new Response("Agent service error", { status: 502 });
-        }
-
-        const stream = createUIMessageStream({
-          originalMessages: uiMessages,
-          execute: async ({ writer }) => {
-            const emit = (step: string, status: "start" | "done", detail?: string) =>
-              writer.write({
-                type: "data-trinity-step",
-                data: { step, status, detail: detail ?? "" },
-                transient: true,
-              });
-
-            const messageId = crypto.randomUUID();
-            writer.write({ type: "start", messageId });
-            const textId = crypto.randomUUID();
-            writer.write({ type: "text-start", id: textId });
-
-            for await (const ev of parseSSE(upstream)) {
-              if (ev.event === "step") {
-                const d = ev.data as { step: string; status: "start" | "done" };
-                emit(d.step, d.status);
-              } else if (ev.event === "token") {
-                const d = ev.data as { delta: string };
-                if (d.delta) writer.write({ type: "text-delta", id: textId, delta: d.delta });
-              } else if (ev.event === "done") {
-                writer.write({ type: "text-end", id: textId });
-                writer.write({ type: "finish" });
-              } else if (ev.event === "error") {
-                const d = ev.data as { message?: string };
-                console.error("[chat] kernel error event:", d?.message);
-                writer.write({ type: "error", errorText: "Agent service error" });
-              }
-            }
-          },
-        });
-
-        return createUIMessageStreamResponse({
-          stream,
-          headers: { "X-Trinity-Mode": mode, "X-Trinity-Backend": "agent-kernel" },
-        });
       },
     },
   },
