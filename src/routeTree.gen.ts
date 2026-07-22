@@ -16,6 +16,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as ModelsRouteImport } from './routes/models'
+import { Route as McphubRouteImport } from './routes/mcphub'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as ImagineRouteImport } from './routes/imagine'
@@ -33,7 +34,7 @@ import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as ProfileIndexRouteImport } from './routes/profile.index'
 import { Route as NotificationsIndexRouteImport } from './routes/notifications.index'
 import { Route as ModelsIndexRouteImport } from './routes/models.index'
-import { Route as McpIndexRouteImport } from './routes/mcp.index'
+import { Route as McphubIndexRouteImport } from './routes/mcphub.index'
 import { Route as LearnIndexRouteImport } from './routes/learn.index'
 import { Route as ImagineIndexRouteImport } from './routes/imagine.index'
 import { Route as HomeIndexRouteImport } from './routes/home.index'
@@ -66,13 +67,13 @@ import { Route as ModelsMarketplaceRouteImport } from './routes/models.marketpla
 import { Route as ModelsDownloadRouteImport } from './routes/models.download'
 import { Route as ModelsCloudRouteImport } from './routes/models.cloud'
 import { Route as ModelsArchitectureRouteImport } from './routes/models.architecture'
-import { Route as McpSearchRouteImport } from './routes/mcp.search'
-import { Route as McpResearchRouteImport } from './routes/mcp.research'
-import { Route as McpGithubRouteImport } from './routes/mcp.github'
-import { Route as McpFigmaRouteImport } from './routes/mcp.figma'
-import { Route as McpDriveRouteImport } from './routes/mcp.drive'
-import { Route as McpCanvaRouteImport } from './routes/mcp.canva'
-import { Route as McpBrowserRouteImport } from './routes/mcp.browser'
+import { Route as McphubSearchRouteImport } from './routes/mcphub.search'
+import { Route as McphubResearchRouteImport } from './routes/mcphub.research'
+import { Route as McphubGithubRouteImport } from './routes/mcphub.github'
+import { Route as McphubFigmaRouteImport } from './routes/mcphub.figma'
+import { Route as McphubDriveRouteImport } from './routes/mcphub.drive'
+import { Route as McphubCanvaRouteImport } from './routes/mcphub.canva'
+import { Route as McphubBrowserRouteImport } from './routes/mcphub.browser'
 import { Route as LearnStudyRouteImport } from './routes/learn.study'
 import { Route as LearnExamRouteImport } from './routes/learn.exam'
 import { Route as LearnCareerRouteImport } from './routes/learn.career'
@@ -175,9 +176,9 @@ const ModelsRoute = ModelsRouteImport.update({
   path: '/models',
   getParentRoute: () => rootRouteImport,
 } as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
+const McphubRoute = McphubRouteImport.update({
+  id: '/mcphub',
+  path: '/mcphub',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McpRoute = McpRouteImport.update({
@@ -265,10 +266,10 @@ const ModelsIndexRoute = ModelsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ModelsRoute,
 } as any)
-const McpIndexRoute = McpIndexRouteImport.update({
+const McphubIndexRoute = McphubIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => McpRoute,
+  getParentRoute: () => McphubRoute,
 } as any)
 const LearnIndexRoute = LearnIndexRouteImport.update({
   id: '/',
@@ -430,40 +431,40 @@ const ModelsArchitectureRoute = ModelsArchitectureRouteImport.update({
   path: '/architecture',
   getParentRoute: () => ModelsRoute,
 } as any)
-const McpSearchRoute = McpSearchRouteImport.update({
+const McphubSearchRoute = McphubSearchRouteImport.update({
   id: '/search',
   path: '/search',
-  getParentRoute: () => McpRoute,
+  getParentRoute: () => McphubRoute,
 } as any)
-const McpResearchRoute = McpResearchRouteImport.update({
+const McphubResearchRoute = McphubResearchRouteImport.update({
   id: '/research',
   path: '/research',
-  getParentRoute: () => McpRoute,
+  getParentRoute: () => McphubRoute,
 } as any)
-const McpGithubRoute = McpGithubRouteImport.update({
+const McphubGithubRoute = McphubGithubRouteImport.update({
   id: '/github',
   path: '/github',
-  getParentRoute: () => McpRoute,
+  getParentRoute: () => McphubRoute,
 } as any)
-const McpFigmaRoute = McpFigmaRouteImport.update({
+const McphubFigmaRoute = McphubFigmaRouteImport.update({
   id: '/figma',
   path: '/figma',
-  getParentRoute: () => McpRoute,
+  getParentRoute: () => McphubRoute,
 } as any)
-const McpDriveRoute = McpDriveRouteImport.update({
+const McphubDriveRoute = McphubDriveRouteImport.update({
   id: '/drive',
   path: '/drive',
-  getParentRoute: () => McpRoute,
+  getParentRoute: () => McphubRoute,
 } as any)
-const McpCanvaRoute = McpCanvaRouteImport.update({
+const McphubCanvaRoute = McphubCanvaRouteImport.update({
   id: '/canva',
   path: '/canva',
-  getParentRoute: () => McpRoute,
+  getParentRoute: () => McphubRoute,
 } as any)
-const McpBrowserRoute = McpBrowserRouteImport.update({
+const McphubBrowserRoute = McphubBrowserRouteImport.update({
   id: '/browser',
   path: '/browser',
-  getParentRoute: () => McpRoute,
+  getParentRoute: () => McphubRoute,
 } as any)
 const LearnStudyRoute = LearnStudyRouteImport.update({
   id: '/study',
@@ -811,7 +812,8 @@ export interface FileRoutesByFullPath {
   '/home': typeof HomeRouteWithChildren
   '/imagine': typeof ImagineRouteWithChildren
   '/learn': typeof LearnRouteWithChildren
-  '/mcp': typeof McpRouteWithChildren
+  '/mcp': typeof McpRoute
+  '/mcphub': typeof McphubRouteWithChildren
   '/models': typeof ModelsRouteWithChildren
   '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
@@ -883,13 +885,13 @@ export interface FileRoutesByFullPath {
   '/learn/career': typeof LearnCareerRoute
   '/learn/exam': typeof LearnExamRoute
   '/learn/study': typeof LearnStudyRoute
-  '/mcp/browser': typeof McpBrowserRoute
-  '/mcp/canva': typeof McpCanvaRoute
-  '/mcp/drive': typeof McpDriveRoute
-  '/mcp/figma': typeof McpFigmaRoute
-  '/mcp/github': typeof McpGithubRoute
-  '/mcp/research': typeof McpResearchRoute
-  '/mcp/search': typeof McpSearchRoute
+  '/mcphub/browser': typeof McphubBrowserRoute
+  '/mcphub/canva': typeof McphubCanvaRoute
+  '/mcphub/drive': typeof McphubDriveRoute
+  '/mcphub/figma': typeof McphubFigmaRoute
+  '/mcphub/github': typeof McphubGithubRoute
+  '/mcphub/research': typeof McphubResearchRoute
+  '/mcphub/search': typeof McphubSearchRoute
   '/models/architecture': typeof ModelsArchitectureRoute
   '/models/cloud': typeof ModelsCloudRoute
   '/models/download': typeof ModelsDownloadRoute
@@ -922,7 +924,7 @@ export interface FileRoutesByFullPath {
   '/home/': typeof HomeIndexRoute
   '/imagine/': typeof ImagineIndexRoute
   '/learn/': typeof LearnIndexRoute
-  '/mcp/': typeof McpIndexRoute
+  '/mcphub/': typeof McphubIndexRoute
   '/models/': typeof ModelsIndexRoute
   '/notifications/': typeof NotificationsIndexRoute
   '/profile/': typeof ProfileIndexRoute
@@ -934,7 +936,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/mcp': typeof McpIndexRoute
+  '/mcp': typeof McpRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -1001,13 +1003,13 @@ export interface FileRoutesByTo {
   '/learn/career': typeof LearnCareerRoute
   '/learn/exam': typeof LearnExamRoute
   '/learn/study': typeof LearnStudyRoute
-  '/mcp/browser': typeof McpBrowserRoute
-  '/mcp/canva': typeof McpCanvaRoute
-  '/mcp/drive': typeof McpDriveRoute
-  '/mcp/figma': typeof McpFigmaRoute
-  '/mcp/github': typeof McpGithubRoute
-  '/mcp/research': typeof McpResearchRoute
-  '/mcp/search': typeof McpSearchRoute
+  '/mcphub/browser': typeof McphubBrowserRoute
+  '/mcphub/canva': typeof McphubCanvaRoute
+  '/mcphub/drive': typeof McphubDriveRoute
+  '/mcphub/figma': typeof McphubFigmaRoute
+  '/mcphub/github': typeof McphubGithubRoute
+  '/mcphub/research': typeof McphubResearchRoute
+  '/mcphub/search': typeof McphubSearchRoute
   '/models/architecture': typeof ModelsArchitectureRoute
   '/models/cloud': typeof ModelsCloudRoute
   '/models/download': typeof ModelsDownloadRoute
@@ -1040,6 +1042,7 @@ export interface FileRoutesByTo {
   '/home': typeof HomeIndexRoute
   '/imagine': typeof ImagineIndexRoute
   '/learn': typeof LearnIndexRoute
+  '/mcphub': typeof McphubIndexRoute
   '/models': typeof ModelsIndexRoute
   '/notifications': typeof NotificationsIndexRoute
   '/profile': typeof ProfileIndexRoute
@@ -1061,7 +1064,8 @@ export interface FileRoutesById {
   '/home': typeof HomeRouteWithChildren
   '/imagine': typeof ImagineRouteWithChildren
   '/learn': typeof LearnRouteWithChildren
-  '/mcp': typeof McpRouteWithChildren
+  '/mcp': typeof McpRoute
+  '/mcphub': typeof McphubRouteWithChildren
   '/models': typeof ModelsRouteWithChildren
   '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
@@ -1133,13 +1137,13 @@ export interface FileRoutesById {
   '/learn/career': typeof LearnCareerRoute
   '/learn/exam': typeof LearnExamRoute
   '/learn/study': typeof LearnStudyRoute
-  '/mcp/browser': typeof McpBrowserRoute
-  '/mcp/canva': typeof McpCanvaRoute
-  '/mcp/drive': typeof McpDriveRoute
-  '/mcp/figma': typeof McpFigmaRoute
-  '/mcp/github': typeof McpGithubRoute
-  '/mcp/research': typeof McpResearchRoute
-  '/mcp/search': typeof McpSearchRoute
+  '/mcphub/browser': typeof McphubBrowserRoute
+  '/mcphub/canva': typeof McphubCanvaRoute
+  '/mcphub/drive': typeof McphubDriveRoute
+  '/mcphub/figma': typeof McphubFigmaRoute
+  '/mcphub/github': typeof McphubGithubRoute
+  '/mcphub/research': typeof McphubResearchRoute
+  '/mcphub/search': typeof McphubSearchRoute
   '/models/architecture': typeof ModelsArchitectureRoute
   '/models/cloud': typeof ModelsCloudRoute
   '/models/download': typeof ModelsDownloadRoute
@@ -1172,7 +1176,7 @@ export interface FileRoutesById {
   '/home/': typeof HomeIndexRoute
   '/imagine/': typeof ImagineIndexRoute
   '/learn/': typeof LearnIndexRoute
-  '/mcp/': typeof McpIndexRoute
+  '/mcphub/': typeof McphubIndexRoute
   '/models/': typeof ModelsIndexRoute
   '/notifications/': typeof NotificationsIndexRoute
   '/profile/': typeof ProfileIndexRoute
@@ -1196,6 +1200,7 @@ export interface FileRouteTypes {
     | '/imagine'
     | '/learn'
     | '/mcp'
+    | '/mcphub'
     | '/models'
     | '/notifications'
     | '/profile'
@@ -1267,13 +1272,13 @@ export interface FileRouteTypes {
     | '/learn/career'
     | '/learn/exam'
     | '/learn/study'
-    | '/mcp/browser'
-    | '/mcp/canva'
-    | '/mcp/drive'
-    | '/mcp/figma'
-    | '/mcp/github'
-    | '/mcp/research'
-    | '/mcp/search'
+    | '/mcphub/browser'
+    | '/mcphub/canva'
+    | '/mcphub/drive'
+    | '/mcphub/figma'
+    | '/mcphub/github'
+    | '/mcphub/research'
+    | '/mcphub/search'
     | '/models/architecture'
     | '/models/cloud'
     | '/models/download'
@@ -1306,7 +1311,7 @@ export interface FileRouteTypes {
     | '/home/'
     | '/imagine/'
     | '/learn/'
-    | '/mcp/'
+    | '/mcphub/'
     | '/models/'
     | '/notifications/'
     | '/profile/'
@@ -1385,13 +1390,13 @@ export interface FileRouteTypes {
     | '/learn/career'
     | '/learn/exam'
     | '/learn/study'
-    | '/mcp/browser'
-    | '/mcp/canva'
-    | '/mcp/drive'
-    | '/mcp/figma'
-    | '/mcp/github'
-    | '/mcp/research'
-    | '/mcp/search'
+    | '/mcphub/browser'
+    | '/mcphub/canva'
+    | '/mcphub/drive'
+    | '/mcphub/figma'
+    | '/mcphub/github'
+    | '/mcphub/research'
+    | '/mcphub/search'
     | '/models/architecture'
     | '/models/cloud'
     | '/models/download'
@@ -1424,6 +1429,7 @@ export interface FileRouteTypes {
     | '/home'
     | '/imagine'
     | '/learn'
+    | '/mcphub'
     | '/models'
     | '/notifications'
     | '/profile'
@@ -1445,6 +1451,7 @@ export interface FileRouteTypes {
     | '/imagine'
     | '/learn'
     | '/mcp'
+    | '/mcphub'
     | '/models'
     | '/notifications'
     | '/profile'
@@ -1516,13 +1523,13 @@ export interface FileRouteTypes {
     | '/learn/career'
     | '/learn/exam'
     | '/learn/study'
-    | '/mcp/browser'
-    | '/mcp/canva'
-    | '/mcp/drive'
-    | '/mcp/figma'
-    | '/mcp/github'
-    | '/mcp/research'
-    | '/mcp/search'
+    | '/mcphub/browser'
+    | '/mcphub/canva'
+    | '/mcphub/drive'
+    | '/mcphub/figma'
+    | '/mcphub/github'
+    | '/mcphub/research'
+    | '/mcphub/search'
     | '/models/architecture'
     | '/models/cloud'
     | '/models/download'
@@ -1555,7 +1562,7 @@ export interface FileRouteTypes {
     | '/home/'
     | '/imagine/'
     | '/learn/'
-    | '/mcp/'
+    | '/mcphub/'
     | '/models/'
     | '/notifications/'
     | '/profile/'
@@ -1578,7 +1585,7 @@ export interface RootRouteChildren {
   ImagineRoute: typeof ImagineRouteWithChildren
   LearnRoute: typeof LearnRouteWithChildren
   McpRoute: typeof McpRoute
-  McpRoute: typeof McpRouteWithChildren
+  McphubRoute: typeof McphubRouteWithChildren
   ModelsRoute: typeof ModelsRouteWithChildren
   NotificationsRoute: typeof NotificationsRouteWithChildren
   ProfileRoute: typeof ProfileRouteWithChildren
@@ -1644,11 +1651,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModelsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
+    '/mcphub': {
+      id: '/mcphub'
+      path: '/mcphub'
+      fullPath: '/mcphub'
+      preLoaderRoute: typeof McphubRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -1770,12 +1777,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModelsIndexRouteImport
       parentRoute: typeof ModelsRoute
     }
-    '/mcp/': {
-      id: '/mcp/'
+    '/mcphub/': {
+      id: '/mcphub/'
       path: '/'
-      fullPath: '/mcp/'
-      preLoaderRoute: typeof McpIndexRouteImport
-      parentRoute: typeof McpRoute
+      fullPath: '/mcphub/'
+      preLoaderRoute: typeof McphubIndexRouteImport
+      parentRoute: typeof McphubRoute
     }
     '/learn/': {
       id: '/learn/'
@@ -2001,54 +2008,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModelsArchitectureRouteImport
       parentRoute: typeof ModelsRoute
     }
-    '/mcp/search': {
-      id: '/mcp/search'
+    '/mcphub/search': {
+      id: '/mcphub/search'
       path: '/search'
-      fullPath: '/mcp/search'
-      preLoaderRoute: typeof McpSearchRouteImport
-      parentRoute: typeof McpRoute
+      fullPath: '/mcphub/search'
+      preLoaderRoute: typeof McphubSearchRouteImport
+      parentRoute: typeof McphubRoute
     }
-    '/mcp/research': {
-      id: '/mcp/research'
+    '/mcphub/research': {
+      id: '/mcphub/research'
       path: '/research'
-      fullPath: '/mcp/research'
-      preLoaderRoute: typeof McpResearchRouteImport
-      parentRoute: typeof McpRoute
+      fullPath: '/mcphub/research'
+      preLoaderRoute: typeof McphubResearchRouteImport
+      parentRoute: typeof McphubRoute
     }
-    '/mcp/github': {
-      id: '/mcp/github'
+    '/mcphub/github': {
+      id: '/mcphub/github'
       path: '/github'
-      fullPath: '/mcp/github'
-      preLoaderRoute: typeof McpGithubRouteImport
-      parentRoute: typeof McpRoute
+      fullPath: '/mcphub/github'
+      preLoaderRoute: typeof McphubGithubRouteImport
+      parentRoute: typeof McphubRoute
     }
-    '/mcp/figma': {
-      id: '/mcp/figma'
+    '/mcphub/figma': {
+      id: '/mcphub/figma'
       path: '/figma'
-      fullPath: '/mcp/figma'
-      preLoaderRoute: typeof McpFigmaRouteImport
-      parentRoute: typeof McpRoute
+      fullPath: '/mcphub/figma'
+      preLoaderRoute: typeof McphubFigmaRouteImport
+      parentRoute: typeof McphubRoute
     }
-    '/mcp/drive': {
-      id: '/mcp/drive'
+    '/mcphub/drive': {
+      id: '/mcphub/drive'
       path: '/drive'
-      fullPath: '/mcp/drive'
-      preLoaderRoute: typeof McpDriveRouteImport
-      parentRoute: typeof McpRoute
+      fullPath: '/mcphub/drive'
+      preLoaderRoute: typeof McphubDriveRouteImport
+      parentRoute: typeof McphubRoute
     }
-    '/mcp/canva': {
-      id: '/mcp/canva'
+    '/mcphub/canva': {
+      id: '/mcphub/canva'
       path: '/canva'
-      fullPath: '/mcp/canva'
-      preLoaderRoute: typeof McpCanvaRouteImport
-      parentRoute: typeof McpRoute
+      fullPath: '/mcphub/canva'
+      preLoaderRoute: typeof McphubCanvaRouteImport
+      parentRoute: typeof McphubRoute
     }
-    '/mcp/browser': {
-      id: '/mcp/browser'
+    '/mcphub/browser': {
+      id: '/mcphub/browser'
       path: '/browser'
-      fullPath: '/mcp/browser'
-      preLoaderRoute: typeof McpBrowserRouteImport
-      parentRoute: typeof McpRoute
+      fullPath: '/mcphub/browser'
+      preLoaderRoute: typeof McphubBrowserRouteImport
+      parentRoute: typeof McphubRoute
     }
     '/learn/study': {
       id: '/learn/study'
@@ -2732,29 +2739,30 @@ const LearnRouteChildren: LearnRouteChildren = {
 
 const LearnRouteWithChildren = LearnRoute._addFileChildren(LearnRouteChildren)
 
-interface McpRouteChildren {
-  McpBrowserRoute: typeof McpBrowserRoute
-  McpCanvaRoute: typeof McpCanvaRoute
-  McpDriveRoute: typeof McpDriveRoute
-  McpFigmaRoute: typeof McpFigmaRoute
-  McpGithubRoute: typeof McpGithubRoute
-  McpResearchRoute: typeof McpResearchRoute
-  McpSearchRoute: typeof McpSearchRoute
-  McpIndexRoute: typeof McpIndexRoute
+interface McphubRouteChildren {
+  McphubBrowserRoute: typeof McphubBrowserRoute
+  McphubCanvaRoute: typeof McphubCanvaRoute
+  McphubDriveRoute: typeof McphubDriveRoute
+  McphubFigmaRoute: typeof McphubFigmaRoute
+  McphubGithubRoute: typeof McphubGithubRoute
+  McphubResearchRoute: typeof McphubResearchRoute
+  McphubSearchRoute: typeof McphubSearchRoute
+  McphubIndexRoute: typeof McphubIndexRoute
 }
 
-const McpRouteChildren: McpRouteChildren = {
-  McpBrowserRoute: McpBrowserRoute,
-  McpCanvaRoute: McpCanvaRoute,
-  McpDriveRoute: McpDriveRoute,
-  McpFigmaRoute: McpFigmaRoute,
-  McpGithubRoute: McpGithubRoute,
-  McpResearchRoute: McpResearchRoute,
-  McpSearchRoute: McpSearchRoute,
-  McpIndexRoute: McpIndexRoute,
+const McphubRouteChildren: McphubRouteChildren = {
+  McphubBrowserRoute: McphubBrowserRoute,
+  McphubCanvaRoute: McphubCanvaRoute,
+  McphubDriveRoute: McphubDriveRoute,
+  McphubFigmaRoute: McphubFigmaRoute,
+  McphubGithubRoute: McphubGithubRoute,
+  McphubResearchRoute: McphubResearchRoute,
+  McphubSearchRoute: McphubSearchRoute,
+  McphubIndexRoute: McphubIndexRoute,
 }
 
-const McpRouteWithChildren = McpRoute._addFileChildren(McpRouteChildren)
+const McphubRouteWithChildren =
+  McphubRoute._addFileChildren(McphubRouteChildren)
 
 interface ModelsRouteChildren {
   ModelsArchitectureRoute: typeof ModelsArchitectureRoute
@@ -2873,7 +2881,7 @@ const rootRouteChildren: RootRouteChildren = {
   ImagineRoute: ImagineRouteWithChildren,
   LearnRoute: LearnRouteWithChildren,
   McpRoute: McpRoute,
-  McpRoute: McpRouteWithChildren,
+  McphubRoute: McphubRouteWithChildren,
   ModelsRoute: ModelsRouteWithChildren,
   NotificationsRoute: NotificationsRouteWithChildren,
   ProfileRoute: ProfileRouteWithChildren,

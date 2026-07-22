@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SubPageStub } from "@/components/module-layout";
 
-export const Route = createFileRoute("/mcp/browser")({
+export const Route = createFileRoute("/mcphub/github")({
   head: () => ({
     meta: [
-      { title: "Browser MCP — MCP Hub — TriniAI" },
+      { title: "GitHub MCP — MCP Hub — TriniAI" },
       { name: "robots", content: "noindex" },
     ],
   }),
-  component: () => <SubPageStub moduleKey="mcp" slug="browser" />,
+  component: () => <SubPageStub moduleKey="mcp" slug="github" />,
 });
