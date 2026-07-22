@@ -152,7 +152,7 @@ export const MODULES: ModuleDef[] = [
   {
     key: "mcp",
     label: "MCP Hub",
-    path: "/mcp",
+    path: "/mcphub",
     icon: Plug,
     description: "Connect tools via Model Context Protocol.",
     pages: [

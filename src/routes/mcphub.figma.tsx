@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SubPageStub } from "@/components/module-layout";
 
-export const Route = createFileRoute("/mcp/canva")({
+export const Route = createFileRoute("/mcphub/figma")({
   head: () => ({
     meta: [
-      { title: "Canva MCP — MCP Hub — TriniAI" },
+      { title: "Figma MCP — MCP Hub — TriniAI" },
       { name: "robots", content: "noindex" },
     ],
   }),
-  component: () => <SubPageStub moduleKey="mcp" slug="canva" />,
+  component: () => <SubPageStub moduleKey="mcp" slug="figma" />,
 });

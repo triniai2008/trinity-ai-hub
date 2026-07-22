@@ -57,7 +57,7 @@ const COMMANDS: Cmd[] = [
   { label: "Explore", to: "/explore", icon: Compass, group: "Go to" },
   { label: "Agents", to: "/agents", icon: Bot, group: "Go to" },
   { label: "Models", to: "/models", icon: Boxes, group: "Go to" },
-  { label: "MCP Hub", to: "/mcp", icon: Plug, group: "Go to" },
+  { label: "MCP Hub", to: "/mcphub", icon: Plug, group: "Go to" },
   { label: "Workspace", to: "/workspace", icon: Briefcase, group: "Go to" },
   { label: "Learn", to: "/learn", icon: GraduationCap, group: "Go to" },
   { label: "Community", to: "/community", icon: Users, group: "Go to" },
