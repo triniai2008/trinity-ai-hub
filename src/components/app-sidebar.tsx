@@ -34,7 +34,7 @@ const NAV = [
   { to: "/explore", label: "Explore", icon: Compass },
   { to: "/agents", label: "Agents", icon: Bot },
   { to: "/models", label: "Models", icon: Boxes },
-  { to: "/mcp", label: "MCP Hub", icon: Plug },
+  { to: "/mcphub", label: "MCP Hub", icon: Plug },
   { to: "/workspace", label: "Workspace", icon: Briefcase },
   { to: "/community", label: "Community", icon: Users },
   { to: "/learn", label: "Learn", icon: GraduationCap },
