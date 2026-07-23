@@ -59,7 +59,15 @@ function AuthPage() {
     setBusy(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) {
+      if (error.message.toLowerCase().includes("email not confirmed")) {
+        return toast.error("Please confirm your email first, then sign in.");
+      }
+      if (error.message.toLowerCase().includes("invalid")) {
+        return toast.error("Wrong email or password.");
+      }
+      return toast.error(error.message);
+    }
     goHome();
   };
 
@@ -69,7 +77,7 @@ function AuthPage() {
     const emailRedirectTo = returnTo
       ? window.location.origin + returnTo
       : window.location.origin;
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -77,8 +85,23 @@ function AuthPage() {
         emailRedirectTo,
       },
     });
+    if (error) {
+      setBusy(false);
+      if (error.message.toLowerCase().includes("weak")) {
+        return toast.error("Password is too weak — try something longer or less common.");
+      }
+      return toast.error(error.message);
+    }
+    // If auto-confirm is on, session is returned. Otherwise try password sign-in.
+    if (!data.session) {
+      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+      if (signInError) {
+        setBusy(false);
+        toast.success("Account created. Check your email to confirm, then sign in.");
+        return;
+      }
+    }
     setBusy(false);
-    if (error) return toast.error(error.message);
     toast.success("Account created. You're in.");
     goHome();
   };
