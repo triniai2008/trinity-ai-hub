@@ -7,12 +7,14 @@ import {
   getLovableAiGatewayRunId,
   withLovableAiGatewayRunIdHeader,
 } from "@/lib/ai-gateway.server";
+import { getModel, detectCapability, planForMode, type ThinkingMode } from "@/lib/trinity/models";
+import { buildModel, runParallel, judge } from "@/lib/trinity/router.server";
 
 /**
- * TriniAI chat — powered by Lovable AI Gateway.
- *
- * Streams a top-tier chat model directly to the client with full markdown,
- * code blocks and reasoning support, the ChatGPT / Claude experience.
+ * TriniAI /api/chat — hybrid brain.
+ *  • Normal mode → stream directly from the chosen model (Lovable AI or Trinity provider).
+ *  • Medium/High mode → Trinity router: fan out to N models in parallel,
+ *    judge, then stream the winner's answer to the client.
  */
 
 async function verifyAuth(request: Request): Promise<{ userId: string } | Response> {
@@ -46,8 +48,8 @@ Reasoning rules:
 - Never fabricate facts, APIs, or citations. Say "I don't know" if unsure.
 - Refuse unsafe or illegal requests concisely and offer a safer alternative.`;
 
-// Curated allowlist — every id verified against the ai-models-chat catalog.
-const MODEL_ALLOWLIST = new Set([
+// Every Lovable AI chat model id currently in the catalog. Keep in sync with ai-models-chat.
+const LOVABLE_MODEL_ALLOWLIST = new Set([
   "google/gemini-3-flash-preview",
   "google/gemini-3.1-flash-lite",
   "google/gemini-3.5-flash",
@@ -55,22 +57,42 @@ const MODEL_ALLOWLIST = new Set([
   "google/gemini-3.1-pro-preview",
   "google/gemini-2.5-pro",
   "google/gemini-2.5-flash",
+  "google/gemini-2.5-flash-lite",
   "openai/gpt-5",
   "openai/gpt-5-mini",
+  "openai/gpt-5-nano",
+  "openai/gpt-5.2",
   "openai/gpt-5.4",
   "openai/gpt-5.4-mini",
+  "openai/gpt-5.4-nano",
   "openai/gpt-5.5",
+  "openai/gpt-5.6-sol",
+  "openai/gpt-5.6-terra",
+  "openai/gpt-5.6-luna",
 ]);
 
-// Powerful default — Gemini 3.1 Pro preview for depth, with cheap/fast fallback.
-const DEFAULT_MODEL = "google/gemini-3.1-pro-preview";
-const FAST_MODEL = "google/gemini-3-flash-preview";
+const GPT56 = /^openai\/gpt-5\.6-/;
+const DEFAULT_LOVABLE_MODEL = "google/gemini-3.6-flash";
 
 type ChatBody = {
   messages?: UIMessage[];
   model?: string;
-  thinkingMode?: "normal" | "medium" | "high";
+  thinkingMode?: ThinkingMode;
+  includePremium?: boolean;
 };
+
+function lastUserText(messages: UIMessage[]): string {
+  for (let i = messages.length - 1; i >= 0; i--) {
+    const m = messages[i];
+    if (m.role === "user") {
+      return m.parts
+        .map((p) => (p.type === "text" ? p.text : ""))
+        .join("\n")
+        .trim();
+    }
+  }
+  return "";
+}
 
 export const Route = createFileRoute("/api/chat")({
   server: {
@@ -90,30 +112,93 @@ export const Route = createFileRoute("/api/chat")({
           return new Response("AI not configured", { status: 500 });
         }
 
-        const mode = body.thinkingMode ?? "normal";
-        const requested = body.model && MODEL_ALLOWLIST.has(body.model) ? body.model : undefined;
-        const modelId = requested ?? (mode === "normal" ? FAST_MODEL : DEFAULT_MODEL);
-
+        const mode: ThinkingMode = body.thinkingMode ?? "normal";
+        const requested = body.model?.trim();
         const initialRunId = getLovableAiGatewayRunId(request);
         const gateway = createLovableAiGatewayProvider(lovableApiKey, initialRunId);
+        const modelMessages = await convertToModelMessages(uiMessages);
+        const question = lastUserText(uiMessages);
 
         try {
+          // ── MEDIUM / HIGH → Trinity multi-model + judge ──────────────
+          if (mode !== "normal") {
+            const cap = detectCapability(question || "chat");
+            const plan = planForMode(cap, mode, body.includePremium ?? false);
+
+            if (plan.length > 1) {
+              const results = await runParallel(plan, modelMessages, SYSTEM_PROMPT);
+              if (results.length > 0) {
+                const verdict = await judge(question, results);
+                const winner = results[verdict.winnerIndex] ?? results[0];
+                const winnerModel = buildModel(winner.model);
+                if (winnerModel) {
+                  const result = streamText({
+                    model: winnerModel,
+                    system: SYSTEM_PROMPT,
+                    messages: modelMessages,
+                  });
+                  const response = result.toUIMessageStreamResponse({
+                    originalMessages: uiMessages,
+                    headers: getLovableAiGatewayResponseHeaders(undefined, {
+                      "X-Trinity-Mode": mode,
+                      "X-Trinity-Capability": cap,
+                      "X-Trinity-Plan": plan.map((p) => p.id).join(","),
+                      "X-Trinity-Winner": winner.model.id,
+                      "X-Trinity-Judge-Reason": encodeURIComponent(verdict.reasoning).slice(0, 400),
+                      ...(initialRunId ? { "X-Lovable-AIG-Run-ID": initialRunId } : {}),
+                    }),
+                  });
+                  return withLovableAiGatewayRunIdHeader(response, gateway);
+                }
+              }
+              // Fan-out failed for every provider → fall through to single-model stream.
+            }
+          }
+
+          // ── NORMAL (or fallback) → single model stream ───────────────
+          let modelInstance;
+          let chosenId: string;
+
+          if (requested && LOVABLE_MODEL_ALLOWLIST.has(requested)) {
+            modelInstance = gateway(requested);
+            chosenId = requested;
+          } else if (requested && getModel(requested)) {
+            const def = getModel(requested)!;
+            const built = buildModel(def);
+            if (built) {
+              modelInstance = built;
+              chosenId = `trinity:${def.id}`;
+            } else {
+              modelInstance = gateway(DEFAULT_LOVABLE_MODEL);
+              chosenId = DEFAULT_LOVABLE_MODEL;
+            }
+          } else {
+            modelInstance = gateway(DEFAULT_LOVABLE_MODEL);
+            chosenId = DEFAULT_LOVABLE_MODEL;
+          }
+
+          const isGpt56 = GPT56.test(chosenId);
+          const wantsReasoning = mode !== "normal" && !isGpt56 && chosenId.startsWith("google/");
+
           const result = streamText({
-            model: gateway(modelId),
+            model: modelInstance,
             system: SYSTEM_PROMPT,
-            messages: await convertToModelMessages(uiMessages),
-            // Ask reasoning-capable Gemini models to "think" for medium/high modes.
-            providerOptions:
-              mode !== "normal"
-                ? { lovable: { reasoning: { effort: mode === "high" ? "high" : "medium" } } }
-                : undefined,
+            messages: modelMessages,
+            providerOptions: {
+              lovable: {
+                ...(isGpt56 ? { reasoningEffort: "none" as const } : {}),
+                ...(wantsReasoning
+                  ? { reasoning: { effort: mode === "high" ? "high" : "medium" } }
+                  : {}),
+              },
+            },
           });
 
           const response = result.toUIMessageStreamResponse({
             originalMessages: uiMessages,
-            sendReasoning: mode !== "normal",
+            sendReasoning: wantsReasoning,
             headers: getLovableAiGatewayResponseHeaders(undefined, {
-              "X-Trinity-Model": modelId,
+              "X-Trinity-Model": chosenId,
               "X-Trinity-Mode": mode,
               ...(initialRunId ? { "X-Lovable-AIG-Run-ID": initialRunId } : {}),
             }),
