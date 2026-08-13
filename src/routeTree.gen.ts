@@ -77,6 +77,7 @@ import { Route as McphubBrowserRouteImport } from './routes/mcphub.browser'
 import { Route as LearnStudyRouteImport } from './routes/learn.study'
 import { Route as LearnExamRouteImport } from './routes/learn.exam'
 import { Route as LearnCareerRouteImport } from './routes/learn.career'
+import { Route as LearnAnalyticsRouteImport } from './routes/learn.analytics'
 import { Route as ImagineVoiceCloneRouteImport } from './routes/imagine.voice-clone'
 import { Route as ImagineVoiceRouteImport } from './routes/imagine.voice'
 import { Route as ImagineVideoHistoryRouteImport } from './routes/imagine.video-history'
@@ -482,6 +483,11 @@ const LearnExamRoute = LearnExamRouteImport.update({
 const LearnCareerRoute = LearnCareerRouteImport.update({
   id: '/career',
   path: '/career',
+  getParentRoute: () => LearnRoute,
+} as any)
+const LearnAnalyticsRoute = LearnAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
   getParentRoute: () => LearnRoute,
 } as any)
 const ImagineVoiceCloneRoute = ImagineVoiceCloneRouteImport.update({
@@ -900,6 +906,7 @@ export interface FileRoutesByFullPath {
   '/imagine/video-history': typeof ImagineVideoHistoryRoute
   '/imagine/voice': typeof ImagineVoiceRoute
   '/imagine/voice-clone': typeof ImagineVoiceCloneRoute
+  '/learn/analytics': typeof LearnAnalyticsRoute
   '/learn/career': typeof LearnCareerRoute
   '/learn/exam': typeof LearnExamRoute
   '/learn/study': typeof LearnStudyRoute
@@ -1021,6 +1028,7 @@ export interface FileRoutesByTo {
   '/imagine/video-history': typeof ImagineVideoHistoryRoute
   '/imagine/voice': typeof ImagineVoiceRoute
   '/imagine/voice-clone': typeof ImagineVoiceCloneRoute
+  '/learn/analytics': typeof LearnAnalyticsRoute
   '/learn/career': typeof LearnCareerRoute
   '/learn/exam': typeof LearnExamRoute
   '/learn/study': typeof LearnStudyRoute
@@ -1158,6 +1166,7 @@ export interface FileRoutesById {
   '/imagine/video-history': typeof ImagineVideoHistoryRoute
   '/imagine/voice': typeof ImagineVoiceRoute
   '/imagine/voice-clone': typeof ImagineVoiceCloneRoute
+  '/learn/analytics': typeof LearnAnalyticsRoute
   '/learn/career': typeof LearnCareerRoute
   '/learn/exam': typeof LearnExamRoute
   '/learn/study': typeof LearnStudyRoute
@@ -1296,6 +1305,7 @@ export interface FileRouteTypes {
     | '/imagine/video-history'
     | '/imagine/voice'
     | '/imagine/voice-clone'
+    | '/learn/analytics'
     | '/learn/career'
     | '/learn/exam'
     | '/learn/study'
@@ -1417,6 +1427,7 @@ export interface FileRouteTypes {
     | '/imagine/video-history'
     | '/imagine/voice'
     | '/imagine/voice-clone'
+    | '/learn/analytics'
     | '/learn/career'
     | '/learn/exam'
     | '/learn/study'
@@ -1553,6 +1564,7 @@ export interface FileRouteTypes {
     | '/imagine/video-history'
     | '/imagine/voice'
     | '/imagine/voice-clone'
+    | '/learn/analytics'
     | '/learn/career'
     | '/learn/exam'
     | '/learn/study'
@@ -2113,6 +2125,13 @@ declare module '@tanstack/react-router' {
       path: '/career'
       fullPath: '/learn/career'
       preLoaderRoute: typeof LearnCareerRouteImport
+      parentRoute: typeof LearnRoute
+    }
+    '/learn/analytics': {
+      id: '/learn/analytics'
+      path: '/analytics'
+      fullPath: '/learn/analytics'
+      preLoaderRoute: typeof LearnAnalyticsRouteImport
       parentRoute: typeof LearnRoute
     }
     '/imagine/voice-clone': {
@@ -2782,6 +2801,7 @@ const ImagineRouteWithChildren =
   ImagineRoute._addFileChildren(ImagineRouteChildren)
 
 interface LearnRouteChildren {
+  LearnAnalyticsRoute: typeof LearnAnalyticsRoute
   LearnCareerRoute: typeof LearnCareerRoute
   LearnExamRoute: typeof LearnExamRoute
   LearnStudyRoute: typeof LearnStudyRoute
@@ -2791,6 +2811,7 @@ interface LearnRouteChildren {
 }
 
 const LearnRouteChildren: LearnRouteChildren = {
+  LearnAnalyticsRoute: LearnAnalyticsRoute,
   LearnCareerRoute: LearnCareerRoute,
   LearnExamRoute: LearnExamRoute,
   LearnStudyRoute: LearnStudyRoute,
