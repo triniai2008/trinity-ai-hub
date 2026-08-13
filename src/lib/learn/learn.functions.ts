@@ -4,6 +4,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { safeJson } from "./json";
 
 const SubjectInput = z.object({ subject: z.string().min(1).max(40) });
 const TopicInput = z.object({ topicId: z.string().min(1).max(80) });
@@ -528,14 +529,3 @@ export const buildStudyPlan = createServerFn({ method: "POST" })
     })).filter((d) => d.focus.length > 0);
     return { days: data.days, perDay, plan };
   });
-
-// ───────────────────────────── helpers ─────────────────────────────────────
-
-function safeJson<T>(value: unknown, fallback: T): T {
-  if (typeof value !== "string" || value.length === 0) return fallback;
-  try {
-    return JSON.parse(value) as T;
-  } catch {
-    return fallback;
-  }
-}
