@@ -138,6 +138,7 @@ import { Route as AdminArchitectureRouteImport } from './routes/admin.architectu
 import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
+import { Route as LearnSubjectSubjectRouteImport } from './routes/learn.subject.$subject'
 import { Route as ApiAgentsChatRouteImport } from './routes/api/agents.chat'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
@@ -789,6 +790,11 @@ const Char91DotmcpChar93ListToolsRoute =
     path: '/.mcp/list-tools',
     getParentRoute: () => rootRouteImport,
   } as any)
+const LearnSubjectSubjectRoute = LearnSubjectSubjectRouteImport.update({
+  id: '/subject/$subject',
+  path: '/subject/$subject',
+  getParentRoute: () => LearnRoute,
+} as any)
 const ApiAgentsChatRoute = ApiAgentsChatRouteImport.update({
   id: '/api/agents/chat',
   path: '/api/agents/chat',
@@ -939,6 +945,7 @@ export interface FileRoutesByFullPath {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/agents/chat': typeof ApiAgentsChatRoute
+  '/learn/subject/$subject': typeof LearnSubjectSubjectRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -1058,6 +1065,7 @@ export interface FileRoutesByTo {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/agents/chat': typeof ApiAgentsChatRoute
+  '/learn/subject/$subject': typeof LearnSubjectSubjectRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -1193,6 +1201,7 @@ export interface FileRoutesById {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/agents/chat': typeof ApiAgentsChatRoute
+  '/learn/subject/$subject': typeof LearnSubjectSubjectRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -1329,6 +1338,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/agents/chat'
+    | '/learn/subject/$subject'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -1448,6 +1458,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/agents/chat'
+    | '/learn/subject/$subject'
   id:
     | '__root__'
     | '/'
@@ -1582,6 +1593,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/agents/chat'
+    | '/learn/subject/$subject'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -2518,6 +2530,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learn/subject/$subject': {
+      id: '/learn/subject/$subject'
+      path: '/subject/$subject'
+      fullPath: '/learn/subject/$subject'
+      preLoaderRoute: typeof LearnSubjectSubjectRouteImport
+      parentRoute: typeof LearnRoute
+    }
     '/api/agents/chat': {
       id: '/api/agents/chat'
       path: '/api/agents/chat'
@@ -2748,6 +2767,7 @@ interface LearnRouteChildren {
   LearnExamRoute: typeof LearnExamRoute
   LearnStudyRoute: typeof LearnStudyRoute
   LearnIndexRoute: typeof LearnIndexRoute
+  LearnSubjectSubjectRoute: typeof LearnSubjectSubjectRoute
 }
 
 const LearnRouteChildren: LearnRouteChildren = {
@@ -2755,6 +2775,7 @@ const LearnRouteChildren: LearnRouteChildren = {
   LearnExamRoute: LearnExamRoute,
   LearnStudyRoute: LearnStudyRoute,
   LearnIndexRoute: LearnIndexRoute,
+  LearnSubjectSubjectRoute: LearnSubjectSubjectRoute,
 }
 
 const LearnRouteWithChildren = LearnRoute._addFileChildren(LearnRouteChildren)
