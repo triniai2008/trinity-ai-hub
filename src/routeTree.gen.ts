@@ -77,6 +77,7 @@ import { Route as McphubBrowserRouteImport } from './routes/mcphub.browser'
 import { Route as LearnStudyRouteImport } from './routes/learn.study'
 import { Route as LearnExamRouteImport } from './routes/learn.exam'
 import { Route as LearnCareerRouteImport } from './routes/learn.career'
+import { Route as LearnAnalyticsRouteImport } from './routes/learn.analytics'
 import { Route as ImagineVoiceCloneRouteImport } from './routes/imagine.voice-clone'
 import { Route as ImagineVoiceRouteImport } from './routes/imagine.voice'
 import { Route as ImagineVideoHistoryRouteImport } from './routes/imagine.video-history'
@@ -138,6 +139,8 @@ import { Route as AdminArchitectureRouteImport } from './routes/admin.architectu
 import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
+import { Route as LearnTopicTopicIdRouteImport } from './routes/learn.topic.$topicId'
+import { Route as LearnSubjectSubjectRouteImport } from './routes/learn.subject.$subject'
 import { Route as ApiAgentsChatRouteImport } from './routes/api/agents.chat'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
@@ -482,6 +485,11 @@ const LearnCareerRoute = LearnCareerRouteImport.update({
   path: '/career',
   getParentRoute: () => LearnRoute,
 } as any)
+const LearnAnalyticsRoute = LearnAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => LearnRoute,
+} as any)
 const ImagineVoiceCloneRoute = ImagineVoiceCloneRouteImport.update({
   id: '/voice-clone',
   path: '/voice-clone',
@@ -789,6 +797,16 @@ const Char91DotmcpChar93ListToolsRoute =
     path: '/.mcp/list-tools',
     getParentRoute: () => rootRouteImport,
   } as any)
+const LearnTopicTopicIdRoute = LearnTopicTopicIdRouteImport.update({
+  id: '/topic/$topicId',
+  path: '/topic/$topicId',
+  getParentRoute: () => LearnRoute,
+} as any)
+const LearnSubjectSubjectRoute = LearnSubjectSubjectRouteImport.update({
+  id: '/subject/$subject',
+  path: '/subject/$subject',
+  getParentRoute: () => LearnRoute,
+} as any)
 const ApiAgentsChatRoute = ApiAgentsChatRouteImport.update({
   id: '/api/agents/chat',
   path: '/api/agents/chat',
@@ -888,6 +906,7 @@ export interface FileRoutesByFullPath {
   '/imagine/video-history': typeof ImagineVideoHistoryRoute
   '/imagine/voice': typeof ImagineVoiceRoute
   '/imagine/voice-clone': typeof ImagineVoiceCloneRoute
+  '/learn/analytics': typeof LearnAnalyticsRoute
   '/learn/career': typeof LearnCareerRoute
   '/learn/exam': typeof LearnExamRoute
   '/learn/study': typeof LearnStudyRoute
@@ -939,6 +958,8 @@ export interface FileRoutesByFullPath {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/agents/chat': typeof ApiAgentsChatRoute
+  '/learn/subject/$subject': typeof LearnSubjectSubjectRoute
+  '/learn/topic/$topicId': typeof LearnTopicTopicIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -1007,6 +1028,7 @@ export interface FileRoutesByTo {
   '/imagine/video-history': typeof ImagineVideoHistoryRoute
   '/imagine/voice': typeof ImagineVoiceRoute
   '/imagine/voice-clone': typeof ImagineVoiceCloneRoute
+  '/learn/analytics': typeof LearnAnalyticsRoute
   '/learn/career': typeof LearnCareerRoute
   '/learn/exam': typeof LearnExamRoute
   '/learn/study': typeof LearnStudyRoute
@@ -1058,6 +1080,8 @@ export interface FileRoutesByTo {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/agents/chat': typeof ApiAgentsChatRoute
+  '/learn/subject/$subject': typeof LearnSubjectSubjectRoute
+  '/learn/topic/$topicId': typeof LearnTopicTopicIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -1142,6 +1166,7 @@ export interface FileRoutesById {
   '/imagine/video-history': typeof ImagineVideoHistoryRoute
   '/imagine/voice': typeof ImagineVoiceRoute
   '/imagine/voice-clone': typeof ImagineVoiceCloneRoute
+  '/learn/analytics': typeof LearnAnalyticsRoute
   '/learn/career': typeof LearnCareerRoute
   '/learn/exam': typeof LearnExamRoute
   '/learn/study': typeof LearnStudyRoute
@@ -1193,6 +1218,8 @@ export interface FileRoutesById {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/agents/chat': typeof ApiAgentsChatRoute
+  '/learn/subject/$subject': typeof LearnSubjectSubjectRoute
+  '/learn/topic/$topicId': typeof LearnTopicTopicIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -1278,6 +1305,7 @@ export interface FileRouteTypes {
     | '/imagine/video-history'
     | '/imagine/voice'
     | '/imagine/voice-clone'
+    | '/learn/analytics'
     | '/learn/career'
     | '/learn/exam'
     | '/learn/study'
@@ -1329,6 +1357,8 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/agents/chat'
+    | '/learn/subject/$subject'
+    | '/learn/topic/$topicId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -1397,6 +1427,7 @@ export interface FileRouteTypes {
     | '/imagine/video-history'
     | '/imagine/voice'
     | '/imagine/voice-clone'
+    | '/learn/analytics'
     | '/learn/career'
     | '/learn/exam'
     | '/learn/study'
@@ -1448,6 +1479,8 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/agents/chat'
+    | '/learn/subject/$subject'
+    | '/learn/topic/$topicId'
   id:
     | '__root__'
     | '/'
@@ -1531,6 +1564,7 @@ export interface FileRouteTypes {
     | '/imagine/video-history'
     | '/imagine/voice'
     | '/imagine/voice-clone'
+    | '/learn/analytics'
     | '/learn/career'
     | '/learn/exam'
     | '/learn/study'
@@ -1582,6 +1616,8 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/agents/chat'
+    | '/learn/subject/$subject'
+    | '/learn/topic/$topicId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -2091,6 +2127,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnCareerRouteImport
       parentRoute: typeof LearnRoute
     }
+    '/learn/analytics': {
+      id: '/learn/analytics'
+      path: '/analytics'
+      fullPath: '/learn/analytics'
+      preLoaderRoute: typeof LearnAnalyticsRouteImport
+      parentRoute: typeof LearnRoute
+    }
     '/imagine/voice-clone': {
       id: '/imagine/voice-clone'
       path: '/voice-clone'
@@ -2518,6 +2561,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learn/topic/$topicId': {
+      id: '/learn/topic/$topicId'
+      path: '/topic/$topicId'
+      fullPath: '/learn/topic/$topicId'
+      preLoaderRoute: typeof LearnTopicTopicIdRouteImport
+      parentRoute: typeof LearnRoute
+    }
+    '/learn/subject/$subject': {
+      id: '/learn/subject/$subject'
+      path: '/subject/$subject'
+      fullPath: '/learn/subject/$subject'
+      preLoaderRoute: typeof LearnSubjectSubjectRouteImport
+      parentRoute: typeof LearnRoute
+    }
     '/api/agents/chat': {
       id: '/api/agents/chat'
       path: '/api/agents/chat'
@@ -2744,17 +2801,23 @@ const ImagineRouteWithChildren =
   ImagineRoute._addFileChildren(ImagineRouteChildren)
 
 interface LearnRouteChildren {
+  LearnAnalyticsRoute: typeof LearnAnalyticsRoute
   LearnCareerRoute: typeof LearnCareerRoute
   LearnExamRoute: typeof LearnExamRoute
   LearnStudyRoute: typeof LearnStudyRoute
   LearnIndexRoute: typeof LearnIndexRoute
+  LearnSubjectSubjectRoute: typeof LearnSubjectSubjectRoute
+  LearnTopicTopicIdRoute: typeof LearnTopicTopicIdRoute
 }
 
 const LearnRouteChildren: LearnRouteChildren = {
+  LearnAnalyticsRoute: LearnAnalyticsRoute,
   LearnCareerRoute: LearnCareerRoute,
   LearnExamRoute: LearnExamRoute,
   LearnStudyRoute: LearnStudyRoute,
   LearnIndexRoute: LearnIndexRoute,
+  LearnSubjectSubjectRoute: LearnSubjectSubjectRoute,
+  LearnTopicTopicIdRoute: LearnTopicTopicIdRoute,
 }
 
 const LearnRouteWithChildren = LearnRoute._addFileChildren(LearnRouteChildren)
