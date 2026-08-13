@@ -1,33 +1,89 @@
-# All-Four Tracks Plan
+# IGON AI — Phase 1.6
 
-Scope is large — I'll ship in 4 batches, one per turn. Confirm and I start with Batch 1 immediately.
+A specialized Sri Lankan A/L Engineering Technology learning engine layered on the existing TriniAI shell. Scoped so v1 is genuinely usable end-to-end; the heaviest content pipelines land as follow-ups.
 
-## Batch 1 — Bug fixes + key rotation (this turn after approval)
-- Rotate `LOVABLE_API_KEY` (the user-leaked HF + NVIDIA keys must be rotated by the user at HuggingFace/NVIDIA consoles — I'll re-link instructions).
-- Chat "Something went wrong" — already patched `regenerate→sendMessage` in `chat.$chatId.tsx`; verify with Playwright against the live preview, fix any remaining crash path in `routes/api/chat.ts`.
-- "New" buttons not working — audit all `New …` buttons (sidebar, modules) for missing `onClick` / dead navigation, wire to correct routes.
-- Navigation errors between pages — check route guards in `_authenticated`, fix any broken `<Link to>` targets surfaced by tsgo.
+## Scope for v1
 
-## Batch 2 — NVIDIA + expanded HF model registry
-- Add provider adapter `src/lib/providers/nvidia.ts` (build.nvidia.com OpenAI-compatible endpoint, uses `NVIDIA_API_KEY`).
-- Add provider adapter `src/lib/providers/huggingface.ts` (Inference API, `HUGGINGFACE_API_KEY` with `HUGGINGFACE_API_KEY_BACKUP` fallback).
-- Extend model registry (`src/lib/models/catalog.ts`) with the full HF list the user pasted (DeepSeek V3, Qwen3, Llama 4 Scout, Gemma 3, Mistral Small 3, DINOv2, Florence-2, SAM 2, TimesFM, Chronos, GraphSAGE, GAT, RT-2, etc.) tagged by modality/category. No per-model UI — they appear in the existing model picker.
-- Wire router so chat backend can dispatch to NVIDIA / HF based on selected model id.
+In:
+- Learn module rebuilt around 3 subjects: ET, SFT, ICT.
+- Syllabus tree: Subject → Unit → Lesson → Topic, with seeded starter content (English first; Sinhala/Tamil fields present but empty).
+- Topic study view: notes, definitions, formula sheet, flashcards, MCQs, AI Tutor scoped to that topic.
+- AI Tutor pinned to the student's current subject/unit/lesson/topic and mastery level.
+- Exam Mode: MCQ + structured practice, timed option, instant marking, stored report.
+- Resource library per topic: uploads (PDF/DOCX/PPTX/TXT/images), YouTube links, personal notes.
+- Analytics: completion %, average quiz score, weak/strong topics, exam readiness score.
+- Personalized daily/weekly study plan generated from analytics.
+- Career guidance: top degree programmes, certifications, skills, and an A/L → career roadmap.
 
-## Batch 3 — Trinity 14-step workflow engine
-Replace the chat backend (`src/routes/api/chat.ts`) with a Trinity pipeline:
-1. classify → 2. enhance prompt → 3. retrieve context → 4. plan → 5. route to model(s) → 6. parallel execute → 7. judge/score → 8. consensus → 9. verify facts → 10. tool calls → 11. self-critique → 12. optimize → 13. format → 14. stream.
+Deferred (shown as clearly-labelled upcoming cards):
+- Video transcription and teacher-uploaded video hosting.
+- Full Sinhala/Tamil content translation.
+- Complete past-paper corpus and marking-scheme parsing (a few seeded references only).
 
-Implemented as a streamable AI SDK chain with `streamText` + intermediate `data-stream` parts so the UI can show step progress. Configurable via `src/lib/trinity/config.ts`.
+## Screens
 
-## Batch 4 — Student dashboard + Google Drive + PDF local storage
-- Personalized dashboard route `/dashboard` reading `profiles.onboarding_answers` (add jsonb column via migration) — widgets: study goals, recommended modules, recent chats, upcoming, AI suggestions.
-- Google Drive: per-user OAuth (Supabase Google provider already enabled). Add `drive.readonly` scope, store refresh token in `user_integrations` table, server fn `listDriveFiles`.
-- PDF local storage: IndexedDB wrapper in `src/lib/pdf-store.ts` (Dexie), upload UI on dashboard, render with pdfjs-dist in viewer route.
+```text
+/learn                                  Subject picker (ET / SFT / ICT)
+/learn/$subject                         Overview, units, progress widgets
+/learn/$subject/$unit                   Lesson list
+/learn/$subject/$unit/$lesson           Lesson overview + topics
+/learn/$subject/$unit/$lesson/$topic    Study view: Notes | Flashcards | Quiz | Tutor | Resources
+/learn/exam                             Exam mode: pick → run → report
+/learn/plan                             Daily / weekly study plan
+/learn/analytics                        Cross-subject dashboard
+/learn/career                           Career guidance roadmap
+```
 
-## Technical notes
-- All new server logic via `createServerFn` per stack rules.
-- Each batch ends with a Playwright smoke check.
-- Keys: `NVIDIA_API_KEY`, `HUGGINGFACE_API_KEY`, `HUGGINGFACE_API_KEY_BACKUP` already saved as secrets.
+The existing Learn stub pages are replaced by these.
 
-Reply **go** to start Batch 1, or tell me to re-order / drop a batch.
+## Data model (Turso)
+
+New tables, additive to the current schema file: `subjects`, `units`, `lessons`, `topics`, `resources`, `past_papers`, `model_papers`, `quizzes`, `flashcards`, `videos`, `student_notes`, `study_sessions`, `revision_history`, plus `topic_progress` for per-student mastery.
+
+Content tables carry a `lang` column (default `en`) so other languages drop in later without a redesign. Every stream-specific row hangs off `subjects.stream`, so adding Bio/Maths streams later is data, not code.
+
+## Server logic
+
+New server functions under `src/lib/learn/`, all authenticated, all deriving `user_id` from the verified session rather than the client:
+
+- syllabus reads (subjects, units, lessons, topics)
+- progress + mastery updates, weak-topic detection, exam-readiness score
+- quiz start/submit with server-side grading
+- flashcard scheduling (lightweight spaced repetition)
+- personal notes save/load
+- resource listing, link add, file upload to a private storage bucket
+- study-plan generation and career recommendations via the existing AI gateway
+
+## AI Tutor behaviour
+
+The tutor is prompted as an A/L Engineering Technology teacher: it follows the Sri Lankan syllabus and exam terminology, answers in marking-scheme style, uses worked examples, and always knows which unit/lesson/topic the student is on and how strong they are on it. Off-syllabus questions get a short answer then a nudge back.
+
+## Scoring
+
+- Completion % = completed topics / total topics.
+- Quiz average = mean score across quiz sessions.
+- Exam readiness = 40% completion + 40% quiz average + 20% flashcard retention.
+- Weak topics = lowest mastery with at least one attempt.
+
+## Seed content
+
+A one-time seed inserts the 3 subjects, ~4 units each with real syllabus unit titles, 2–3 lessons per unit, a topic per lesson with definitions and formulas, plus 3 MCQs and 3 flashcards per topic and a couple of official past-paper references per subject. Enough to demo every screen with real content.
+
+## Navigation
+
+Sidebar Learn entry becomes: Subjects, Exam Mode, Study Plan, Analytics, Career. The home dashboard gains a "Continue learning" card pointing at the last topic touched.
+
+## Guardrails
+
+- No changes to auth, the Trinity model router, MCP, or the admin area.
+- No new AI providers; tutor, plan, and career use the existing gateway.
+- Uploads go to a private bucket with per-owner access rules.
+- Architecture stays stream-agnostic so future streams are added as data.
+
+## Build order
+
+1. Schema additions, storage bucket, seed script.
+2. Server functions.
+3. Routes and shared components (subject cards, topic tabs, quiz runner, flashcard deck, tutor panel, plan view, career roadmap, analytics grid).
+4. Sidebar + home wiring, remove old stubs.
+5. Signed-in smoke test: ET → unit → 3-question MCQ → report.
