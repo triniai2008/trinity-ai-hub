@@ -138,6 +138,7 @@ import { Route as AdminArchitectureRouteImport } from './routes/admin.architectu
 import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
+import { Route as LearnTopicTopicIdRouteImport } from './routes/learn.topic.$topicId'
 import { Route as LearnSubjectSubjectRouteImport } from './routes/learn.subject.$subject'
 import { Route as ApiAgentsChatRouteImport } from './routes/api/agents.chat'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
@@ -790,6 +791,11 @@ const Char91DotmcpChar93ListToolsRoute =
     path: '/.mcp/list-tools',
     getParentRoute: () => rootRouteImport,
   } as any)
+const LearnTopicTopicIdRoute = LearnTopicTopicIdRouteImport.update({
+  id: '/topic/$topicId',
+  path: '/topic/$topicId',
+  getParentRoute: () => LearnRoute,
+} as any)
 const LearnSubjectSubjectRoute = LearnSubjectSubjectRouteImport.update({
   id: '/subject/$subject',
   path: '/subject/$subject',
@@ -946,6 +952,7 @@ export interface FileRoutesByFullPath {
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/agents/chat': typeof ApiAgentsChatRoute
   '/learn/subject/$subject': typeof LearnSubjectSubjectRoute
+  '/learn/topic/$topicId': typeof LearnTopicTopicIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -1066,6 +1073,7 @@ export interface FileRoutesByTo {
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/agents/chat': typeof ApiAgentsChatRoute
   '/learn/subject/$subject': typeof LearnSubjectSubjectRoute
+  '/learn/topic/$topicId': typeof LearnTopicTopicIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -1202,6 +1210,7 @@ export interface FileRoutesById {
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/agents/chat': typeof ApiAgentsChatRoute
   '/learn/subject/$subject': typeof LearnSubjectSubjectRoute
+  '/learn/topic/$topicId': typeof LearnTopicTopicIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -1339,6 +1348,7 @@ export interface FileRouteTypes {
     | '/.mcp/invoke-tool/$tool'
     | '/api/agents/chat'
     | '/learn/subject/$subject'
+    | '/learn/topic/$topicId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -1459,6 +1469,7 @@ export interface FileRouteTypes {
     | '/.mcp/invoke-tool/$tool'
     | '/api/agents/chat'
     | '/learn/subject/$subject'
+    | '/learn/topic/$topicId'
   id:
     | '__root__'
     | '/'
@@ -1594,6 +1605,7 @@ export interface FileRouteTypes {
     | '/.mcp/invoke-tool/$tool'
     | '/api/agents/chat'
     | '/learn/subject/$subject'
+    | '/learn/topic/$topicId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -2530,6 +2542,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learn/topic/$topicId': {
+      id: '/learn/topic/$topicId'
+      path: '/topic/$topicId'
+      fullPath: '/learn/topic/$topicId'
+      preLoaderRoute: typeof LearnTopicTopicIdRouteImport
+      parentRoute: typeof LearnRoute
+    }
     '/learn/subject/$subject': {
       id: '/learn/subject/$subject'
       path: '/subject/$subject'
@@ -2768,6 +2787,7 @@ interface LearnRouteChildren {
   LearnStudyRoute: typeof LearnStudyRoute
   LearnIndexRoute: typeof LearnIndexRoute
   LearnSubjectSubjectRoute: typeof LearnSubjectSubjectRoute
+  LearnTopicTopicIdRoute: typeof LearnTopicTopicIdRoute
 }
 
 const LearnRouteChildren: LearnRouteChildren = {
@@ -2776,6 +2796,7 @@ const LearnRouteChildren: LearnRouteChildren = {
   LearnStudyRoute: LearnStudyRoute,
   LearnIndexRoute: LearnIndexRoute,
   LearnSubjectSubjectRoute: LearnSubjectSubjectRoute,
+  LearnTopicTopicIdRoute: LearnTopicTopicIdRoute,
 }
 
 const LearnRouteWithChildren = LearnRoute._addFileChildren(LearnRouteChildren)
