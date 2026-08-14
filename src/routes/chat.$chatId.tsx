@@ -284,11 +284,20 @@ function ChatThread() {
               <div className="flex h-7 w-7 items-center justify-center rounded-md border border-border bg-card">
                 <Sparkles className="h-3.5 w-3.5" />
               </div>
-              <div className="flex items-center gap-1 pt-2 text-muted-foreground">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current" />
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current [animation-delay:150ms]" />
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current [animation-delay:300ms]" />
+              <div className="flex items-center gap-2 pt-2 text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current" />
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current [animation-delay:150ms]" />
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current [animation-delay:300ms]" />
+                </span>
+                {kernelStep && (
+                  <span className="text-[11px]">
+                    Agent Kernel · {kernelStep.stage}
+                    {kernelStep.detail ? ` — ${kernelStep.detail}` : ""}
+                  </span>
+                )}
               </div>
+
             </div>
           )}
         </div>
