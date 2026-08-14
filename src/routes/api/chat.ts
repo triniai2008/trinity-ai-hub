@@ -122,8 +122,28 @@ export const Route = createFileRoute("/api/chat")({
         const question = lastUserText(uiMessages);
 
         try {
+          // ── AUTO → Agent Kernel workflow (DeepSeek-first) ────────────
+          if (!requested) {
+            const stream = runAgentKernel({
+              uiMessages,
+              modelMessages,
+              question,
+              mode,
+              fallback: gateway(DEFAULT_LOVABLE_MODEL),
+            });
+            return createUIMessageStreamResponse({
+              stream,
+              headers: getLovableAiGatewayResponseHeaders(undefined, {
+                "X-Trinity-Engine": "agent-kernel",
+                "X-Trinity-Mode": mode,
+                ...(initialRunId ? { "X-Lovable-AIG-Run-ID": initialRunId } : {}),
+              }),
+            });
+          }
+
           // ── MEDIUM / HIGH → Trinity multi-model + judge ──────────────
           if (mode !== "normal") {
+
             const cap = detectCapability(question || "chat");
             const plan = planForMode(cap, mode, body.includePremium ?? false);
 
