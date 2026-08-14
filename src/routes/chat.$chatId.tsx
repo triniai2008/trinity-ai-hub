@@ -121,11 +121,19 @@ function ChatThread() {
     [model, thinking],
   );
 
+  const [kernelStep, setKernelStep] = useState<{ stage: string; status: string; detail?: string } | null>(null);
+
   const { messages, sendMessage, status, regenerate } = useChat({
     id: chatId,
     messages: initial ?? [],
     transport,
+    onData: (part) => {
+      if (part.type === "data-kernel-step") {
+        setKernelStep(part.data as { stage: string; status: string; detail?: string });
+      }
+    },
     onError: (err) => toast.error(err.message),
+
     onFinish: async ({ message }) => {
       // Save assistant message to DB
       const text = message.parts
