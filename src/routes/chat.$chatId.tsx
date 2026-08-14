@@ -238,7 +238,11 @@ function ChatThread() {
             </SelectContent>
           </Select>
         </div>
+        <span className="hidden items-center gap-1.5 rounded-full border border-border px-2.5 py-1 text-[10px] text-muted-foreground sm:flex">
+          <Sparkles className="h-3 w-3" /> Powered by Agent Kernel
+        </span>
       </header>
+
 
       <div ref={scrollRef} className="flex-1 overflow-y-auto">
         <div className="mx-auto max-w-3xl space-y-6 px-4 py-6">
