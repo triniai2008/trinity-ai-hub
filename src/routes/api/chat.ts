@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { convertToModelMessages, streamText, type UIMessage } from "ai";
+import { convertToModelMessages, createUIMessageStreamResponse, streamText, type UIMessage } from "ai";
 import { createClient } from "@supabase/supabase-js";
 import {
   createLovableAiGatewayProvider,
@@ -9,6 +9,8 @@ import {
 } from "@/lib/ai-gateway.server";
 import { getModel, detectCapability, planForMode, type ThinkingMode } from "@/lib/trinity/models";
 import { buildModel, runParallel, judge } from "@/lib/trinity/router.server";
+import { runAgentKernel } from "@/lib/trinity/kernel/kernel.server";
+
 
 /**
  * TriniAI /api/chat — hybrid brain.
@@ -120,8 +122,28 @@ export const Route = createFileRoute("/api/chat")({
         const question = lastUserText(uiMessages);
 
         try {
+          // ── AUTO → Agent Kernel workflow (DeepSeek-first) ────────────
+          if (!requested) {
+            const stream = runAgentKernel({
+              uiMessages,
+              modelMessages,
+              question,
+              mode,
+              fallback: gateway(DEFAULT_LOVABLE_MODEL),
+            });
+            return createUIMessageStreamResponse({
+              stream,
+              headers: getLovableAiGatewayResponseHeaders(undefined, {
+                "X-Trinity-Engine": "agent-kernel",
+                "X-Trinity-Mode": mode,
+                ...(initialRunId ? { "X-Lovable-AIG-Run-ID": initialRunId } : {}),
+              }),
+            });
+          }
+
           // ── MEDIUM / HIGH → Trinity multi-model + judge ──────────────
           if (mode !== "normal") {
+
             const cap = detectCapability(question || "chat");
             const plan = planForMode(cap, mode, body.includePremium ?? false);
 

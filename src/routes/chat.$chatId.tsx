@@ -121,11 +121,19 @@ function ChatThread() {
     [model, thinking],
   );
 
+  const [kernelStep, setKernelStep] = useState<{ stage: string; status: string; detail?: string } | null>(null);
+
   const { messages, sendMessage, status, regenerate } = useChat({
     id: chatId,
     messages: initial ?? [],
     transport,
+    onData: (part) => {
+      if (part.type === "data-kernel-step") {
+        setKernelStep(part.data as { stage: string; status: string; detail?: string });
+      }
+    },
     onError: (err) => toast.error(err.message),
+
     onFinish: async ({ message }) => {
       // Save assistant message to DB
       const text = message.parts
@@ -230,7 +238,11 @@ function ChatThread() {
             </SelectContent>
           </Select>
         </div>
+        <span className="hidden items-center gap-1.5 rounded-full border border-border px-2.5 py-1 text-[10px] text-muted-foreground sm:flex">
+          <Sparkles className="h-3 w-3" /> Powered by Agent Kernel
+        </span>
       </header>
+
 
       <div ref={scrollRef} className="flex-1 overflow-y-auto">
         <div className="mx-auto max-w-3xl space-y-6 px-4 py-6">
@@ -272,11 +284,20 @@ function ChatThread() {
               <div className="flex h-7 w-7 items-center justify-center rounded-md border border-border bg-card">
                 <Sparkles className="h-3.5 w-3.5" />
               </div>
-              <div className="flex items-center gap-1 pt-2 text-muted-foreground">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current" />
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current [animation-delay:150ms]" />
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current [animation-delay:300ms]" />
+              <div className="flex items-center gap-2 pt-2 text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current" />
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current [animation-delay:150ms]" />
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current [animation-delay:300ms]" />
+                </span>
+                {kernelStep && (
+                  <span className="text-[11px]">
+                    Agent Kernel · {kernelStep.stage}
+                    {kernelStep.detail ? ` — ${kernelStep.detail}` : ""}
+                  </span>
+                )}
               </div>
+
             </div>
           )}
         </div>
