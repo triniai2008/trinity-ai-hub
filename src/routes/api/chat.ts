@@ -9,6 +9,8 @@ import {
 } from "@/lib/ai-gateway.server";
 import { getModel, detectCapability, planForMode, type ThinkingMode } from "@/lib/trinity/models";
 import { buildModel, runParallel, judge } from "@/lib/trinity/router.server";
+import { runAgentKernel } from "@/lib/trinity/kernel/kernel.server";
+
 
 /**
  * TriniAI /api/chat — hybrid brain.
