@@ -111,6 +111,8 @@ function Landing() {
           <p className="mx-auto mt-6 max-w-xl text-pretty text-base text-muted-foreground md:text-lg">
             TriniAI routes every prompt to the best model automatically — chat,
             code, research, imagine — inside one glass-minimal workspace.
+            <br />
+            This AI Created For Learn ET,SFT and ICT
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
             <Button asChild size="lg" className="gap-2 rounded-full shadow-lg shadow-primary/20">
