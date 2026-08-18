@@ -74,6 +74,7 @@ import { Route as McphubFigmaRouteImport } from './routes/mcphub.figma'
 import { Route as McphubDriveRouteImport } from './routes/mcphub.drive'
 import { Route as McphubCanvaRouteImport } from './routes/mcphub.canva'
 import { Route as McphubBrowserRouteImport } from './routes/mcphub.browser'
+import { Route as LearnTutorRouteImport } from './routes/learn.tutor'
 import { Route as LearnStudyRouteImport } from './routes/learn.study'
 import { Route as LearnExamRouteImport } from './routes/learn.exam'
 import { Route as LearnCareerRouteImport } from './routes/learn.career'
@@ -469,6 +470,11 @@ const McphubBrowserRoute = McphubBrowserRouteImport.update({
   id: '/browser',
   path: '/browser',
   getParentRoute: () => McphubRoute,
+} as any)
+const LearnTutorRoute = LearnTutorRouteImport.update({
+  id: '/tutor',
+  path: '/tutor',
+  getParentRoute: () => LearnRoute,
 } as any)
 const LearnStudyRoute = LearnStudyRouteImport.update({
   id: '/study',
@@ -910,6 +916,7 @@ export interface FileRoutesByFullPath {
   '/learn/career': typeof LearnCareerRoute
   '/learn/exam': typeof LearnExamRoute
   '/learn/study': typeof LearnStudyRoute
+  '/learn/tutor': typeof LearnTutorRoute
   '/mcphub/browser': typeof McphubBrowserRoute
   '/mcphub/canva': typeof McphubCanvaRoute
   '/mcphub/drive': typeof McphubDriveRoute
@@ -1032,6 +1039,7 @@ export interface FileRoutesByTo {
   '/learn/career': typeof LearnCareerRoute
   '/learn/exam': typeof LearnExamRoute
   '/learn/study': typeof LearnStudyRoute
+  '/learn/tutor': typeof LearnTutorRoute
   '/mcphub/browser': typeof McphubBrowserRoute
   '/mcphub/canva': typeof McphubCanvaRoute
   '/mcphub/drive': typeof McphubDriveRoute
@@ -1170,6 +1178,7 @@ export interface FileRoutesById {
   '/learn/career': typeof LearnCareerRoute
   '/learn/exam': typeof LearnExamRoute
   '/learn/study': typeof LearnStudyRoute
+  '/learn/tutor': typeof LearnTutorRoute
   '/mcphub/browser': typeof McphubBrowserRoute
   '/mcphub/canva': typeof McphubCanvaRoute
   '/mcphub/drive': typeof McphubDriveRoute
@@ -1309,6 +1318,7 @@ export interface FileRouteTypes {
     | '/learn/career'
     | '/learn/exam'
     | '/learn/study'
+    | '/learn/tutor'
     | '/mcphub/browser'
     | '/mcphub/canva'
     | '/mcphub/drive'
@@ -1431,6 +1441,7 @@ export interface FileRouteTypes {
     | '/learn/career'
     | '/learn/exam'
     | '/learn/study'
+    | '/learn/tutor'
     | '/mcphub/browser'
     | '/mcphub/canva'
     | '/mcphub/drive'
@@ -1568,6 +1579,7 @@ export interface FileRouteTypes {
     | '/learn/career'
     | '/learn/exam'
     | '/learn/study'
+    | '/learn/tutor'
     | '/mcphub/browser'
     | '/mcphub/canva'
     | '/mcphub/drive'
@@ -2105,6 +2117,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/mcphub/browser'
       preLoaderRoute: typeof McphubBrowserRouteImport
       parentRoute: typeof McphubRoute
+    }
+    '/learn/tutor': {
+      id: '/learn/tutor'
+      path: '/tutor'
+      fullPath: '/learn/tutor'
+      preLoaderRoute: typeof LearnTutorRouteImport
+      parentRoute: typeof LearnRoute
     }
     '/learn/study': {
       id: '/learn/study'
@@ -2805,6 +2824,7 @@ interface LearnRouteChildren {
   LearnCareerRoute: typeof LearnCareerRoute
   LearnExamRoute: typeof LearnExamRoute
   LearnStudyRoute: typeof LearnStudyRoute
+  LearnTutorRoute: typeof LearnTutorRoute
   LearnIndexRoute: typeof LearnIndexRoute
   LearnSubjectSubjectRoute: typeof LearnSubjectSubjectRoute
   LearnTopicTopicIdRoute: typeof LearnTopicTopicIdRoute
@@ -2815,6 +2835,7 @@ const LearnRouteChildren: LearnRouteChildren = {
   LearnCareerRoute: LearnCareerRoute,
   LearnExamRoute: LearnExamRoute,
   LearnStudyRoute: LearnStudyRoute,
+  LearnTutorRoute: LearnTutorRoute,
   LearnIndexRoute: LearnIndexRoute,
   LearnSubjectSubjectRoute: LearnSubjectSubjectRoute,
   LearnTopicTopicIdRoute: LearnTopicTopicIdRoute,
