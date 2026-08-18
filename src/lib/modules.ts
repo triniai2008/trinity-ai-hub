@@ -202,6 +202,7 @@ export const MODULES: ModuleDef[] = [
     description: "Personal AI tutoring and study tools.",
     pages: [
       { slug: "", label: "AI Tutor", description: "Personal teacher." },
+      { slug: "tutor", label: "ET Tutor", description: "Lesson → quiz → revision plan." },
       { slug: "study", label: "Study Assistant", description: "Study support." },
       { slug: "exam", label: "Exam Mode", description: "Exam preparation." },
       { slug: "career", label: "Career Roadmap", description: "Future planning." },
