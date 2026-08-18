@@ -129,9 +129,8 @@ export const submitQuiz = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => SubmitInput.parse(d))
   .handler(async ({ data, context }) => {
-    const { judgeAgent, plannerAgent, type QuizQuestion } = await import("./agents.server").then(
-      (m) => ({ ...m, type: undefined as never }),
-    );
+    const agents = await import("./agents.server");
+    const { judgeAgent, plannerAgent } = agents;
     const client = await db();
 
     const quiz = await client.execute({
@@ -143,10 +142,7 @@ export const submitQuiz = createServerFn({ method: "POST" })
     });
     if (quiz.rows.length === 0) throw new Error("Quiz not found");
     const row = quiz.rows[0];
-    const questions = parse<Awaited<ReturnType<typeof judgeAgent>> extends never ? never : any[]>(
-      row.questions,
-      [],
-    );
+    const questions = parse<Parameters<typeof judgeAgent>[0]>(row.questions, []);
 
     const evaluation = await judgeAgent(questions, data.answers, data.mode);
     const plan = await plannerAgent(
