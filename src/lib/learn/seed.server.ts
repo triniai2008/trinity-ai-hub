@@ -1,4 +1,4 @@
-// Idempotent seeding of the IGON AI syllabus into Turso.
+// Idempotent seeding of the Trini AI syllabus into Turso.
 import { turso } from "@/integrations/turso/client.server";
 import { SYLLABUS } from "./syllabus";
 

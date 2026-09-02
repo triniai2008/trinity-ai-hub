@@ -33,13 +33,13 @@ import { teachDocument, buildQuiz, submitQuiz } from "@/lib/tutor/tutor.function
 export const Route = createFileRoute("/learn/tutor")({
   head: () => ({
     meta: [
-      { title: "ET Tutor — IGON AI Learning Engine" },
+      { title: "ET Tutor — Trini AI Learning Engine" },
       {
         name: "description",
         content:
           "Upload an Engineering Technology lesson and let the Agent Kernel teach it, quiz you, find your weak areas and plan your revision.",
       },
-      { property: "og:title", content: "ET Tutor — IGON AI Learning Engine" },
+      { property: "og:title", content: "ET Tutor — Trini AI Learning Engine" },
       {
         property: "og:description",
         content: "Learn, test and plan A/L Engineering Technology revision with TriniAI.",

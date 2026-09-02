@@ -1,4 +1,4 @@
-// IGON AI — learning engine server functions (Turso backed).
+// Trini AI — learning engine server functions (Turso backed).
 // Content reads are public; anything user-scoped requires a Supabase session
 // and uses the verified context.userId.
 import { createServerFn } from "@tanstack/react-start";

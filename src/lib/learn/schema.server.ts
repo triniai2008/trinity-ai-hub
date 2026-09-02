@@ -1,4 +1,4 @@
-// IGON AI — learning-engine schema on Turso.
+// Trini AI — learning-engine schema on Turso.
 // Additive to the Trinity schema; safe to run on every cold start.
 import { turso } from "@/integrations/turso/client.server";
 
