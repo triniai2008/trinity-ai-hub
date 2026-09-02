@@ -118,7 +118,7 @@ export const Route = createFileRoute("/api/agents/chat")({
         if (!upstream || !upstream.ok || !upstream.body) {
           const detail = upstream ? await upstream.text().catch(() => "") : "network error";
           console.error("[agents] kernel error:", upstream?.status, detail.slice(0, 200));
-          return new Response("Agent Kernel unavailable", { status: 502 });
+          return runBuiltin();
         }
 
         // Translate kernel SSE → AI SDK UI Message stream
