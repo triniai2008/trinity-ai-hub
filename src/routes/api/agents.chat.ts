@@ -1,5 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createClient } from "@supabase/supabase-js";
+import { convertToModelMessages, createUIMessageStreamResponse, type UIMessage } from "ai";
+import { runAgentKernel } from "@/lib/trinity/kernel/kernel.server";
+import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
+import { checkKernelHealth } from "@/lib/trinity/kernel/remote.server";
 
 /**
  * /api/agents/chat — proxy to the TriniAI Agent Kernel (Python FastAPI).
