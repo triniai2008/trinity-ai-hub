@@ -5,9 +5,9 @@ import { getLearnAnalytics } from "@/lib/learn/learn.functions";
 export const Route = createFileRoute("/learn/analytics")({
   head: () => ({
     meta: [
-      { title: "Exam readiness — IGON AI" },
+      { title: "Exam readiness — Trini AI" },
       { name: "description", content: "Track coverage, mastery and exam readiness across ET, SFT and ICT." },
-      { property: "og:title", content: "Exam readiness — IGON AI" },
+      { property: "og:title", content: "Exam readiness — Trini AI" },
       { property: "og:description", content: "Personal analytics for your A/L Technology stream preparation." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

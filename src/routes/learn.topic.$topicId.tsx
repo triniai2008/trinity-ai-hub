@@ -6,9 +6,9 @@ import { getTopic, getQuiz, submitQuiz, markTopic } from "@/lib/learn/learn.func
 export const Route = createFileRoute("/learn/topic/$topicId")({
   head: () => ({
     meta: [
-      { title: "Topic study — IGON AI" },
+      { title: "Topic study — Trini AI" },
       { name: "description", content: "Notes, definitions, formulas, flashcards and a graded quiz for this A/L topic." },
-      { property: "og:title", content: "Topic study — IGON AI" },
+      { property: "og:title", content: "Topic study — Trini AI" },
       { property: "og:description", content: "Study notes, flashcards and quizzes for the A/L Technology stream." },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },

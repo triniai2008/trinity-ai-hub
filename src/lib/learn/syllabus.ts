@@ -1,4 +1,4 @@
-// IGON AI — Sri Lankan G.C.E. A/L Technology Stream syllabus content.
+// Trini AI — Sri Lankan G.C.E. A/L Technology Stream syllabus content.
 // Plain data (client-safe types) consumed by the Turso seeder.
 // Stream-agnostic on purpose: add another `stream` value to extend.
 
@@ -521,7 +521,7 @@ export const SYLLABUS: SeedSubject[] = [
       { year: 2023, paper: "Paper I (MCQ)", url: `${DOE}` },
       { year: 2022, paper: "Paper II (Structured & Essay)", url: `${DOE}` },
     ],
-    modelPapers: [{ title: "IGON Model Paper — ET 01", url: `${DOE}` }],
+    modelPapers: [{ title: "Trini AI Model Paper — ET 01", url: `${DOE}` }],
   },
 
   // ─────────────────────────── SCIENCE FOR TECHNOLOGY ───────────────────────
@@ -885,7 +885,7 @@ export const SYLLABUS: SeedSubject[] = [
       { year: 2023, paper: "Paper I (MCQ)", url: `${DOE}` },
       { year: 2022, paper: "Paper II (Structured & Essay)", url: `${DOE}` },
     ],
-    modelPapers: [{ title: "IGON Model Paper — SFT 01", url: `${DOE}` }],
+    modelPapers: [{ title: "Trini AI Model Paper — SFT 01", url: `${DOE}` }],
   },
 
   // ──────────────────── INFORMATION & COMMUNICATION TECHNOLOGY ──────────────
@@ -1255,6 +1255,6 @@ export const SYLLABUS: SeedSubject[] = [
       { year: 2023, paper: "Paper I (MCQ)", url: `${DOE}` },
       { year: 2022, paper: "Paper II (Structured & Essay)", url: `${DOE}` },
     ],
-    modelPapers: [{ title: "IGON Model Paper — ICT 01", url: `${DOE}` }],
+    modelPapers: [{ title: "Trini AI Model Paper — ICT 01", url: `${DOE}` }],
   },
 ];

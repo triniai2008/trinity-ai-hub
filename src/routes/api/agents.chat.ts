@@ -1,5 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createClient } from "@supabase/supabase-js";
+import { convertToModelMessages, createUIMessageStreamResponse, type UIMessage } from "ai";
+import { runAgentKernel } from "@/lib/trinity/kernel/kernel.server";
+import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
+import { checkKernelHealth } from "@/lib/trinity/kernel/remote.server";
 
 /**
  * /api/agents/chat — proxy to the TriniAI Agent Kernel (Python FastAPI).
@@ -59,19 +63,39 @@ export const Route = createFileRoute("/api/agents/chat")({
         const auth = await verifyAuth(request);
         if (auth instanceof Response) return auth;
 
-        const kernelUrl = process.env.AGENT_KERNEL_URL;
-        if (!kernelUrl) {
-          return new Response(
-            "Agent Kernel not configured. Set AGENT_KERNEL_URL to your Python kernel deployment.",
-            { status: 503 },
-          );
-        }
-
         const body = (await request.json()) as AgentBody;
         if (!Array.isArray(body.messages) || body.messages.length === 0) {
           return new Response("messages required", { status: 400 });
         }
 
+        // Built-in Agent Kernel — used whenever the remote Python kernel is
+        // absent or unhealthy, so agent chat always works.
+        const runBuiltin = async () => {
+          const lovableApiKey = process.env.LOVABLE_API_KEY;
+          if (!lovableApiKey) return new Response("AI not configured", { status: 500 });
+          const gateway = createLovableAiGatewayProvider(lovableApiKey);
+          const uiMessages = body.messages as unknown as UIMessage[];
+          const modelMessages = await convertToModelMessages(uiMessages);
+          const question = toKernelMessages(body.messages)
+            .filter((m) => m.role === "user")
+            .at(-1)?.content ?? "";
+          const stream = runAgentKernel({
+            uiMessages,
+            modelMessages,
+            question,
+            mode: body.thinkingMode ?? "normal",
+            fallback: gateway("google/gemini-3.7-flash"),
+          });
+          return createUIMessageStreamResponse({
+            stream,
+            headers: { "X-Trinity-Engine": "builtin-agent-kernel" },
+          });
+        };
+
+        const health = await checkKernelHealth();
+        if (!health.reachable) return runBuiltin();
+
+        const kernelUrl = process.env.AGENT_KERNEL_URL!;
         const shared = process.env.AGENT_KERNEL_SHARED_SECRET;
         const upstream = await fetch(`${kernelUrl.replace(/\/+$/, "")}/v1/chat/stream`, {
           method: "POST",
@@ -94,7 +118,7 @@ export const Route = createFileRoute("/api/agents/chat")({
         if (!upstream || !upstream.ok || !upstream.body) {
           const detail = upstream ? await upstream.text().catch(() => "") : "network error";
           console.error("[agents] kernel error:", upstream?.status, detail.slice(0, 200));
-          return new Response("Agent Kernel unavailable", { status: 502 });
+          return runBuiltin();
         }
 
         // Translate kernel SSE → AI SDK UI Message stream

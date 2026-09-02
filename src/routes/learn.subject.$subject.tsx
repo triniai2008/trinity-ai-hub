@@ -5,9 +5,9 @@ import { getSyllabus } from "@/lib/learn/learn.functions";
 export const Route = createFileRoute("/learn/subject/$subject")({
   head: () => ({
     meta: [
-      { title: "Subject syllabus — IGON AI" },
+      { title: "Subject syllabus — Trini AI" },
       { name: "description", content: "Units, lessons and topics for the A/L Technology stream subject." },
-      { property: "og:title", content: "Subject syllabus — IGON AI" },
+      { property: "og:title", content: "Subject syllabus — Trini AI" },
       { property: "og:description", content: "Units, lessons and topics with AI tutoring and quizzes." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

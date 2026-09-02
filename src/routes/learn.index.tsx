@@ -5,13 +5,13 @@ import { listSubjects } from "@/lib/learn/learn.functions";
 export const Route = createFileRoute("/learn/")({
   head: () => ({
     meta: [
-      { title: "IGON AI — A/L Engineering Technology Learning Engine" },
+      { title: "Trini AI — A/L Engineering Technology Learning Engine" },
       {
         name: "description",
         content:
           "Study ET, SFT and ICT for the Sri Lankan G.C.E. A/L Technology stream with an AI tutor, quizzes and flashcards.",
       },
-      { property: "og:title", content: "IGON AI — A/L Technology Learning Engine" },
+      { property: "og:title", content: "Trini AI — A/L Technology Learning Engine" },
       { property: "og:description", content: "Syllabus, AI tutor, quizzes and exam readiness for ET, SFT and ICT." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -29,7 +29,7 @@ function LearnHome() {
   return (
     <div className="mx-auto w-full max-w-5xl space-y-8 p-6">
       <header className="space-y-2">
-        <p className="text-xs uppercase tracking-widest text-muted-foreground">IGON AI</p>
+        <p className="text-xs uppercase tracking-widest text-muted-foreground">Trini AI</p>
         <h1 className="text-3xl font-semibold tracking-tight">A/L Technology Stream</h1>
         <p className="text-muted-foreground">
           Syllabus-aligned lessons, AI tutoring, quizzes and exam readiness for Engineering Technology,
