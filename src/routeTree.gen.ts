@@ -142,6 +142,7 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as LearnTopicTopicIdRouteImport } from './routes/learn.topic.$topicId'
 import { Route as LearnSubjectSubjectRouteImport } from './routes/learn.subject.$subject'
+import { Route as ApiAgentsStatusRouteImport } from './routes/api/agents.status'
 import { Route as ApiAgentsChatRouteImport } from './routes/api/agents.chat'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
@@ -813,6 +814,11 @@ const LearnSubjectSubjectRoute = LearnSubjectSubjectRouteImport.update({
   path: '/subject/$subject',
   getParentRoute: () => LearnRoute,
 } as any)
+const ApiAgentsStatusRoute = ApiAgentsStatusRouteImport.update({
+  id: '/api/agents/status',
+  path: '/api/agents/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAgentsChatRoute = ApiAgentsChatRouteImport.update({
   id: '/api/agents/chat',
   path: '/api/agents/chat',
@@ -965,6 +971,7 @@ export interface FileRoutesByFullPath {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/agents/chat': typeof ApiAgentsChatRoute
+  '/api/agents/status': typeof ApiAgentsStatusRoute
   '/learn/subject/$subject': typeof LearnSubjectSubjectRoute
   '/learn/topic/$topicId': typeof LearnTopicTopicIdRoute
 }
@@ -1088,6 +1095,7 @@ export interface FileRoutesByTo {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/agents/chat': typeof ApiAgentsChatRoute
+  '/api/agents/status': typeof ApiAgentsStatusRoute
   '/learn/subject/$subject': typeof LearnSubjectSubjectRoute
   '/learn/topic/$topicId': typeof LearnTopicTopicIdRoute
 }
@@ -1227,6 +1235,7 @@ export interface FileRoutesById {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/agents/chat': typeof ApiAgentsChatRoute
+  '/api/agents/status': typeof ApiAgentsStatusRoute
   '/learn/subject/$subject': typeof LearnSubjectSubjectRoute
   '/learn/topic/$topicId': typeof LearnTopicTopicIdRoute
 }
@@ -1367,6 +1376,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/agents/chat'
+    | '/api/agents/status'
     | '/learn/subject/$subject'
     | '/learn/topic/$topicId'
   fileRoutesByTo: FileRoutesByTo
@@ -1490,6 +1500,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/agents/chat'
+    | '/api/agents/status'
     | '/learn/subject/$subject'
     | '/learn/topic/$topicId'
   id:
@@ -1628,6 +1639,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/agents/chat'
+    | '/api/agents/status'
     | '/learn/subject/$subject'
     | '/learn/topic/$topicId'
   fileRoutesById: FileRoutesById
@@ -1659,6 +1671,7 @@ export interface RootRouteChildren {
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   ApiAgentsChatRoute: typeof ApiAgentsChatRoute
+  ApiAgentsStatusRoute: typeof ApiAgentsStatusRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -2594,6 +2607,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnSubjectSubjectRouteImport
       parentRoute: typeof LearnRoute
     }
+    '/api/agents/status': {
+      id: '/api/agents/status'
+      path: '/api/agents/status'
+      fullPath: '/api/agents/status'
+      preLoaderRoute: typeof ApiAgentsStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/agents/chat': {
       id: '/api/agents/chat'
       path: '/api/agents/chat'
@@ -3000,6 +3020,7 @@ const rootRouteChildren: RootRouteChildren = {
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   ApiAgentsChatRoute: ApiAgentsChatRoute,
+  ApiAgentsStatusRoute: ApiAgentsStatusRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
