@@ -79,11 +79,13 @@ export const Route = createFileRoute("/api/agents/chat")({
           const question = toKernelMessages(body.messages)
             .filter((m) => m.role === "user")
             .at(-1)?.content ?? "";
+          const context = await loadUserContext(auth.userId, question);
           const stream = runAgentKernel({
             uiMessages,
             modelMessages,
             question,
             mode: body.thinkingMode ?? "normal",
+            context,
             fallback: gateway("google/gemini-3.7-flash"),
           });
           return createUIMessageStreamResponse({
