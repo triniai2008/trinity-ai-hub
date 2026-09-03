@@ -1,12 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SubPageStub } from "@/components/module-layout";
+import { AgentChat } from "@/components/agents/agent-chat";
+import { getAgent } from "@/lib/trinity/agents";
+
+const agent = getAgent("memory")!;
 
 export const Route = createFileRoute("/agents/memory")({
   head: () => ({
     meta: [
-      { title: "Memory Agent — Agents — TriniAI" },
+      { title: `${agent.name} — Agents — TriniAI` },
+      { name: "description", content: agent.tagline },
+      { property: "og:title", content: `${agent.name} — TriniAI` },
+      { property: "og:description", content: agent.tagline },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
     ],
   }),
-  component: () => <SubPageStub moduleKey="agents" slug="memory" />,
+  component: () => <AgentChat agent={agent} />,
 });
