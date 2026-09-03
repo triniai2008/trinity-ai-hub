@@ -4,6 +4,7 @@ import { convertToModelMessages, createUIMessageStreamResponse, type UIMessage }
 import { runAgentKernel } from "@/lib/trinity/kernel/kernel.server";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
 import { checkKernelHealth } from "@/lib/trinity/kernel/remote.server";
+import { loadUserContext } from "@/lib/trinity/rag.server";
 
 /**
  * /api/agents/chat — proxy to the TriniAI Agent Kernel (Python FastAPI).
