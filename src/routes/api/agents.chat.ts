@@ -111,6 +111,10 @@ export const Route = createFileRoute("/api/agents/chat")({
             agent: body.agent ?? "trinity",
             thinking_mode: body.thinkingMode ?? "normal",
             user: { id: auth.userId, email: auth.email },
+            context: await loadUserContext(
+              auth.userId,
+              toKernelMessages(body.messages).filter((m) => m.role === "user").at(-1)?.content ?? "",
+            ),
             messages: toKernelMessages(body.messages),
           }),
         }).catch((err) => {
