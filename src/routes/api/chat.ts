@@ -144,6 +144,17 @@ export const Route = createFileRoute("/api/chat")({
             });
           }
 
+          // Personalization (RAG) for the explicit-model paths too.
+          const { loadUserContext } = await import("@/lib/trinity/rag.server");
+          const userCtx = await loadUserContext(auth.userId, question);
+          const ragLines = [
+            userCtx.displayName ? `User's name: ${userCtx.displayName}` : "",
+            userCtx.locale ? `Preferred language: ${userCtx.locale}` : "",
+            ...(userCtx.memories ?? []).map((m) => `- ${m}`),
+          ].filter(Boolean);
+          const SYSTEM = ragLines.length
+            ? `${SYSTEM_PROMPT}\n\nWhat you know about this user (use naturally, never recite):\n${ragLines.join("\n")}`
+            : SYSTEM_PROMPT;
 
           // ── MEDIUM / HIGH → Trinity multi-model + judge ──────────────
           if (mode !== "normal") {
@@ -152,7 +163,8 @@ export const Route = createFileRoute("/api/chat")({
             const plan = planForMode(cap, mode, body.includePremium ?? false);
 
             if (plan.length > 1) {
-              const results = await runParallel(plan, modelMessages, SYSTEM_PROMPT);
+              const results = await runParallel(plan, modelMessages, SYSTEM);
+
               if (results.length > 0) {
                 const verdict = await judge(question, results);
                 const winner = results[verdict.winnerIndex] ?? results[0];
