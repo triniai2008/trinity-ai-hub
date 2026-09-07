@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      agent_runs: {
+        Row: {
+          agent_key: string
+          created_at: string
+          duration_ms: number | null
+          engine: string
+          id: string
+          prompt: string | null
+          status: string
+          thinking: string
+          user_id: string
+        }
+        Insert: {
+          agent_key: string
+          created_at?: string
+          duration_ms?: number | null
+          engine?: string
+          id?: string
+          prompt?: string | null
+          status?: string
+          thinking?: string
+          user_id: string
+        }
+        Update: {
+          agent_key?: string
+          created_at?: string
+          duration_ms?: number | null
+          engine?: string
+          id?: string
+          prompt?: string | null
+          status?: string
+          thinking?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       agents: {
         Row: {
           created_at: string
@@ -459,6 +495,48 @@ export type Database = {
           tokens?: number
           user_id?: string
           videos?: number
+        }
+        Relationships: []
+      }
+      user_agents: {
+        Row: {
+          brief: string
+          created_at: string
+          enabled: boolean
+          id: string
+          model: string | null
+          name: string
+          starters: string[]
+          tagline: string | null
+          thinking: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          brief: string
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          model?: string | null
+          name: string
+          starters?: string[]
+          tagline?: string | null
+          thinking?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          brief?: string
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          model?: string | null
+          name?: string
+          starters?: string[]
+          tagline?: string | null
+          thinking?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }

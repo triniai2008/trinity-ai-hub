@@ -114,12 +114,18 @@ function ChatThread() {
     () =>
       new DefaultChatTransport({
         api: "/api/chat",
+        headers: async (): Promise<Record<string, string>> => {
+          const { data } = await supabase.auth.getSession();
+          const token = data.session?.access_token;
+          return token ? { Authorization: `Bearer ${token}` } : {};
+        },
         prepareSendMessagesRequest: ({ messages, body }) => ({
           body: { messages, ...(model === "auto" ? {} : { model }), thinkingMode: thinking, ...(body ?? {}) },
         }),
       }),
     [model, thinking],
   );
+
 
   const [kernelStep, setKernelStep] = useState<{ stage: string; status: string; detail?: string } | null>(null);
 
