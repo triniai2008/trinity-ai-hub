@@ -172,7 +172,7 @@ export const Route = createFileRoute("/api/chat")({
                 if (winnerModel) {
                   const result = streamText({
                     model: winnerModel,
-                    system: SYSTEM_PROMPT,
+                    system: SYSTEM,
                     messages: modelMessages,
                   });
                   const response = result.toUIMessageStreamResponse({
@@ -220,7 +220,7 @@ export const Route = createFileRoute("/api/chat")({
 
           const result = streamText({
             model: modelInstance,
-            system: SYSTEM_PROMPT,
+            system: SYSTEM,
             messages: modelMessages,
             providerOptions: {
               lovable: {
