@@ -124,11 +124,14 @@ export const Route = createFileRoute("/api/chat")({
         try {
           // ── AUTO → Agent Kernel workflow (DeepSeek-first) ────────────
           if (!requested) {
+            const { loadUserContext } = await import("@/lib/trinity/rag.server");
+            const userContext = await loadUserContext(auth.userId, question);
             const stream = runAgentKernel({
               uiMessages,
               modelMessages,
               question,
               mode,
+              context: userContext,
               fallback: gateway(DEFAULT_LOVABLE_MODEL),
             });
             return createUIMessageStreamResponse({
@@ -140,6 +143,7 @@ export const Route = createFileRoute("/api/chat")({
               }),
             });
           }
+
 
           // ── MEDIUM / HIGH → Trinity multi-model + judge ──────────────
           if (mode !== "normal") {
