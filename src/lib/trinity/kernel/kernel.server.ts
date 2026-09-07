@@ -46,9 +46,9 @@ export interface KernelOptions {
  * Model preference: DeepSeek first (NVIDIA NIM, then Hugging Face, then OpenRouter).
  * buildModel() already degrades to the Lovable gateway when a provider key is absent.
  */
-const DEEPSEEK_REASONING = ["nvidia-deepseek-r1", "hf-deepseek-v3", "deepseek-v3"];
-const DEEPSEEK_FAST = ["hf-deepseek-v3", "deepseek-v3", "nvidia-deepseek-r1"];
-const DEEPSEEK_CODE = ["deepseek-coder", "nvidia-deepseek-r1", "hf-deepseek-v3"];
+const DEEPSEEK_REASONING = ["glm-5.3", "nvidia-deepseek-r1", "hf-deepseek-v3", "deepseek-v3"];
+const DEEPSEEK_FAST = ["glm-5.3", "hf-deepseek-v3", "deepseek-v3", "nvidia-deepseek-r1"];
+const DEEPSEEK_CODE = ["glm-5.3", "deepseek-coder", "nvidia-deepseek-r1", "hf-deepseek-v3"];
 
 function pick(ids: string[], fallback: LanguageModel): { model: LanguageModel; label: string } {
   for (const id of ids) {
