@@ -28,7 +28,7 @@ export interface ModelDef {
 
 export const MODELS: ModelDef[] = [
   // ── PRIMARY — GLM 5.3 (OpenRouter free tier) ──
-  { id: "glm-5.3", label: "GLM 5.3", provider: "openrouter", providerId: "z-ai/glm-5.3-free", capabilities: ["chat", "code", "writing", "math", "research"], priority: "very_high", free: true },
+  { id: "glm-5.3", label: "GLM 5.3", provider: "openrouter", providerId: "z-ai/glm-5.3", capabilities: ["chat", "code", "writing", "math", "research"], priority: "very_high", free: true },
 
   // ── TEXT — free tier via OpenRouter ──
   { id: "deepseek-v3", label: "DeepSeek V3", provider: "openrouter", providerId: "deepseek/deepseek-chat-v3.1:free", capabilities: ["chat", "math", "code", "research"], priority: "very_high", free: true },
