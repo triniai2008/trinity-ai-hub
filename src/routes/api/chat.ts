@@ -124,8 +124,8 @@ export const Route = createFileRoute("/api/chat")({
         try {
           // ── AUTO → Agent Kernel workflow (DeepSeek-first) ────────────
           if (!requested) {
-            const { loadUserContext } = await import("@/lib/trinity/rag.server");
-            const userContext = await loadUserContext(auth.userId, question);
+            const { orchestrateContext } = await import("@/lib/trinity/context.server");
+            const userContext = await orchestrateContext(auth.userId, question);
             const stream = runAgentKernel({
               uiMessages,
               modelMessages,
