@@ -4,7 +4,7 @@ import { convertToModelMessages, createUIMessageStreamResponse, type UIMessage }
 import { runAgentKernel } from "@/lib/trinity/kernel/kernel.server";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
 import { checkKernelHealth } from "@/lib/trinity/kernel/remote.server";
-import { loadUserContext } from "@/lib/trinity/rag.server";
+import { orchestrateContext } from "@/lib/trinity/context.server";
 
 /**
  * /api/agents/chat — proxy to the TriniAI Agent Kernel (Python FastAPI).
@@ -80,7 +80,7 @@ export const Route = createFileRoute("/api/agents/chat")({
           const question = toKernelMessages(body.messages)
             .filter((m) => m.role === "user")
             .at(-1)?.content ?? "";
-          const context = await loadUserContext(auth.userId, question);
+          const context = await orchestrateContext(auth.userId, question);
           const stream = runAgentKernel({
             uiMessages,
             modelMessages,
@@ -111,7 +111,7 @@ export const Route = createFileRoute("/api/agents/chat")({
             agent: body.agent ?? "trinity",
             thinking_mode: body.thinkingMode ?? "normal",
             user: { id: auth.userId, email: auth.email },
-            context: await loadUserContext(
+            context: await orchestrateContext(
               auth.userId,
               toKernelMessages(body.messages).filter((m) => m.role === "user").at(-1)?.content ?? "",
             ),

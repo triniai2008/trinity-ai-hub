@@ -30,6 +30,8 @@ export interface KernelContext {
   displayName?: string | null;
   memories?: string[];
   locale?: string | null;
+  /** Pre-assembled context block from the orchestration layer (language + profile + memory + safety). */
+  block?: string;
 }
 
 export interface KernelOptions {

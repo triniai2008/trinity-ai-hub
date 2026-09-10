@@ -50,7 +50,10 @@ export function personalization(ctx: {
   displayName?: string | null;
   memories?: string[];
   locale?: string | null;
+  block?: string;
 }): string {
+  // The orchestration layer already assembled language + profile + memory + safety.
+  if (ctx.block) return ctx.block;
   const bits: string[] = [];
   if (ctx.displayName) bits.push(`The user's name is ${ctx.displayName}.`);
   if (ctx.locale) bits.push(`Preferred locale: ${ctx.locale}.`);
