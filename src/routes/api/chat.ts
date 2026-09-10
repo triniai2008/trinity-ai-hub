@@ -144,17 +144,11 @@ export const Route = createFileRoute("/api/chat")({
             });
           }
 
-          // Personalization (RAG) for the explicit-model paths too.
-          const { loadUserContext } = await import("@/lib/trinity/rag.server");
-          const userCtx = await loadUserContext(auth.userId, question);
-          const ragLines = [
-            userCtx.displayName ? `User's name: ${userCtx.displayName}` : "",
-            userCtx.locale ? `Preferred language: ${userCtx.locale}` : "",
-            ...(userCtx.memories ?? []).map((m) => `- ${m}`),
-          ].filter(Boolean);
-          const SYSTEM = ragLines.length
-            ? `${SYSTEM_PROMPT}\n\nWhat you know about this user (use naturally, never recite):\n${ragLines.join("\n")}`
-            : SYSTEM_PROMPT;
+          // Context orchestration (language + profile + relevant memory + safety)
+          // for the explicit-model paths too.
+          const { orchestrateContext } = await import("@/lib/trinity/context.server");
+          const userCtx = await orchestrateContext(auth.userId, question);
+          const SYSTEM = `${SYSTEM_PROMPT}${userCtx.block}`;
 
           // ── MEDIUM / HIGH → Trinity multi-model + judge ──────────────
           if (mode !== "normal") {
