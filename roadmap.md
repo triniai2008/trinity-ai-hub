@@ -11,10 +11,11 @@
 - Agents manager UI wired to /api/agents/chat (create, run, edit, delete)
 - Supabase bearer token attached to /api/chat requests
 - Bot admin account exists (bot@trinity.ai)
+- Embedding-based memory search with `google/gemini-embedding-2`, indexed lookup,
+  automatic backfill, model-version tracking, and lexical fallback
 
 ## Open
 - Repository fork status is GitHub metadata — must be done in GitHub, not locally
 - Deploy Python Agent Kernel to a real host, then set AGENT_KERNEL_URL to that base URL
-- Embedding-based memory search (currently lexical ranking)
 - Image/video generation via Cloudflare Workers AI + R2 (needs Cloudflare token)
 - Full ET syllabus module (units, lessons, topics, past papers, quizzes) backed by Turso

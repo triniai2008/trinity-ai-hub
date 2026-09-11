@@ -3,6 +3,53 @@
 -- Safe to run more than once.
 
 -- ─────────────────────────────────────────────────────────────
+-- 0. Semantic memory retrieval (RAG)
+-- ─────────────────────────────────────────────────────────────
+CREATE SCHEMA IF NOT EXISTS extensions;
+CREATE EXTENSION IF NOT EXISTS vector WITH SCHEMA extensions;
+
+ALTER TABLE public.memories
+  ADD COLUMN IF NOT EXISTS embedding extensions.vector(3072),
+  ADD COLUMN IF NOT EXISTS model_version text;
+
+CREATE INDEX IF NOT EXISTS memories_embedding_hnsw_idx
+  ON public.memories
+  USING hnsw ((embedding::extensions.halfvec(3072)) extensions.halfvec_cosine_ops)
+  WHERE embedding IS NOT NULL;
+
+CREATE OR REPLACE FUNCTION public.match_user_memories(
+  target_user_id uuid,
+  query_embedding extensions.vector(3072),
+  match_count integer DEFAULT 8
+)
+RETURNS TABLE (
+  id uuid,
+  key text,
+  value text,
+  importance integer,
+  similarity double precision
+)
+LANGUAGE sql
+STABLE
+SECURITY INVOKER
+SET search_path = public, extensions
+AS $$
+  SELECT m.id, m.key, m.value, m.importance,
+    1 - (m.embedding::extensions.halfvec(3072) <=> query_embedding::extensions.halfvec(3072)) AS similarity
+  FROM public.memories AS m
+  WHERE m.user_id = target_user_id
+    AND m.embedding IS NOT NULL
+    AND m.model_version = 'google/gemini-embedding-2'
+  ORDER BY m.embedding::extensions.halfvec(3072) <=> query_embedding::extensions.halfvec(3072)
+  LIMIT LEAST(GREATEST(match_count, 1), 20);
+$$;
+
+REVOKE ALL ON FUNCTION public.match_user_memories(uuid, extensions.vector, integer) FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.match_user_memories(uuid, extensions.vector, integer) FROM anon;
+REVOKE ALL ON FUNCTION public.match_user_memories(uuid, extensions.vector, integer) FROM authenticated;
+GRANT EXECUTE ON FUNCTION public.match_user_memories(uuid, extensions.vector, integer) TO service_role;
+
+-- ─────────────────────────────────────────────────────────────
 -- 1. Custom agents owned by a user
 -- ─────────────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS public.user_agents (
