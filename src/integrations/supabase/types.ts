@@ -211,27 +211,33 @@ export type Database = {
       memories: {
         Row: {
           created_at: string
+          embedding: string | null
           id: string
           importance: number
           key: string
+          model_version: string | null
           updated_at: string
           user_id: string
           value: string
         }
         Insert: {
           created_at?: string
+          embedding?: string | null
           id?: string
           importance?: number
           key: string
+          model_version?: string | null
           updated_at?: string
           user_id: string
           value: string
         }
         Update: {
           created_at?: string
+          embedding?: string | null
           id?: string
           importance?: number
           key?: string
+          model_version?: string | null
           updated_at?: string
           user_id?: string
           value?: string
@@ -649,6 +655,16 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      match_memories: {
+        Args: { match_count?: number; query_embedding: string }
+        Returns: {
+          id: string
+          importance: number
+          key: string
+          similarity: number
+          value: string
+        }[]
       }
     }
     Enums: {
