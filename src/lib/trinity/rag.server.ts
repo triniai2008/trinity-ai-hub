@@ -112,16 +112,18 @@ export async function loadUserContext(
         if (!queryVector) throw new Error("Query embedding was empty");
 
         await Promise.all(
-          stale.map((memory, index) =>
-            supabaseAdmin
+          stale.map((memory, index) => {
+            const memoryVector = vectors[index + 1];
+            if (!memoryVector) return Promise.resolve();
+            return supabaseAdmin
               .from("memories")
               .update({
-                embedding: vectors[index + 1],
+                embedding: `[${memoryVector.join(",")}]`,
                 model_version: EMBEDDING_MODEL,
               })
               .eq("id", memory.id)
-              .eq("user_id", userId),
-          ),
+              .eq("user_id", userId);
+          }),
         );
 
         const { data: matches, error } = await supabaseAdmin.rpc("match_user_memories", {
