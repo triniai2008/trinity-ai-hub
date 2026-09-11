@@ -666,6 +666,20 @@ export type Database = {
           value: string
         }[]
       }
+      match_user_memories: {
+        Args: {
+          match_count?: number
+          query_embedding: string
+          target_user_id: string
+        }
+        Returns: {
+          id: string
+          importance: number
+          key: string
+          similarity: number
+          value: string
+        }[]
+      }
     }
     Enums: {
       app_role: "user" | "vip" | "moderator" | "admin" | "super_admin"
